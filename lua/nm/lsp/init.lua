@@ -1,10 +1,42 @@
 local vim = vim
 local uv = vim.loop
-local lspconfig = require "lspconfig"
-local mapBuf = require "nm.mappings".mapBuf
-local autocmd = require "nm.autocmds".autocmd
+local lspconfig = require('lspconfig')
+local mapBuf = require('nm.mappings').mapBuf
+local autocmd = require('nm.autocmds').autocmd
+require('snippets').use_suggested_mappings()
 
-require("compe").setup({
+-- vim.o.completeopt = "menuone,noselect"
+-- require('compe').setup({
+--   enabled = true;
+--   autocomplete = true;
+--   debug = false;
+--   min_length = 1;
+--   preselect = 'enable';
+--   throttle_time = 80;
+--   source_timeout = 200;
+--   incomplete_delay = 400;
+--   max_abbr_width = 100;
+--   max_kind_width = 100;
+--   max_menu_width = 100;
+--
+--   source = {
+--     path = true;
+--     buffer = true;
+--     calc = true;
+--     vsnip = true;
+--     nvim_lsp = true;
+--     nvim_lua = true;
+--     spell = true;
+--     tags = true;
+--     snippets_nvim = true;
+--     treesitter = true;
+--   };
+-- })
+
+vim.cmd [[set shortmess+=c]]
+vim.o.completeopt = "menuone,noselect"
+
+require('compe').setup ({
   enabled = true;
   autocomplete = true;
   debug = false;
@@ -13,14 +45,17 @@ require("compe").setup({
   throttle_time = 80;
   source_timeout = 200;
   incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
+  allow_prefix_unmatch = false;
+  max_abbr_width = 1000;
+  max_kind_width = 1000;
+  max_menu_width = 1000000;
+  documentation = true;
 
   source = {
     path = true;
     buffer = true;
     calc = true;
+    -- do i need to install vsnip or snippets_nvim?
     vsnip = true;
     nvim_lsp = true;
     nvim_lua = true;
@@ -31,6 +66,22 @@ require("compe").setup({
   };
 })
 
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -95,12 +146,21 @@ local default_node_modules = get_node_modules(vim.fn.getcwd())
 
 local on_attach = function(client, bufnr)
   -- completion.on_attach()
+  --  might try using another one besides completion
+  require'completion'.on_attach(client)
+  -- I added this
+  print("LSP started.");
+  -- need to install these first probably
+	-- require'completion'.on_attach(client)
+	-- require'diagnostic'.on_attach(client)
+--
 
   mapBuf(bufnr, "n", "<Leader>gdc", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
-  mapBuf(bufnr, "n", "<Leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+  -- mapBuf(bufnr, "n", "<Leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+  mapBuf(bufnr, "n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
 
   --Hover
-  mapBuf(bufnr, "n", "<Leader>gh", "<Cmd>lua vim.lsp.buf.hover()<CR>")
+  mapBuf(bufnr, "n", "<Leader>gh", "<Cmd>lua vim.lsp.buf.hovnr()<CR>")
   -- mapBuf(bufnr, "n", "<Leader>gh", "<CMD>lua require('lspsaga.hover').render_hover_doc()<cr>")
 
   mapBuf(bufnr, "n", "<Leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
@@ -111,8 +171,10 @@ local on_attach = function(client, bufnr)
   mapBuf(bufnr, "n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
   -- mapBuf(bufnr, "n", "<Leader>rn", "<cmd>lua require('lspsaga.rename').rename()<cr>")
 
-  mapBuf(bufnr, "n", "<Leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+  -- mapBuf(bufnr, "n", "<Leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+  mapBuf(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 
+  -- mapBuf(bufnr, "n", "<C-<Space>>", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   mapBuf(bufnr, "n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   mapBuf(bufnr, "v", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>")
   -- mapBuf(bufnr, "n", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>")
@@ -160,12 +222,13 @@ lspconfig.tsserver.setup {
 }
 
 local vs_code_extracted = {
-  html = "vscode-html-language-server",
-  cssls = "vscode-css-language-server",
-  jsonls = "vscode-json-language-server",
+  html = "html-languageserver",
+  cssls = "css-languageserver",
+  jsonls = "vscode-json-languageserver",
   vimls = "vim-language-server"
 }
 
+-- can't get this to work so just doing individually
 for ls, cmd in pairs(vs_code_extracted) do
   lspconfig[ls].setup {
     cmd = {cmd, "--stdio"},
@@ -175,6 +238,7 @@ for ls, cmd in pairs(vs_code_extracted) do
 end
 
 -- TODO: will need to change this. Look at lsp docs
+-- go to lsp-config md and follow instructions to install lua server
 -- local lua_lsp_loc = "/Users/mhartington/Github/lua-language-server"
 
 local ngls_cmd = {
@@ -183,7 +247,6 @@ local ngls_cmd = {
   "--tsProbeLocations",
   default_node_modules,
   "--ngProbeLocations",
-  default_node_modules,
   "--experimental-ivy"
 }
 
@@ -196,22 +259,22 @@ lspconfig.angularls.setup {
   end
 }
 
--- lspconfig.sumneko_lua.setup {
---   cmd = {lua_lsp_loc .. "/bin/macOS/lua-language-server", "-E", lua_lsp_loc .. "/main.lua"},
---   capabilities = capabilities,
---   on_attach = on_attach,
---   settings = {
---     Lua = {
---       runtime = {version = "LuaJIT", path = vim.split(package.path, ";")},
---       diagnostics = {globals = {"vim"}},
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = {
---           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
---           [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
---         }
---       }
---     }
---   }
--- }
+lspconfig.sumneko_lua.setup {
+  -- cmd = {lua_lsp_loc .. "/bin/macOS/lua-language-server", "-E", lua_lsp_loc .. "/main.lua"},
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = {version = "LuaJIT", path = vim.split(package.path, ";")},
+      diagnostics = {globals = {"vim"}},
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
+        }
+      }
+    }
+  }
+}
 return M
