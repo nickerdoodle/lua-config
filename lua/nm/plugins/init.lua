@@ -123,8 +123,10 @@ return require "packer".startup(
     use {"nvim-treesitter/playground"}
     use {"nvim-lua/completion-nvim"}
     use {"hrsh7th/nvim-compe"}
+    use {"onsails/lspkind-nvim"}
+    use {"kosayoda/nvim-lightbulb"}
     -- might remove snippets
-    use {"norcalli/snippets"}
+    use {"norcalli/snippets.nvim"}
 
     use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
     use {"shougo/deoplete-lsp"}

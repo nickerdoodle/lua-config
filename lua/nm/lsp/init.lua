@@ -3,6 +3,7 @@ local uv = vim.loop
 local lspconfig = require('lspconfig')
 local mapBuf = require('nm.mappings').mapBuf
 local autocmd = require('nm.autocmds').autocmd
+local completion = require('completion')
 require('snippets').use_suggested_mappings()
 
 -- vim.o.completeopt = "menuone,noselect"
@@ -36,52 +37,57 @@ require('snippets').use_suggested_mappings()
 vim.cmd [[set shortmess+=c]]
 vim.o.completeopt = "menuone,noselect"
 
-require('compe').setup ({
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  allow_prefix_unmatch = false;
-  max_abbr_width = 1000;
-  max_kind_width = 1000;
-  max_menu_width = 1000000;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    -- do i need to install vsnip or snippets_nvim?
-    vsnip = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    spell = true;
-    tags = true;
-    snippets_nvim = true;
-    treesitter = true;
-  };
-})
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- completion.nvim (I think it's built in)
+-- vim.g.completion_enable_auto_paren = 1
+-- vim.g.completion_confirm_key = ""
+-- vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
+--
+-- require('compe').setup ({
+--   enabled = true;
+--   autocomplete = true;
+--   debug = false;
+--   min_length = 1;
+--   preselect = 'enable';
+--   throttle_time = 80;
+--   source_timeout = 200;
+--   incomplete_delay = 400;
+--   allow_prefix_unmatch = false;
+--   max_abbr_width = 1000;
+--   max_kind_width = 1000;
+--   max_menu_width = 1000000;
+--   documentation = true;
+--
+--   source = {
+--     path = true;
+--     buffer = true;
+--     calc = true;
+--     -- do i need to install vsnip or snippets_nvim?
+--     vsnip = true;
+--     nvim_lsp = true;
+--     nvim_lua = true;
+--     spell = true;
+--     tags = true;
+--     snippets_nvim = true;
+--     treesitter = true;
+--   };
+-- })
+--
+-- local t = function(str)
+--   return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
+-- _G.s_tab_complete = function()
+--   if vim.fn.pumvisible() == 1 then
+--     return t "<C-p>"
+--   elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+--     return t "<Plug>(vsnip-jump-prev)"
+--   else
+--     return t "<S-Tab>"
+--   end
+-- end
+--
+-- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -147,12 +153,63 @@ local default_node_modules = get_node_modules(vim.fn.getcwd())
 local on_attach = function(client, bufnr)
   -- completion.on_attach()
   --  might try using another one besides completion
-  require'completion'.on_attach(client)
+  -- require'completion'.on_attach(client)
   -- I added this
   print("LSP started.");
   -- need to install these first probably
-	-- require'completion'.on_attach(client)
 	-- require'diagnostic'.on_attach(client)
+--
+--compe stuff
+vim.g.completion_enable_auto_paren = 1
+-- vim.g.completion_confirm_key = "\<CR>"
+-- vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
+
+require('compe').setup ({
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  allow_prefix_unmatch = false;
+  max_abbr_width = 1000;
+  max_kind_width = 1000;
+  max_menu_width = 1000000;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    -- do i need to install vsnip or snippets_nvim?
+    vsnip = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    spell = true;
+    tags = true;
+    snippets_nvim = true;
+    treesitter = true;
+  };
+})
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 --
 
   mapBuf(bufnr, "n", "<Leader>gdc", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
@@ -192,6 +249,8 @@ local on_attach = function(client, bufnr)
   vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "•"})
   vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "•"})
   vim.fn.sign_define("LspDiagnosticsSignHint", {text = "•"})
+
+  completion.on_attach(client)
 end
 local servers = {"pyls", "bashls"}
 for _, lsp in ipairs(servers) do
@@ -200,6 +259,27 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities
   }
 end
+
+local ngls_cmd = {
+  "ngserver",
+  "--stdio",
+  "--tsProbeLocations",
+  default_node_modules,
+  "--ngProbeLocations",
+  "--experimental-ivy"
+}
+
+lspconfig.angularls.setup {
+  cmd = ngls_cmd,
+  on_attach = on_attach,
+  -- trying this. Need something to override tsserver
+  -- filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
+  -- root_dir = root_pattern("angular.json", ".git"),
+  capabilities = capabilities,
+  on_new_config = function(new_config)
+    new_config.cmd = ngls_cmd
+  end
+}
 
 lspconfig.tsserver.setup {
   filetypes = {
@@ -228,7 +308,6 @@ local vs_code_extracted = {
   vimls = "vim-language-server"
 }
 
--- can't get this to work so just doing individually
 for ls, cmd in pairs(vs_code_extracted) do
   lspconfig[ls].setup {
     cmd = {cmd, "--stdio"},
@@ -239,42 +318,24 @@ end
 
 -- TODO: will need to change this. Look at lsp docs
 -- go to lsp-config md and follow instructions to install lua server
--- local lua_lsp_loc = "/Users/mhartington/Github/lua-language-server"
+-- first need to install ninja binary to get this up.
 
-local ngls_cmd = {
-  "ngserver",
-  "--stdio",
-  "--tsProbeLocations",
-  default_node_modules,
-  "--ngProbeLocations",
-  "--experimental-ivy"
-}
-
-lspconfig.angularls.setup {
-  cmd = ngls_cmd,
-  on_attach = on_attach,
-  capabilities = capabilities,
-  on_new_config = function(new_config)
-    new_config.cmd = ngls_cmd
-  end
-}
-
-lspconfig.sumneko_lua.setup {
-  -- cmd = {lua_lsp_loc .. "/bin/macOS/lua-language-server", "-E", lua_lsp_loc .. "/main.lua"},
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = {version = "LuaJIT", path = vim.split(package.path, ";")},
-      diagnostics = {globals = {"vim"}},
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
-        }
-      }
-    }
-  }
-}
+-- lspconfig.sumneko_lua.setup {
+--   -- cmd = {lua_lsp_loc .. "/bin/macOS/lua-language-server", "-E", lua_lsp_loc .. "/main.lua"},
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   settings = {
+--     Lua = {
+--       runtime = {version = "LuaJIT", path = vim.split(package.path, ";")},
+--       diagnostics = {globals = {"vim"}},
+--       workspace = {
+--         -- Make the server aware of Neovim runtime files
+--         library = {
+--           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+--           [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
+--         }
+--       }
+--     }
+--   }
+-- }
 return M
