@@ -9,4 +9,6 @@ require "nm/statusline"
 require "nm/treesitter"
 require "nm/formatting"
 require "nm/lsp"
+require "nm/lspkind"
+require "nm/lightbulb"
 
