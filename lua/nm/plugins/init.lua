@@ -19,6 +19,7 @@ return require "packer".startup(
     use {"Shougo/context_filetype.vim"}
     use {"mhinz/vim-sayonara"}
     use {"ojroques/nvim-bufdel"}
+    -- multi cursors
     use {"mg979/vim-visual-multi"}
     use {"MartinLafreniere/vim-PairTools"}
     use {"sjl/vitality.vim"}

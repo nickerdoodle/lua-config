@@ -11,4 +11,4 @@ require "nm/formatting"
 require "nm/lsp"
 require "nm/lspkind"
 require "nm/lightbulb"
-
+require "nm/nvim-tree"
