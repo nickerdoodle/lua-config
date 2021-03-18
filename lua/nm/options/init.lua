@@ -71,6 +71,8 @@ Option.g {
   splitright = true,
   backup = false,
   writebackup = false,
+  cursorline = true,
+  cursorcolumn = true,
   emoji = false,
   indentexpr="nvim_treesitter#indent()"
 
