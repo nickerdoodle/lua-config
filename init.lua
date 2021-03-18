@@ -1,11 +1,12 @@
 vim.cmd("filetype plugin indent on")
+-- TODO: comment out imports one at a time until seeing where the error is
 require "nm/plugins"
 require "nm/options"
 require "nm/mappings"
 require "nm/util"
 require "nm/colors"
 require "nm/autocmds"
-require "nm/statusline"
+-- require "nm/statusline"
 require "nm/treesitter"
 require "nm/formatting"
 require "nm/lsp"

@@ -73,7 +73,7 @@ return require "packer".startup(
     use {"dhruvasagar/vim-table-mode"}
     use {
       "iamcco/markdown-preview.nvim",
-      run = "cd app && yarn install"
+      run = "cd app && npm install"
     }
     -- Rust
     use {"rust-lang/rust.vim"}
@@ -132,7 +132,6 @@ return require "packer".startup(
     use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
     use {"shougo/deoplete-lsp"}
     use {"neovim/nvim-lspconfig"}
-    -- use {"hrsh7th/nvim-compe"}
     use {"glepnir/lspsaga.nvim"}
     --
     use {"nvim-lua/popup.nvim"}

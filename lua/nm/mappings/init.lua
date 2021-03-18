@@ -83,4 +83,8 @@ vim.cmd("cnoreabbrev x Sayonara")
 -- tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
 -- tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
 -- tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
+
+--Move selected line/block of text in visual mode
+M.map('x', 'K', ':move \'<-2<CR>gv-gv\'')
+M.map('x', 'J', ':move \'>+1<CR>gv-gv\'')
 return M

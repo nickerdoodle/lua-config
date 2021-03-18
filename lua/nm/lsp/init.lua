@@ -3,7 +3,7 @@ local uv = vim.loop
 local lspconfig = require('lspconfig')
 local mapBuf = require('nm.mappings').mapBuf
 local autocmd = require('nm.autocmds').autocmd
-local completion = require('completion')
+-- local completion = require('completion')
 require('snippets').use_suggested_mappings()
 
 vim.cmd [[set shortmess+=c]]
@@ -84,7 +84,7 @@ vim.g.completion_enable_auto_paren = 1
 require('compe').setup ({
   enabled = true;
   -- testing this maybe set back to true
-  autocomplete = false;
+  autocomplete = true;
   debug = false;
   min_length = 1;
   preselect = 'enable';
@@ -194,7 +194,7 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
   vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "•"})
   vim.fn.sign_define("LspDiagnosticsSignHint", {text = "•"})
 
-  completion.on_attach(client)
+  -- completion.on_attach(client)
 end
 local servers = {"pyls", "bashls"}
 for _, lsp in ipairs(servers) do
@@ -260,26 +260,54 @@ for ls, cmd in pairs(vs_code_extracted) do
   }
 end
 
--- TODO: will need to change this. Look at lsp docs
--- go to lsp-config md and follow instructions to install lua server
--- first need to install ninja binary to get this up.
+USER = vim.fn.expand('$USER')
 
--- lspconfig.sumneko_lua.setup {
---   -- cmd = {lua_lsp_loc .. "/bin/macOS/lua-language-server", "-E", lua_lsp_loc .. "/main.lua"},
---   capabilities = capabilities,
---   on_attach = on_attach,
---   settings = {
---     Lua = {
---       runtime = {version = "LuaJIT", path = vim.split(package.path, ";")},
---       diagnostics = {globals = {"vim"}},
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = {
---           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
---           [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
---         }
---       }
---     }
---   }
--- }
+local sumneko_root_path = ""
+local sumneko_binary = ""
+
+if vim.fn.has("mac") == 1 then
+    sumneko_root_path = "/Users/" .. USER ..
+                            -- "/.config/nvim/ls/lua-language-server"
+                            "/.config/nvim/lua-language-server"
+    sumneko_binary = "/Users/" .. USER ..
+                         -- "/.config/nvim/ls/lua-language-server/bin/macOS/lua-language-server"
+                         "/.config/nvim/lua-language-server/bin/macOS/lua-language-server"
+elseif vim.fn.has("unix") == 1 then
+    sumneko_root_path = "/home/" .. USER ..
+                            -- "/.config/nvim/ls/lua-language-server"
+                            "/.config/nvim/lua-language-server"
+    sumneko_binary = "/home/" .. USER ..
+                         -- "/.config/nvim/ls/lua-language-server/bin/Linux/lua-language-server"
+                         "/.config/nvim/lua-language-server/bin/Linux/lua-language-server"
+else
+    print("Unsupported system for sumneko")
+end
+
+lspconfig.sumneko_lua.setup {
+    filetypes = {"lua"},
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'}
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+                }
+            }
+        }
+    }
+}
 return M

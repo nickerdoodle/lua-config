@@ -40,7 +40,8 @@ Option.g {
   wildmenu = true,
   wildmode = "full",
   autoread = true,
-  updatetime = 500,
+  -- updatetime = 500,
+  updatetime = 300,
   redrawtime = 500,
   --illchars = vim.o.fillchars .. "vert:│",
   undofile = true,
@@ -67,6 +68,9 @@ Option.g {
   swapfile = false,
   diffopt = "internal,filler,closeoff,algorithm:patience,iwhiteall",
   splitbelow = true,
+  splitright = true,
+  backup = false,
+  writebackup = false,
   emoji = false,
   indentexpr="nvim_treesitter#indent()"
 
@@ -88,12 +92,13 @@ Option.w {
   foldtext = "v:lua.foldText()",
   linebreak = true
 }
-vim.g.clipboard = {
-  name = "macOS-clipboard",
-  copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
-  paste = {["+"] = "pbpaste", ["*"] = "pbpaste"},
-  cache_enabled = false
-}
+-- TODO: put in switch for linux/mac
+-- vim.g.clipboard = {
+--   name = "macOS-clipboard",
+--   copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
+--   paste = {["+"] = "pbpaste", ["*"] = "pbpaste"},
+--   cache_enabled = false
+-- }
 
 vim.g.mapleader = " "
 vim.g.one_allow_italics = true
@@ -103,7 +108,8 @@ vim.g.vim_monokai_tasty_italic = true
 vim.g.table_mode_corner = "|"
 vim.g.markdown_fold_override_foldtext = false
 vim.g.markdown_syntax_conceal = false
-vim.g.mkdp_auto_start = false
+-- TODO: comment back in when working
+-- vim.g.mkdp_auto_start = false
 vim.g.vim_json_syntax_conceal = false
 
 return Optionf
