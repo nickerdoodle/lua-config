@@ -7,32 +7,49 @@ return require "packer".startup(
   function(use)
     -- Packer can manage itself as an optional plugin
     use {"wbthomason/packer.nvim"}
-    use {"Raimondi/delimitMate"}
+    -- basically does autopairing
+    -- use {"Raimondi/delimitMate"}
+    --
     use {"tpope/vim-repeat"}
-    use {"tpope/vim-unimpaired"}
-    use {"AndrewRadev/switch.vim"}
-    use {"christoomey/vim-tmux-navigator"}
+    -- use {"tpope/vim-unimpaired"}
+    -- you define options a text can be and an easy way to switch it
+    -- change true to false or => to -> you can add as many options as you want
+    -- use {"AndrewRadev/switch.vim"}
+    -- I'm not using tmux for now
+    -- use {"christoomey/vim-tmux-navigator"}
     use {"tpope/vim-surround"}
-    use {"tyru/caw.vim"}
-    use {"junegunn/vim-easy-align"}
-    use {"tmux-plugins/vim-tmux"}
-    use {"Shougo/context_filetype.vim"}
-    use {"mhinz/vim-sayonara"}
+    -- comment plugin. Probably don't need
+    -- use {"tyru/caw.vim"}
+    -- use {"junegunn/vim-easy-align"}
+    -- use {"tmux-plugins/vim-tmux"}
+    -- not sure if I need this. Probabaly not
+    -- use {"Shougo/context_filetype.vim"}
+    -- reduces commands to close windows/buffers. I don't really think I need this for now
+    -- use {"mhinz/vim-sayonara"}
+    -- buffer deletion
     use {"ojroques/nvim-bufdel"}
     -- multi cursors
     use {"mg979/vim-visual-multi"}
-    use {"MartinLafreniere/vim-PairTools"}
-    use {"sjl/vitality.vim"}
+    -- this seems old and I probably don't need
+    -- use {"MartinLafreniere/vim-PairTools"}
+    -- helps for usage in iTerm2 and tmux
+    -- use {"sjl/vitality.vim"}
 
 
     use {"kyazdani42/nvim-tree.lua"}
 
-    use {"preservim/nerdtree"}
-    use {"Xuyuanp/nerdtree-git-plugin"}
-    use {"Xuyuanp/yanil"}
+    -- Comments
+    use {'b3nj5m1n/kommentary'}
 
-    use {"Yggdroot/indentLine"}
-    use {"hoob3rt/lualine.nvim"}
+    -- nerdtree. pending to ditch
+    -- use {"preservim/nerdtree"}
+    -- use {"Xuyuanp/nerdtree-git-plugin"}
+    -- use {"Xuyuanp/yanil"}
+
+    -- shows the lines for the indents and spaces
+    -- use {"Yggdroot/indentLine"}
+    -- use {"hoob3rt/lualine.nvim"}
+    use {"glepnir/galaxyline.nvim"}
     use {"akinsho/nvim-bufferline.lua"}
 
     -- Colors
@@ -47,11 +64,11 @@ return require "packer".startup(
     use {"bluz71/vim-nightfly-guicolors"}
 
     -- Editor Config
-    use {"editorconfig/editorconfig-vim"}
+    -- use {"editorconfig/editorconfig-vim"}
     -- Git
-    use {"tpope/vim-fugitive"}
+    -- use {"tpope/vim-fugitive"}
     use {"tpope/vim-rhubarb"}
-    use {"sgeb/vim-diff-fold"}
+    -- use {"sgeb/vim-diff-fold"}
     use {
       "lewis6991/gitsigns.nvim",
       config = function()
@@ -68,16 +85,16 @@ return require "packer".startup(
     }
     use {"TimUntersberger/neogit"}
     -- -- Markdown
-    use {"tpope/vim-markdown", ft = "markdown"}
-    use {"nelstrom/vim-markdown-folding", ft = "markdown"}
-    use {"dhruvasagar/vim-table-mode"}
+    -- use {"tpope/vim-markdown", ft = "markdown"}
+    -- use {"nelstrom/vim-markdown-folding", ft = "markdown"}
+    -- use {"dhruvasagar/vim-table-mode"}
     use {
       "iamcco/markdown-preview.nvim",
       run = "cd app && npm install"
     }
     -- Rust
-    use {"rust-lang/rust.vim"}
-    use {"racer-rust/vim-racer"}
+    -- use {"rust-lang/rust.vim"}
+    -- use {"racer-rust/vim-racer"}
     -- Python
     use {"tmhedberg/SimpylFold", ft = "python"}
     -- JS/TS

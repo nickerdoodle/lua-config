@@ -20,9 +20,10 @@ end
 M.map("n", "Q", "<nop>")
 M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').find_files()<cr>")
 M.map("n", "<Leader>h", "<cmd>lua require('nm.telescope').help_tags()<cr>")
-M.map("n", "<Leader>c", "<cmd>lua require('nm.telescope').colors()<cr>")
-M.map("n", "<C-f>", "<cmd>lua require('telescope.builtin').grep_string()<cr>")
-M.map("n", "<Leader>f", "<cmd>Format<cr>")
+M.map("n", "<Leader>C", "<cmd>lua require('nm.telescope').colors()<cr>")
+M.map("n", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string()<cr>")
+--[[ npm i -g lua-fmt to use mapping
+M.map("n", "<Leader>f", "<cmd>Format<cr>") ]]
 M.map("n", "H", "^")
 M.map("n", "L", "g_")
 M.map("v", "H", "^")
@@ -46,12 +47,16 @@ M.map("v", ">", ">gv")
 M.map("n", "<Leader>d", '"_d')
 M.map("v", "<Leader>d", '"_d')
 M.map("n", "<Esc>", "<cmd>noh<cr>")
+-- Comment mappings
+vim.api.nvim_set_keymap("n", "gcc", "<Plug>kommentary_line_default", {})
+vim.api.nvim_set_keymap("n", "gc", "<Plug>kommentary_motion_default", {})
+vim.api.nvim_set_keymap("v", "gcc", "<Plug>kommentary_visual_default", {})
 -- terminal M.mappings
 M.map("t", "<Esc>", "<c-\\><c-n><esc><cr>")
 M.map("t", "<Leader>,", "<c-\\><c-n>:bnext<cr>")
 M.map("t", "<Leader>.", "<c-\\><c-n>:bprevious<cr>")
 
-M.map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
+--[[ M.map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
 M.map("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>")
 M.map("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>")
 M.map("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
@@ -66,7 +71,18 @@ M.map("t", "<C-k>", "<c-\\><c-n>:TmuxNavigateUp<cr>")
 M.map("t", "<C-l>", "<c-\\><c-n>:TmuxNavigateRight<cr>")
 M.map("t", "<C-h>", "<c-\\><c-n>:TmuxNavigateLeft<CR>")
 
-M.map("n", "<Leader>tm", "<cmd>TableModeToggle<cr>")
+M.map("n", "<Leader>tm", "<cmd>TableModeToggle<cr>") ]]
+
+-- window navigation
+M.map("n", "<C-j>", "<C-w>j")
+M.map("n", "<C-k>", "<C-w>k")
+M.map("n", "<C-l>", "<C-w>l")
+M.map("n", "<C-h>", "<C-w>h")
+M.map("t", "<C-j>", "<C-w>j")
+M.map("t", "<C-k>", "<C-w>k")
+M.map("t", "<C-l>", "<C-w>l")
+M.map("t", "<C-h>", "<C-w>h")
+
 M.map("n", "<Leader>u", "<cmd>PackerUpdate<cr>")
 
 for i = 1, 9 do
@@ -74,7 +90,7 @@ for i = 1, 9 do
   M.map("t", "<leader>" .. i, '<C-\\><C-n>:lua require"bufferline".go_to_buffer(' .. i .. ")<CR>")
 end
 
-vim.cmd("cnoreabbrev x Sayonara")
+-- vim.cmd("cnoreabbrev x Sayonara")
 -- vim.cmd("cnoreabbrev x BufDel")
 -- vim.cmd("cnoreabbrev x! BufDel!")
 
