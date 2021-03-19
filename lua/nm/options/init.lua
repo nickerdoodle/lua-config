@@ -22,6 +22,7 @@ Option.b = function(options)
 end
 
 Option.g {
+  ignorecase = true,
   termguicolors = true,
   mouse = "a",
   clipboard = "unnamedplus",
@@ -75,7 +76,6 @@ Option.g {
   cursorcolumn = true,
   emoji = false,
   indentexpr="nvim_treesitter#indent()"
-
 }
 Option.b {
   swapfile = false,

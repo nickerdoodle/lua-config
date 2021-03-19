@@ -16,7 +16,8 @@ function M.mapBuf(buf, mode, lhs, rhs, opts)
   vim.api.nvim_buf_set_keymap(buf, mode, lhs, rhs, options)
 end
 
-  M.map('i', 'jj', '<Esc>')
+M.map('i', 'jj', '<Esc>')
+-- M.map('i', '<Space>.', ' .')
 M.map("n", "Q", "<nop>")
 M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').find_files()<cr>")
 M.map("n", "<Leader>h", "<cmd>lua require('nm.telescope').help_tags()<cr>")
@@ -36,8 +37,8 @@ M.map("v", "gJ", ":join<cr>")
 M.map("n", ";", ":", {nowait = true, silent = false})
 --M.map("n", "<Space>", "za")
 --M.map("n", "<Space>", "za")
-M.map("n", "<Leader>,", "<cmd>bnext<cr>")
-M.map("n", "<Leader>.", "<cmd>bprevious<cr>")
+M.map("n", "<leader>tn", "<cmd>bnext<cr>")
+M.map("n", "<leader>tp", "<cmd>bprevious<cr>")
 M.map("n", "k", "v:count == 0 ? 'gk' : 'k'", {expr = true})
 M.map("n", "j", "v:count == 0 ? 'gj' : 'j'", {expr = true})
 M.map("v", "k", "v:count == 0 ? 'gk' : 'k'", {expr = true})
@@ -53,8 +54,8 @@ vim.api.nvim_set_keymap("n", "gc", "<Plug>kommentary_motion_default", {})
 vim.api.nvim_set_keymap("v", "gcc", "<Plug>kommentary_visual_default", {})
 -- terminal M.mappings
 M.map("t", "<Esc>", "<c-\\><c-n><esc><cr>")
-M.map("t", "<Leader>,", "<c-\\><c-n>:bnext<cr>")
-M.map("t", "<Leader>.", "<c-\\><c-n>:bprevious<cr>")
+--[[ M.map("t", "<Leader>,", "<c-\\><c-n>:bnext<cr>")
+M.map("t", "<Leader>.", "<c-\\><c-n>:bprevious<cr>") ]]
 
 --[[ M.map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
 M.map("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>")
@@ -82,6 +83,9 @@ M.map("t", "<C-j>", "<C-w>j")
 M.map("t", "<C-k>", "<C-w>k")
 M.map("t", "<C-l>", "<C-w>l")
 M.map("t", "<C-h>", "<C-w>h")
+
+--[[ M.map("i", "<Space>.", "<Nop>")
+M.map("i", "<Space>,", "<Nop>") ]]
 
 M.map("n", "<Leader>u", "<cmd>PackerUpdate<cr>")
 

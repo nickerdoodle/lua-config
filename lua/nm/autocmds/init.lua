@@ -20,6 +20,7 @@ M.autocmd("InsertLeave",  "*",   "set noautochdir | execute 'cd' fnameescape(sav
 M.autocmd("InsertLeave",  "*",   "if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif")
 
 M.autocmd("TermOpen",     "*",   "setl bufhidden=hide")
+-- TODO: change this so it doesn't start in insert
 M.autocmd("TermOpen",     "*",   "startinsert")
 M.autocmd("TermOpen",     "*",   "setl nonumber")
 

@@ -1,5 +1,4 @@
 local ts = require "nvim-treesitter.configs"
-
 ts.setup {
   ensure_installed = "all",
   highlight = {
@@ -8,5 +7,11 @@ ts.setup {
   },
   indent = {
     enable = false
+  },
+  autotag = {
+    enable = true
+  },
+  angular = {
+    enable = true
   }
 }

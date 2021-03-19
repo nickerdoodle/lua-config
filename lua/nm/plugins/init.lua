@@ -49,7 +49,10 @@ return require "packer".startup(
     -- shows the lines for the indents and spaces
     -- use {"Yggdroot/indentLine"}
     -- use {"hoob3rt/lualine.nvim"}
+
+    -- Statusline
     use {"glepnir/galaxyline.nvim"}
+    -- alternative could be barbar.nvim look at it sometime
     use {"akinsho/nvim-bufferline.lua"}
 
     -- Colors
@@ -98,24 +101,25 @@ return require "packer".startup(
     -- Python
     use {"tmhedberg/SimpylFold", ft = "python"}
     -- JS/TS
-    use {"othree/yajs.vim"}
+    -- with tree sitter, this might not be needed
+    --[[ use {"othree/yajs.vim"}
     use {"MaxMEllon/vim-jsx-pretty"}
     use {"heavenshell/vim-jsdoc"}
     use {"elzr/vim-json"}
     use {"HerringtonDarkholme/yats.vim"}
     use {"Quramy/vison"}
-    use {"jxnblk/vim-mdx-js"}
+    use {"jxnblk/vim-mdx-js"} ]]
     -- HTML
-    use {"othree/html5.vim"}
+    --[[ use {"othree/html5.vim"}
     use {"mattn/emmet-vim"}
     use {"posva/vim-vue"}
     use {"leafOfTree/vim-svelte-plugin"}
     use {"skwp/vim-html-escape"}
     use {"kana/vim-textobj-user"}
     use {"whatyouhide/vim-textobj-xmlattr"}
-    use {"pedrohdz/vim-yaml-folds"}
+    use {"pedrohdz/vim-yaml-folds"} ]]
     -- CSS
-    use {"hail2u/vim-css3-syntax"}
+    -- use {"hail2u/vim-css3-syntax"}
     use {
       "norcalli/nvim-colorizer.lua",
       config = function()
@@ -123,41 +127,67 @@ return require "packer".startup(
       end
     }
     -- Swift
-    use {"keith/swift.vim"}
-    use {"gfontenot/vim-xcode"}
+    --[[ use {"keith/swift.vim"}
+    use {"gfontenot/vim-xcode"} ]]
     -- Reason
     -- use{ "reasonml-editor/vim-reason-plus" }
     -- Go
     -- use{ "fatih/vim-go" }
-    -- Lua
-    use {"tbastos/vim-lua"}
-    -- -- Local
+    -- Lua syntax indentation
+    -- use {"tbastos/vim-lua"}
+
+    -- mhartington
     use {"mhartington/formatter.nvim"}
     use {"mhartington/vim-folds"}
     use {"mhartington/oceanic-next"}
-    --
+
+    -- treesitter
     use {"nvim-treesitter/nvim-treesitter"}
     use {"nvim-treesitter/nvim-treesitter-angular"}
     use {"nvim-treesitter/playground"}
-    use {"nvim-lua/completion-nvim"}
-    use {"hrsh7th/nvim-compe"}
-    use {"onsails/lspkind-nvim"}
-    use {"kosayoda/nvim-lightbulb"}
+
     -- might remove snippets
     use {"norcalli/snippets.nvim"}
 
-    use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
-    use {"shougo/deoplete-lsp"}
+    --[[ use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
+    use {"shougo/deoplete-lsp"} ]]
+
+    -- lsp
+    -- might not need completion. using compe
+    -- use {"nvim-lua/completion-nvim"}
+    use {"hrsh7th/nvim-compe"}
+    use {"onsails/lspkind-nvim"}
+    use {"kosayoda/nvim-lightbulb"}
     use {"neovim/nvim-lspconfig"}
     use {"glepnir/lspsaga.nvim"}
-    --
+
+    -- telescope advanced search
     use {"nvim-lua/popup.nvim"}
     use {"nvim-lua/plenary.nvim"}
     use {"nvim-telescope/telescope.nvim"}
     use {"nvim-telescope/telescope-github.nvim"}
     use {"nvim-telescope/telescope-packer.nvim"}
     use {"nvim-telescope/telescope-node-modules.nvim"}
-    --
+
+    -- autopairs
+    use {"windwp/nvim-autopairs"}
+
+    -- autoclosing for html
+    use {"windwp/nvim-ts-autotag"}
+
+    -- start menu
+    use {"mhinz/vim-startify"}
+
+    -- check this out sometime. rapidly hop across page
+    -- use {"phaazon/hop.nvim"}
+    -- highlights the same words in buffer
+    -- use {"RRethy/vim-illuminate"}
+    -- TODO: look into quickfixes and if I want this
+    -- use {"kevinhwang91/nvim-bqf"}
+    -- try sometime. html preview
+    -- use {"turbio/bracy.vim"}
+
+    -- icons
     use {
       "kyazdani42/nvim-web-devicons",
       config = function()

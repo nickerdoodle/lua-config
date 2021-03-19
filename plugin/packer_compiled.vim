@@ -37,25 +37,13 @@ _G.packer_plugins = {
     needs_bufread = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/opt/SimpylFold"
   },
-  ["completion-nvim"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/completion-nvim"
-  },
-  ["deoplete-lsp"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/deoplete-lsp"
-  },
-  ["deoplete.nvim"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/deoplete.nvim"
-  },
-  ["emmet-vim"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/emmet-vim"
-  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/formatter.nvim"
+  },
+  ["galaxyline.nvim"] = {
+    loaded = true,
+    path = "/home/nick/.local/share/nvim/site/pack/packer/start/galaxyline.nvim"
   },
   ["github-light.vim"] = {
     loaded = true,
@@ -74,9 +62,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/gruvbox"
   },
-  ["html5.vim"] = {
+  kommentary = {
     loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/html5.vim"
+    path = "/home/nick/.local/share/nvim/site/pack/packer/start/kommentary"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -97,6 +85,10 @@ _G.packer_plugins = {
   ["night-owl-vim-theme"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/night-owl-vim-theme"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/nick/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
   ["nvim-bufdel"] = {
     loaded = true,
@@ -135,6 +127,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/nvim-treesitter-angular"
   },
+  ["nvim-ts-autotag"] = {
+    loaded = true,
+    path = "/home/nick/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
+  },
   ["nvim-web-devicons"] = {
     config = { "\27LJ\2\n�\2\0\0\5\0\22\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\20\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\0035\4\16\0=\4\17\0035\4\18\0=\4\19\3=\3\21\2B\0\2\1K\0\1\0\14overrides\1\0\0\bsql\1\0\1\ticon\b\amd\1\0\1\ticon\b\tjson\1\0\1\ticon\b\thtml\1\0\1\ticon\b\bcss\1\0\1\ticon\b\bvim\1\0\1\ticon\b\ajs\1\0\1\ticon\b\bgit\1\0\0\1\0\1\ticon\b\nsetup\22nvim-web-devicons\frequire\0" },
     loaded = true,
@@ -164,10 +160,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/snippets.nvim"
   },
-  ["swift.vim"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/swift.vim"
-  },
   ["telescope-github.nvim"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/telescope-github.nvim"
@@ -192,10 +184,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-colors-xcode"
   },
-  ["vim-css3-syntax"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-css3-syntax"
-  },
   ["vim-equinusocio-material"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-equinusocio-material"
@@ -203,30 +191,6 @@ _G.packer_plugins = {
   ["vim-folds"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-folds"
-  },
-  ["vim-html-escape"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-html-escape"
-  },
-  ["vim-jsdoc"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-jsdoc"
-  },
-  ["vim-json"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-json"
-  },
-  ["vim-jsx-pretty"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-jsx-pretty"
-  },
-  ["vim-lua"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-lua"
-  },
-  ["vim-mdx-js"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-mdx-js"
   },
   ["vim-monokai-tasty"] = {
     loaded = true,
@@ -244,58 +208,26 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-rhubarb"
   },
+  ["vim-startify"] = {
+    loaded = true,
+    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-startify"
+  },
   ["vim-surround"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
-  ["vim-svelte-plugin"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-svelte-plugin"
-  },
-  ["vim-textobj-user"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-textobj-user"
-  },
-  ["vim-textobj-xmlattr"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-textobj-xmlattr"
-  },
   ["vim-visual-multi"] = {
     loaded = true,
     path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-visual-multi"
-  },
-  ["vim-vue"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-vue"
-  },
-  ["vim-xcode"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-xcode"
-  },
-  ["vim-yaml-folds"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vim-yaml-folds"
-  },
-  vison = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/vison"
-  },
-  ["yajs.vim"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/yajs.vim"
-  },
-  ["yats.vim"] = {
-    loaded = true,
-    path = "/home/nick/.local/share/nvim/site/pack/packer/start/yats.vim"
   }
 }
 
--- Config for: gitsigns.nvim
-try_loadstring("\27LJ\2\n�\2\0\0\5\0\16\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\14\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\3=\3\15\2B\0\2\1K\0\1\0\nsigns\1\0\0\17changedelete\1\0\2\ahl\26GitGutterChangeDelete\ttext\6~\14topdelete\1\0\2\ahl\20GitGutterDelete\ttext\b‾\vdelete\1\0\2\ahl\20GitGutterDelete\ttext\6_\vchange\1\0\2\ahl\20GitGutterChange\ttext\b│\badd\1\0\0\1\0\2\ahl\17GitGutterAdd\ttext\b│\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
--- Config for: nvim-colorizer.lua
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
 -- Config for: nvim-web-devicons
 try_loadstring("\27LJ\2\n�\2\0\0\5\0\22\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\20\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\0035\4\16\0=\4\17\0035\4\18\0=\4\19\3=\3\21\2B\0\2\1K\0\1\0\14overrides\1\0\0\bsql\1\0\1\ticon\b\amd\1\0\1\ticon\b\tjson\1\0\1\ticon\b\thtml\1\0\1\ticon\b\bcss\1\0\1\ticon\b\bvim\1\0\1\ticon\b\ajs\1\0\1\ticon\b\bgit\1\0\0\1\0\1\ticon\b\nsetup\22nvim-web-devicons\frequire\0", "config", "nvim-web-devicons")
+-- Config for: nvim-colorizer.lua
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+-- Config for: gitsigns.nvim
+try_loadstring("\27LJ\2\n�\2\0\0\5\0\16\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\14\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\3=\3\15\2B\0\2\1K\0\1\0\nsigns\1\0\0\17changedelete\1\0\2\ahl\26GitGutterChangeDelete\ttext\6~\14topdelete\1\0\2\ahl\20GitGutterDelete\ttext\b‾\vdelete\1\0\2\ahl\20GitGutterDelete\ttext\6_\vchange\1\0\2\ahl\20GitGutterChange\ttext\b│\badd\1\0\0\1\0\2\ahl\17GitGutterAdd\ttext\b│\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
