@@ -146,9 +146,14 @@ return require "packer".startup(
     use {"nvim-treesitter/nvim-treesitter-angular"}
     use {"nvim-treesitter/playground"}
 
+    -- snippets
     -- might remove snippets
-    use {"norcalli/snippets.nvim"}
-
+    -- use {"norcalli/snippets.nvim"}
+    -- vsnip allows using any vscode snippet extension and it will be added to the vsnip list
+    use {"hrsh7th/vim-vsnip"}
+    use {"hrsh7th/vim-vsnip-integ"}
+    use {"johnpapa/vscode-angular-snippets"}
+    use {"xabikos/vscode-javascript"}
     --[[ use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
     use {"shougo/deoplete-lsp"} ]]
 

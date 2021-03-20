@@ -5,7 +5,7 @@ local mapBuf = require('nm.mappings').mapBuf
 local autocmd = require('nm.autocmds').autocmd
 local npairs = require('nvim-autopairs')
 -- local completion = require('completion')
-require('snippets').use_suggested_mappings()
+-- require('snippets').use_suggested_mappings()
 
 vim.cmd [[set shortmess+=c]]
 vim.o.completeopt = "menuone,noselect"
@@ -133,8 +133,8 @@ _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-n>"
     -- figure out vsnips before putting this back in. it's making tab do things I don't understand for now
-  --[[ elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)" ]]
+   elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
   elseif check_back_space() then
     return t "<Tab>"
   else
@@ -144,8 +144,8 @@ end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
-  --[[ elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)" ]]
+   elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
   else
     return t "<S-Tab>"
   end
