@@ -48,6 +48,9 @@ M.map("v", ">", ">gv")
 M.map("n", "<Leader>d", '"_d')
 M.map("v", "<Leader>d", '"_d')
 M.map("n", "<Esc>", "<cmd>noh<cr>")
+-- TODO: see if we can remap the visual multi commands otherwise might not use plugin
+--[[ vim.cmd("let g:VM_maps['Find Under'] = '<Leader>vm'")
+vim.cmd("let g:VM_maps['Find Under'] = '<Leader>vm'") ]]
 -- Comment mappings
 vim.api.nvim_set_keymap("n", "gcc", "<Plug>kommentary_line_default", {})
 vim.api.nvim_set_keymap("n", "gc", "<Plug>kommentary_motion_default", {})

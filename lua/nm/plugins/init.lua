@@ -29,7 +29,7 @@ return require "packer".startup(
     -- buffer deletion
     use {"ojroques/nvim-bufdel"}
     -- multi cursors
-    use {"mg979/vim-visual-multi"}
+    -- use {"mg979/vim-visual-multi"}
     -- this seems old and I probably don't need
     -- use {"MartinLafreniere/vim-PairTools"}
     -- helps for usage in iTerm2 and tmux

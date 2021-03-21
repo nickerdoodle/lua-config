@@ -94,13 +94,17 @@ Option.w {
   foldtext = "v:lua.foldText()",
   linebreak = true
 }
--- TODO: put in switch for linux/mac
--- vim.g.clipboard = {
---   name = "macOS-clipboard",
---   copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
---   paste = {["+"] = "pbpaste", ["*"] = "pbpaste"},
---   cache_enabled = false
--- }
+
+if vim.fn.has("mac") == 1 then
+  vim.g.clipboard = {
+    name = "macOS-clipboard",
+    copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
+    paste = {["+"] = "pbpaste", ["*"] = "pbpaste"},
+    cache_enabled = false
+  }
+  -- TODO: put in clipboard for linux
+else
+end
 
 vim.g.mapleader = " "
 vim.g.one_allow_italics = true
