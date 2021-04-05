@@ -186,7 +186,8 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
   --Hover
   -- mapBuf(bufnr, "n", "<Leader>gh", "<Cmd>lua vim.lsp.buf.hovnr()<CR>")
-  vim.cmd('nnoremap <Leader>gh :Lspsaga hover_doc<CR>')
+  mapBuf(bufnr, "n", "<Leader>gh", "<CMD>lua require('lspsaga.hover').render_hover_doc()<cr>")
+  -- vim.cmd('nnoremap <Leader>gh :Lspsaga hover_doc<CR>')
   --[[ mapBuf(bufnr, "n", "<silent> <C-[>", "<cmd>lua require('lspsaga.diagnostic_jump_prev()<CR>")
   mapBuf(bufnr, "n", "<silent> <C-n>", "<cmd>lua require('lspsaga.diagnostic_jump_next()<CR>") ]]
   vim.cmd('nnoremap <silent> <C-[> :Lspsaga diagnostic_jump_prev<CR>')
@@ -241,6 +242,7 @@ local ngls_cmd = {
   "--tsProbeLocations",
   default_node_modules,
   "--ngProbeLocations",
+  default_node_modules,
   "--experimental-ivy"
 }
 

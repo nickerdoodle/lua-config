@@ -1,0 +1,103 @@
+// Place your key bindings in this file to override the defaults
+[
+  // https://github.com/asvetliakov/vscode-neovim/issues/74
+  //escape mappings
+  {
+    "key": "j j",
+    "command": "vscode-neovim.escape",
+    "when": "neovim.mode == insert"
+  },
+  {
+    "key": "J J",
+    "command": "vscode-neovim.escape",
+    "when": "neovim.mode == insert"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "workbench.view.explorer",
+    "when": "!explorerViewletVisible"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-workbench.view.explorer",
+    "when": "explorerViewletVisible"
+  },
+  //enter to open folder in explorer
+  {
+    "key": "enter",
+    "command": "list.toggleExpand",
+    "when": "listFocus && !inputFocus"
+  },
+  //THIS ENTER COMMAND MUST BE AFTER THE ABOVE ENTER COMMAND OR IT WILL NOT WORK
+  //linux is this order and mac is the reverse order...
+  //enter is default mapped to rename a file, but this maps to open it
+  {
+    "key": "enter",
+    "command": "filesExplorer.openFilePreserveFocus",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsFolder && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  // collapse the file dirs
+  {
+    "key": "w",
+    "command": "list.collapseAll",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "when": "sideBarFocus",
+    "command": "workbench.action.focusActiveEditorGroup"
+  },
+  // the ctrl+k mapping in vim file doesn't work in terminal so this is workaround
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+a",
+    "command": "explorer.newFolder",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  // this currently is overwritten with normal ctrl+v... but ctrl+enter will open search result in vertical split as default
+  {
+    "key": "ctrl+v",
+    "command": "search.action.openResultToSide",
+    "when": "fileMatchorMatchFocus && searchViewletVisible"
+  },
+  // allows navigation when you have non text editor files open
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "!editorTextFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight",
+    "when": "!editorTextFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateUp",
+    "when": "!editorTextFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateDown",
+    "when": "!editorTextFocus"
+  },
+]

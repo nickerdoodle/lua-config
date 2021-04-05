@@ -154,6 +154,7 @@ return require "packer".startup(
     use {"hrsh7th/vim-vsnip-integ"}
     use {"johnpapa/vscode-angular-snippets"}
     use {"xabikos/vscode-javascript"}
+    use {"sidthesloth92/vsc_html5_boilerplate"}
     --[[ use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
     use {"shougo/deoplete-lsp"} ]]
 
@@ -182,6 +183,8 @@ return require "packer".startup(
 
     -- start menu
     use {"mhinz/vim-startify"}
+    -- search with f and t
+    use {"unblevable/quick-scope"}
 
     -- check this out sometime. rapidly hop across page
     -- use {"phaazon/hop.nvim"}

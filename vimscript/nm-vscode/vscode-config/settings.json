@@ -1,0 +1,33 @@
+{
+  "javascript.format.semicolons": "insert",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.formatOnSave": false,
+  "editor.wordWrap": "on",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  //Neovim configs
+  //linux
+  "vscode-neovim.neovimExecutablePaths.linux": "/snap/bin/nvim",
+  //mac
+  "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+  //linux
+  "vscode-neovim.neovimInitVimPaths.linux": "$HOME/.config/nvim/vimscript/nm-vscode/init.vim",
+  //mac
+  "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/nvim/vimscript/nm-vscode/init.vim",
+  "workbench.editor.showTabs": true,
+  "workbench.list.automaticKeyboardNavigation": false,
+  "prettier.printWidth": 120,
+  "editor.wordWrapColumn": 120,
+  "liveshare.presence": true,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 150,
+  "editor.tabSize": 2,
+  "editor.renderControlCharacters": false,
+  "editor.lineNumbers": "relative",
+  "window.zoomLevel": 1
+}

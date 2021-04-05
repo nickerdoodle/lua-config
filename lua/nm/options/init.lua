@@ -118,4 +118,4 @@ vim.g.markdown_syntax_conceal = false
 -- vim.g.mkdp_auto_start = false
 vim.g.vim_json_syntax_conceal = false
 
-return Optionf
+return Option
