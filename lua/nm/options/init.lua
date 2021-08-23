@@ -73,7 +73,7 @@ Option.g {
   backup = false,
   writebackup = false,
   cursorline = true,
-  cursorcolumn = true,
+  -- cursorcolumn = true,
   emoji = false,
   indentexpr="nvim_treesitter#indent()"
 }

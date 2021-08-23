@@ -20,9 +20,11 @@ M.map('i', 'jj', '<Esc>')
 -- M.map('i', '<Space>.', ' .')
 M.map("n", "Q", "<nop>")
 M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').find_files()<cr>")
-M.map("n", "<Leader>h", "<cmd>lua require('nm.telescope').help_tags()<cr>")
+M.map("n", "<Leader>H", "<cmd>lua require('nm.telescope').help_tags()<cr>")
 M.map("n", "<Leader>C", "<cmd>lua require('nm.telescope').colors()<cr>")
-M.map("n", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string()<cr>")
+-- why am I using grep_string?
+-- M.map("n", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string()<cr>")
+M.map("n", "<Leader>f", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
 --[[ npm i -g lua-fmt to use mapping
 M.map("n", "<Leader>f", "<cmd>Format<cr>") ]]
 M.map("n", "H", "^")
@@ -55,6 +57,26 @@ vim.cmd("let g:VM_maps['Find Under'] = '<Leader>vm'") ]]
 vim.api.nvim_set_keymap("n", "gcc", "<Plug>kommentary_line_default", {})
 vim.api.nvim_set_keymap("n", "gc", "<Plug>kommentary_motion_default", {})
 vim.api.nvim_set_keymap("v", "gcc", "<Plug>kommentary_visual_default", {})
+
+-- Trouble (diagnostic handlings)
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
+  {silent = true, noremap = true}
+)
 -- terminal M.mappings
 M.map("t", "<Esc>", "<c-\\><c-n><esc><cr>")
 --[[ M.map("t", "<Leader>,", "<c-\\><c-n>:bnext<cr>")

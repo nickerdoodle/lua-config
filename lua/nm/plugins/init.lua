@@ -1,7 +1,16 @@
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+local execute = vim.api.nvim_command
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  execute 'packadd packer.nvim'
+end
+
+--[[ local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-end
+end ]]
 
 return require "packer".startup(
   function(use)
@@ -53,10 +62,10 @@ return require "packer".startup(
     -- Statusline
     use {"glepnir/galaxyline.nvim"}
     -- alternative could be barbar.nvim look at it sometime
-    use {"akinsho/nvim-bufferline.lua"}
+    -- use {"akinsho/nvim-bufferline.lua"}
 
     -- Colors
-    use {"morhetz/gruvbox"}
+    --[[ use {"morhetz/gruvbox"}
     use {"patstockwell/vim-monokai-tasty"}
     use {"arzg/vim-colors-xcode"}
     use {"chuling/vim-equinusocio-material"}
@@ -64,29 +73,53 @@ return require "packer".startup(
     use {"Khaledgarbaya/night-owl-vim-theme"}
     use {"kenwheeler/glow-in-the-dark-gucci-shark-bites-vim"}
     use {"TroyFletcher/vim-colors-synthwave"}
-    use {"bluz71/vim-nightfly-guicolors"}
+    use {"bluz71/vim-nightfly-guicolors"} ]]
+
+    use 'folke/tokyonight.nvim'
+
 
     -- Editor Config
     -- use {"editorconfig/editorconfig-vim"}
     -- Git
     -- use {"tpope/vim-fugitive"}
-    use {"tpope/vim-rhubarb"}
+    -- use {"tpope/vim-rhubarb"}
     -- use {"sgeb/vim-diff-fold"}
     use {
       "lewis6991/gitsigns.nvim",
+      requires = {
+        'nvim-lua/plenary.nvim'
+      },
       config = function()
         require "gitsigns".setup {
-          signs = {
+          --[[ signs = {
             add = {hl = "GitGutterAdd", text = "│"},
             change = {hl = "GitGutterChange", text = "│"},
             delete = {hl = "GitGutterDelete", text = "_"},
             topdelete = {hl = "GitGutterDelete", text = "‾"},
             changedelete = {hl = "GitGutterChangeDelete", text = "~"}
+          } ]]
+          signs = {
+            --[[ add          = {hl = '#140', text = '│', numhl='#140'   , linehl='#140'},
+            change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'}, ]]
+            -- add          = {hl = 'GitSignsAdd', text = '│', numhl='#140'   , linehl='#140'},
+            add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+            change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+            -- change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'},
+            delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+            topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+            changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
           }
         }
       end
     }
-    use {"TimUntersberger/neogit"}
+    use 'sindrets/diffview.nvim'
+    use {
+      "TimUntersberger/neogit",
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'sindrets/diffview.nvim'
+      }
+    }
     -- -- Markdown
     -- use {"tpope/vim-markdown", ft = "markdown"}
     -- use {"nelstrom/vim-markdown-folding", ft = "markdown"}
@@ -99,7 +132,7 @@ return require "packer".startup(
     -- use {"rust-lang/rust.vim"}
     -- use {"racer-rust/vim-racer"}
     -- Python
-    use {"tmhedberg/SimpylFold", ft = "python"}
+    -- use {"tmhedberg/SimpylFold", ft = "python"}
     -- JS/TS
     -- with tree sitter, this might not be needed
     --[[ use {"othree/yajs.vim"}
@@ -137,13 +170,19 @@ return require "packer".startup(
     -- use {"tbastos/vim-lua"}
 
     -- mhartington
-    use {"mhartington/formatter.nvim"}
-    use {"mhartington/vim-folds"}
-    use {"mhartington/oceanic-next"}
+    --[[ use {"mhartington/formatter.nvim"}
+    use {"mhartington/vim-folds"} ]]
+    -- use {"mhartington/oceanic-next"}
 
     -- treesitter
-    use {"nvim-treesitter/nvim-treesitter"}
-    use {"nvim-treesitter/nvim-treesitter-angular"}
+    -- use {"nvim-treesitter/nvim-treesitter"}
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate'
+    }
+
+    -- is this causing errors in the checkhealth. Looks like it's causing slowness in projects
+    -- use {"nvim-treesitter/nvim-treesitter-angular"}
     use {"nvim-treesitter/playground"}
 
     -- snippets
@@ -163,7 +202,7 @@ return require "packer".startup(
     -- use {"nvim-lua/completion-nvim"}
     use {"hrsh7th/nvim-compe"}
     use {"onsails/lspkind-nvim"}
-    use {"kosayoda/nvim-lightbulb"}
+    -- use {"kosayoda/nvim-lightbulb"}
     use {"neovim/nvim-lspconfig"}
     use {"glepnir/lspsaga.nvim"}
 
@@ -179,12 +218,12 @@ return require "packer".startup(
     use {"windwp/nvim-autopairs"}
 
     -- autoclosing for html
-    use {"windwp/nvim-ts-autotag"}
+    -- use {"windwp/nvim-ts-autotag"}
 
     -- start menu
     use {"mhinz/vim-startify"}
     -- search with f and t
-    use {"unblevable/quick-scope"}
+    -- use {"unblevable/quick-scope"}
 
     -- check this out sometime. rapidly hop across page
     -- use {"phaazon/hop.nvim"}
@@ -215,5 +254,20 @@ return require "packer".startup(
         )
       end
     }
-  end
-)
+    -- Lua
+    use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require "trouble".setup()
+      end
+          --[[ {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+          } ]]
+        --[[ )
+      end ]]
+    }
+
+  end)

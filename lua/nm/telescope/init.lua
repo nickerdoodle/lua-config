@@ -5,7 +5,8 @@ local actions = require("telescope.actions")
 local M = {}
 
 telescope.load_extension("gh")
-telescope.load_extension("node_modules")
+-- commented this out. an update to repo might mean i don't need it anymore
+-- telescope.load_extension("node_modules")
 telescope.load_extension("packer")
 
 telescope.setup {
@@ -31,9 +32,11 @@ local function generateOpts(opts)
     sorting_strategy = "ascending",
     results_title = false,
     preview_title = "Preview",
-    -- previewer = false,
+    layout_config = {
+      height = 25
     -- width = 80,
-    results_height = 15,
+    },
+    -- previewer = false,
     borderchars = {
       {"─","│", "─", "│", "╭", "╮", "╯", "╰"},
       prompt = {"─", "│", " ", "│", "╭", "╮", "│", "│"},

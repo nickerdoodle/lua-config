@@ -190,8 +190,8 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
   -- vim.cmd('nnoremap <Leader>gh :Lspsaga hover_doc<CR>')
   --[[ mapBuf(bufnr, "n", "<silent> <C-[>", "<cmd>lua require('lspsaga.diagnostic_jump_prev()<CR>")
   mapBuf(bufnr, "n", "<silent> <C-n>", "<cmd>lua require('lspsaga.diagnostic_jump_next()<CR>") ]]
-  vim.cmd('nnoremap <silent> <C-[> :Lspsaga diagnostic_jump_prev<CR>')
-vim.cmd('nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>')
+  --[[ vim.cmd('nnoremap <silent> <C-[> :Lspsaga diagnostic_jump_prev<CR>')
+vim.cmd('nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>') ]]
   -- mapBuf(bufnr, "n", "<Leader>gh", "<CMD>lua require('lspsaga.hover').render_hover_doc()<cr>")
   -- mapBuf(bufnr, "n", "<Leader>gah", "<CMD>lua require('lspsaga.provider').lsp_finder()<cr>")
 
@@ -221,20 +221,37 @@ vim.cmd('nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>')
   --   autocmd("CompleteDone", "<buffer>", "lua require('nm.lsp').on_complete_done()")
   -- end
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-  vim.fn.sign_define("LspDiagnosticsSignError", {text = "•"})
+  --[[ vim.fn.sign_define("LspDiagnosticsSignError", {text = "•"})
   vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "•"})
   vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "•"})
-  vim.fn.sign_define("LspDiagnosticsSignHint", {text = "•"})
+  vim.fn.sign_define("LspDiagnosticsSignHint", {text = "•"}) ]]
+  vim.fn.sign_define("LspDiagnosticsSignError", {text = ""})
+  vim.fn.sign_define("LspDiagnosticsSignWarning", {text = ""})
+  vim.fn.sign_define("LspDiagnosticsSignInformation", {text = ""})
+  vim.fn.sign_define("LspDiagnosticsSignHint", {text = ""})
+  vim.fn.sign_define("LspDiagnosticsSignOther", {text = "﫠"})
 
   -- completion.on_attach(client)
 end
-local servers = {"pyls", "bashls"}
+
+-- local servers = {"pyls", "bashls"}
+local servers = {"bashls"}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
 end
+
+--[[ lspconfig.pyls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+lspconfig.bashls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+} ]]
 
 local ngls_cmd = {
   "ngserver",
