@@ -9,14 +9,15 @@ require "nm/nvim-autopairs"
 require "nm/colors"
 require "nm/autocmds"
 require "nm/galaxyline"
--- require "nm/bufferline"
 require "nm/treesitter"
--- require "nm/formatting"
 require "nm/lsp"
 require "nm/lspkind"
--- require "nm/lightbulb"
 require "nm/nvim-tree"
 require "nm/neogit"
+require "nm/bufferline"
+
+-- require "nm/formatting"
+-- require "nm/lightbulb"
 
 -- TODO: remove
 -- require "nm/statusline"

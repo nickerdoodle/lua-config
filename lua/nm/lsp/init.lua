@@ -11,6 +11,7 @@ vim.cmd [[set shortmess+=c]]
 vim.o.completeopt = "menuone,noselect"
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local M = {}
@@ -80,104 +81,88 @@ local on_attach = function(client, bufnr)
   -- need to install these first probably
 	-- require'diagnostic'.on_attach(client)
 --
+-- cmp stuff
+
+  local cmp = require('cmp')
+  local lspkind = require('lspkind')
+
+  local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
+  end
+
+  cmp.setup {
+    -- set snippet engine (vsnip)
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    -- You can set mappings if you want
+    mapping = {
+      ['<C-p>'] = cmp.mapping.select_prev_item(),
+      ['<C-n>'] = cmp.mapping.select_next_item(),
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<Esc>'] = cmp.mapping.abort(),
+      -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+      ['<Tab>'] = function(fallback)
+        if vim.fn.pumvisible() == 1 then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+        elseif check_back_space() then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n')
+        elseif vim.fn['vsnip#available']() == 1 then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
+        else
+          fallback()
+        end
+      end,
+      ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+      ['<CR>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      })
+    },
+    formatting = {
+      format = function(entry, vim_item)
+        -- fancy icons and a name of kind
+        vim_item.kind = require("lspkind").presets.default[vim_item.kind]
+          .. " "
+          .. vim_item.kind
+        -- set a name for each source
+        vim_item.menu = ({
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[LuaSnip]",
+          nvim_lua = "[Lua]",
+          latex_symbols = "[Latex]",
+          vsnip = "[Vsnip]"
+        })[entry.source.name]
+        return vim_item
+      end,
+    },
+
+    -- You should specify your *installed* sources.
+    sources = {
+      { name = 'path' },
+      { name = 'buffer' },
+      { name = 'calc' },
+      { name = 'vsnip' },
+      { name = 'nvim_lsp' },
+      { name = 'nvim_lua' },
+      { name = 'spell' },
+      { name = 'tags' },
+      { name = 'snippets_nvim' },
+      { name = 'treesitter' },
+    },
+  }
+-- end cmp
 --compe stuff
 vim.g.completion_enable_auto_paren = 1
 -- vim.g.completion_confirm_key = "\<CR>"
 -- vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
-
-require('compe').setup ({
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  allow_prefix_unmatch = false;
-  max_abbr_width = 1000;
-  max_kind_width = 1000;
-  max_menu_width = 1000000;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    -- do i need to install vsnip or snippets_nvim?
-    -- the snips fields listed are just custom snippet plugins. Not necessary
-    -- but compe is able to provide autocomplete for them as well
-    vsnip = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    spell = true;
-    tags = true;
-    snippets_nvim = true;
-    treesitter = true;
-  };
-})
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-    -- figure out vsnips before putting this back in. it's making tab do things I don't understand for now
-   elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-   elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
---
-vim.g.completion_confirm_key = ""
-_G.completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      vim.fn["compe#confirm"]()
-      return npairs.esc("<c-y>")
-    else
-      vim.defer_fn(function()
-        vim.fn["compe#confirm"]("<cr>")
-      end, 20)
-      return npairs.esc("<c-n>")
-    end
-  else
-    return npairs.check_break_line_char()
-  end
-end
-vim.api.nvim_set_keymap("i" , "<CR>","v:lua.completion_confirm()", {expr = true})
---
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
---
 
 -- TODO: some of these commands don't work with mapBuf. needed to use vim.cmd instead. Find out why and try to get them to use the map if possible
   mapBuf(bufnr, "n", "<silent> gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
@@ -359,5 +344,28 @@ lspconfig.sumneko_lua.setup {
             }
         }
     }
+}
+
+local pid = vim.fn.getpid()
+-- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
+-- Needs to be full path
+-- check installation docs for a command to be run for mac
+local omnisharp_bin = "/Users/nicholasmahe/.config/nvim/omnisharp-osx/run"
+-- on Windows
+-- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
+    capabilities = capabilities,
+    on_attach = on_attach,
+    -- defaults
+    --[[ filetypes = { "cs", "vb" };
+    init_options = {};
+    on_new_config = function(new_config, new_root_dir)
+          if new_root_dir then
+            table.insert(new_config.cmd, '-s')
+            table.insert(new_config.cmd, new_root_dir)
+          end
+        end,
+    root_dir = root_pattern(".sln") or root_pattern(".csproj") ]]
 }
 return M

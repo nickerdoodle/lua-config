@@ -19,12 +19,18 @@ end
 M.map('i', 'jj', '<Esc>')
 -- M.map('i', '<Space>.', ' .')
 M.map("n", "Q", "<nop>")
-M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').find_files()<cr>")
+M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').git_files()<cr>")
+-- M.map("n", "<c-p>", "<cmd>lua require('telescope.builtin').git_files()<cr>")
+M.map("n", "<Leader>b", "<cmd>lua require('telescope.builtin').buffers()<cr>")
+-- M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').find_files()<cr>")
+-- M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').find_files({ previewer = false })<cr>")
 M.map("n", "<Leader>H", "<cmd>lua require('nm.telescope').help_tags()<cr>")
 M.map("n", "<Leader>C", "<cmd>lua require('nm.telescope').colors()<cr>")
 -- why am I using grep_string?
 -- M.map("n", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string()<cr>")
 M.map("n", "<Leader>f", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
+-- fix this so it goes into nvim config from anywhere
+M.map("n", "<Leader>n", "<cmd>lua require('nm.telescope').nvim_files()<cr>")
 --[[ npm i -g lua-fmt to use mapping
 M.map("n", "<Leader>f", "<cmd>Format<cr>") ]]
 M.map("n", "H", "^")
@@ -41,6 +47,7 @@ M.map("n", ";", ":", {nowait = true, silent = false})
 --M.map("n", "<Space>", "za")
 M.map("n", "<leader>tn", "<cmd>bnext<cr>")
 M.map("n", "<leader>tp", "<cmd>bprevious<cr>")
+M.map("n", "<leader>bd", ":BufDel<cr>")
 M.map("n", "k", "v:count == 0 ? 'gk' : 'k'", {expr = true})
 M.map("n", "j", "v:count == 0 ? 'gj' : 'j'", {expr = true})
 M.map("v", "k", "v:count == 0 ? 'gk' : 'k'", {expr = true})

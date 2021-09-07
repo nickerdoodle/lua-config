@@ -1,3 +1,9 @@
+
+-- PLUGINS TO TRY AND TEST out
+-- octo - github issues and pull requests
+
+
+
 local execute = vim.api.nvim_command
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -26,7 +32,14 @@ return require "packer".startup(
     -- use {"AndrewRadev/switch.vim"}
     -- I'm not using tmux for now
     -- use {"christoomey/vim-tmux-navigator"}
-    use {"tpope/vim-surround"}
+    -- use {"tpope/vim-surround"}
+    -- this will probably replace vim-surround
+    use {
+      "blackCauldron7/surround.nvim",
+      config = function()
+        require "surround".setup {}
+      end
+    }
     -- comment plugin. Probably don't need
     -- use {"tyru/caw.vim"}
     -- use {"junegunn/vim-easy-align"}
@@ -62,7 +75,7 @@ return require "packer".startup(
     -- Statusline
     use {"glepnir/galaxyline.nvim"}
     -- alternative could be barbar.nvim look at it sometime
-    -- use {"akinsho/nvim-bufferline.lua"}
+    use {"akinsho/nvim-bufferline.lua"}
 
     -- Colors
     --[[ use {"morhetz/gruvbox"}
@@ -120,6 +133,7 @@ return require "packer".startup(
         'sindrets/diffview.nvim'
       }
     }
+
     -- -- Markdown
     -- use {"tpope/vim-markdown", ft = "markdown"}
     -- use {"nelstrom/vim-markdown-folding", ft = "markdown"}
@@ -178,19 +192,21 @@ return require "packer".startup(
     -- use {"nvim-treesitter/nvim-treesitter"}
     use {
       'nvim-treesitter/nvim-treesitter',
+      -- event = "BufRead",
       run = ':TSUpdate'
     }
 
     -- is this causing errors in the checkhealth. Looks like it's causing slowness in projects
     -- use {"nvim-treesitter/nvim-treesitter-angular"}
+    -- get this working on install
     use {"nvim-treesitter/playground"}
 
     -- snippets
     -- might remove snippets
     -- use {"norcalli/snippets.nvim"}
     -- vsnip allows using any vscode snippet extension and it will be added to the vsnip list
-    use {"hrsh7th/vim-vsnip"}
-    use {"hrsh7th/vim-vsnip-integ"}
+    -- use {"hrsh7th/vim-vsnip"}
+    -- use {"hrsh7th/vim-vsnip-integ"}
     use {"johnpapa/vscode-angular-snippets"}
     use {"xabikos/vscode-javascript"}
     use {"sidthesloth92/vsc_html5_boilerplate"}
@@ -200,7 +216,22 @@ return require "packer".startup(
     -- lsp
     -- might not need completion. using compe
     -- use {"nvim-lua/completion-nvim"}
-    use {"hrsh7th/nvim-compe"}
+    -- compe is deprecated. Now cmp
+    -- use {"hrsh7th/nvim-compe"}
+    -- cmp is newer version of compe
+    -- Install nvim-cmp, and buffer source as a dependency
+    use { "hrsh7th/cmp-vsnip" }
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-path",
+        -- "hrsh7th/cmp-vsnip",
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/vim-vsnip-integ",
+      }
+    }
     use {"onsails/lspkind-nvim"}
     -- use {"kosayoda/nvim-lightbulb"}
     use {"neovim/nvim-lspconfig"}
@@ -209,10 +240,31 @@ return require "packer".startup(
     -- telescope advanced search
     use {"nvim-lua/popup.nvim"}
     use {"nvim-lua/plenary.nvim"}
-    use {"nvim-telescope/telescope.nvim"}
+    -- use {"nvim-telescope/telescope.nvim"}
+    use {
+      "nvim-telescope/telescope.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        {
+          "nvim-telescope/telescope-fzf-native.nvim",
+          run = "make",
+        },
+      }
+    }
     use {"nvim-telescope/telescope-github.nvim"}
+    -- packer is causing the PackerUpdate issues
     use {"nvim-telescope/telescope-packer.nvim"}
     use {"nvim-telescope/telescope-node-modules.nvim"}
+
+    use {
+      'pwntester/octo.nvim',
+      requires = {
+        "nvim-telescope/telescope.nvim",
+      },
+      config = function()
+        require "octo".setup()
+      end
+    }
 
     -- autopairs
     use {"windwp/nvim-autopairs"}
@@ -269,5 +321,6 @@ return require "packer".startup(
         --[[ )
       end ]]
     }
+
 
   end)

@@ -118,4 +118,40 @@ vim.g.markdown_syntax_conceal = false
 -- vim.g.mkdp_auto_start = false
 vim.g.vim_json_syntax_conceal = false
 
+-- to help for faster loads
+-- opt.lazyredraw = true
+-- vim.g.vim.lazyredraw = truncate
+vim.o.lazyredraw = true
+
+-- disable built in features I'm not using to help with load
+local disabled_built_ins = {
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+  end
+
+-- TODO: move into separate file
+require('kommentary.config').configure_language("default", {
+    prefer_single_line_comments = true,
+})
+
 return Option
