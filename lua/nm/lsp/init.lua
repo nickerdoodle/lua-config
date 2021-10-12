@@ -1,6 +1,7 @@
 local vim = vim
 local uv = vim.loop
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
 local mapBuf = require('nm.mappings').mapBuf
 local autocmd = require('nm.autocmds').autocmd
 local npairs = require('nvim-autopairs')
@@ -280,6 +281,21 @@ lspconfig.angularls.setup {
   end
 }
 
+if not lspconfig.emmet_ls then
+  configs.emmet_ls = {
+    default_config = {
+      cmd = {'emmet-ls', '--stdio'};
+      filetypes = {'html', 'css'};
+      root_dir = function(fname)
+        return vim.loop.cwd()
+      end;
+      settings = {};
+    };
+  }
+end
+
+lspconfig.emmet_ls.setup{ capabilities = capabilities; }
+
 lspconfig.tsserver.setup {
   filetypes = {
     "javascript",
@@ -299,6 +315,8 @@ lspconfig.tsserver.setup {
     }
   }
 }
+
+-- TODO: set up emmet
 
 local vs_code_extracted = {
   html = "html-languageserver",
