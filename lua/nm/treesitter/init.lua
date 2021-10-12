@@ -19,3 +19,10 @@ ts.setup {
     enable = true
   }
 }
+
+-- For the html and xml autotag from nvim-ts-autotag
+require'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true,
+  }
+}

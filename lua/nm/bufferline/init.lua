@@ -2,9 +2,11 @@ local colors = require "nm.colors"
 require('bufferline').setup {
   options = {
     view = "default",
-    numbers = "ordinal",
-    number_style = "",
     mappings = false,
+    numbers = function(opts)
+      -- return string.format('%s.)%s.)', opts.ordinal, opts.id)
+      return string.format('%s.', opts.ordinal)
+    end,
     buffer_close_icon = "",
     modified_icon = "",
     close_icon = "",

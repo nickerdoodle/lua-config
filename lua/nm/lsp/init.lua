@@ -1,6 +1,7 @@
 local vim = vim
 local uv = vim.loop
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
 local mapBuf = require('nm.mappings').mapBuf
 local autocmd = require('nm.autocmds').autocmd
 local npairs = require('nvim-autopairs')
@@ -133,29 +134,30 @@ local on_attach = function(client, bufnr)
           .. vim_item.kind
         -- set a name for each source
         vim_item.menu = ({
-          buffer = "[Buffer]",
           nvim_lsp = "[LSP]",
+          vsnip = "[Vsnip]",
+          buffer = "[Buffer]",
           luasnip = "[LuaSnip]",
           nvim_lua = "[Lua]",
-          latex_symbols = "[Latex]",
-          vsnip = "[Vsnip]"
+          latex_symbols = "[Latex]"
         })[entry.source.name]
         return vim_item
       end,
     },
 
     -- You should specify your *installed* sources.
+    -- The order of the sources will determine the order they display on the popup menu
     sources = {
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'snippets_nvim' },
+      { name = 'nvim_lua' },
       { name = 'path' },
+      { name = 'treesitter' },
       { name = 'buffer' },
       { name = 'calc' },
-      { name = 'vsnip' },
-      { name = 'nvim_lsp' },
-      { name = 'nvim_lua' },
       { name = 'spell' },
       { name = 'tags' },
-      { name = 'snippets_nvim' },
-      { name = 'treesitter' },
     },
   }
 -- end cmp
@@ -164,6 +166,24 @@ vim.g.completion_enable_auto_paren = 1
 -- vim.g.completion_confirm_key = "\<CR>"
 -- vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
 
+-- list of available options
+-- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+--   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+--   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+--   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+--   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+--   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+--   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+--   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+--   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+--   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+--   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+--   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+--   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+--   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+--   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+--   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+--   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 -- TODO: some of these commands don't work with mapBuf. needed to use vim.cmd instead. Find out why and try to get them to use the map if possible
   mapBuf(bufnr, "n", "<silent> gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
   -- mapBuf(bufnr, "n", "<Leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
@@ -198,7 +218,8 @@ vim.cmd('nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>') ]]
   mapBuf(bufnr, "n", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>")
   mapBuf(bufnr, "v", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>")
 
-  autocmd("CursorHold", "<buffer>", "lua vim.lsp.diagnostic.show_line_diagnostics()")
+  -- I don't want the diagnostic hover to show up
+  -- autocmd("CursorHold", "<buffer>", "lua vim.lsp.diagnostic.show_line_diagnostics()")
   -- autocmd("CursorHold", "<buffer>", "lua require'lspsaga.diagnostic'.show_line_diagnostics()")
 
 
@@ -260,6 +281,21 @@ lspconfig.angularls.setup {
   end
 }
 
+if not lspconfig.emmet_ls then
+  configs.emmet_ls = {
+    default_config = {
+      cmd = {'emmet-ls', '--stdio'};
+      filetypes = {'html', 'css'};
+      root_dir = function(fname)
+        return vim.loop.cwd()
+      end;
+      settings = {};
+    };
+  }
+end
+
+lspconfig.emmet_ls.setup{ capabilities = capabilities; }
+
 lspconfig.tsserver.setup {
   filetypes = {
     "javascript",
@@ -279,6 +315,8 @@ lspconfig.tsserver.setup {
     }
   }
 }
+
+-- TODO: set up emmet
 
 local vs_code_extracted = {
   html = "html-languageserver",
@@ -302,13 +340,12 @@ local sumneko_binary = ""
 
 if vim.fn.has("mac") == 1 then
     sumneko_root_path = "/Users/" .. USER ..
-                            -- "/.config/nvim/ls/lua-language-server"
-                            "/.config/nvim/lua-language-server"
+                            "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
     sumneko_binary = "/Users/" .. USER ..
-                         -- "/.config/nvim/ls/lua-language-server/bin/macOS/lua-language-server"
-                         "/.config/nvim/lua-language-server/bin/macOS/lua-language-server"
+                         "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/macOS/lua-language-server"
 elseif vim.fn.has("unix") == 1 then
     sumneko_root_path = "/home/" .. USER ..
+      -- TODO: adjust this path for linux after now using lspinstaller plugin instead of manually installing
                             -- "/.config/nvim/ls/lua-language-server"
                             "/.config/nvim/lua-language-server"
     sumneko_binary = "/home/" .. USER ..
@@ -346,11 +383,13 @@ lspconfig.sumneko_lua.setup {
     }
 }
 
+-- TODO: run :LspInstallInfo and set up the other language servers
 local pid = vim.fn.getpid()
 -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
 -- Needs to be full path
 -- check installation docs for a command to be run for mac
-local omnisharp_bin = "/Users/nicholasmahe/.config/nvim/omnisharp-osx/run"
+-- installed with lspinstaller plugin
+local omnisharp_bin = "/Users/nicholasmahe/.local/share/nvim/lsp_servers/omnisharp/omnisharp/run"
 -- on Windows
 -- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
 require'lspconfig'.omnisharp.setup{

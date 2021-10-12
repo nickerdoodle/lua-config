@@ -201,6 +201,8 @@ return require "packer".startup(
     -- get this working on install
     use {"nvim-treesitter/playground"}
 
+    use {"windwp/nvim-ts-autotag"}
+
     -- snippets
     -- might remove snippets
     -- use {"norcalli/snippets.nvim"}
@@ -209,7 +211,10 @@ return require "packer".startup(
     -- use {"hrsh7th/vim-vsnip-integ"}
     use {"johnpapa/vscode-angular-snippets"}
     use {"xabikos/vscode-javascript"}
-    use {"sidthesloth92/vsc_html5_boilerplate"}
+    -- use {"sidthesloth92/vsc_html5_boilerplate"}
+
+    -- this has a large collection of snippets. would be ideal to use this eventually
+    use {"rafamadriz/friendly-snippets"}
     --[[ use {"Shougo/deoplete.nvim", run = "remote#host#UpdateRemotePlugins()"}
     use {"shougo/deoplete-lsp"} ]]
 
@@ -234,8 +239,15 @@ return require "packer".startup(
     }
     use {"onsails/lspkind-nvim"}
     -- use {"kosayoda/nvim-lightbulb"}
-    use {"neovim/nvim-lspconfig"}
+
+    -- provides commands to easily install different language servers
+    use {
+      'neovim/nvim-lspconfig',
+      'williamboman/nvim-lsp-installer',
+    }
+
     use {"glepnir/lspsaga.nvim"}
+
 
     -- telescope advanced search
     use {"nvim-lua/popup.nvim"}
@@ -322,5 +334,19 @@ return require "packer".startup(
       end ]]
     }
 
+<<<<<<< HEAD
+=======
+    use {
+      "folke/which-key.nvim"
+      -- config = function()
+      --   require("which-key").setup {
+      --     -- your configuration comes here
+      --     -- or leave it empty to use the default settings
+      --     -- refer to the configuration section below
+      --   }
+      -- end
+    }
+
+>>>>>>> work-setup
 
   end)

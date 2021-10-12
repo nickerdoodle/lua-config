@@ -28,7 +28,9 @@ Option.g {
   clipboard = "unnamedplus",
   hidden = true,
   showmode = false,
-  timeoutlen = 3e3,
+  -- not sure why this was 3000, trying 100 for which-key
+  -- timeoutlen = 3e3,
+  timeoutlen = 200,
   tabstop = 2,
   shiftwidth = 2,
   expandtab = true,
