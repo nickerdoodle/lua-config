@@ -334,8 +334,6 @@ return require "packer".startup(
       end ]]
     }
 
-<<<<<<< HEAD
-=======
     use {
       "folke/which-key.nvim"
       -- config = function()
@@ -347,6 +345,5 @@ return require "packer".startup(
       -- end
     }
 
->>>>>>> work-setup
 
   end)
