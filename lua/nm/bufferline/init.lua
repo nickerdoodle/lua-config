@@ -2,7 +2,6 @@ local colors = require "nm.colors"
 require('bufferline').setup {
   options = {
     view = "default",
-    mappings = false,
     numbers = function(opts)
       -- return string.format('%s.)%s.)', opts.ordinal, opts.id)
       return string.format('%s.', opts.ordinal)
