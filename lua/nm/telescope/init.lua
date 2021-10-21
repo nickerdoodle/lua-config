@@ -116,6 +116,14 @@ function M.nvim_files()
   builtIn.find_files(cmn_opts)
 end
 
+function M.live_grep_project()
+  local opts = {
+    prompt_title = "Live Grep Project"
+  }
+  local cmn_opts = generateOpts(opts)
+  builtIn.git.files.live_grep(opts)
+end
+
 function M.help_tags()
   local opts = generateOpts({})
   builtIn.help_tags(opts)

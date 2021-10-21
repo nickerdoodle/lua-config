@@ -65,10 +65,15 @@ local mappings = {
 
   f = {
     name = "Files", -- optional group name
+    a = { "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Grep project"},
+    b = { "<cmd>lua require('telescope.builtin').grep_string{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Find all occurrences (project)"},
     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+    h = { "<cmd>lua require('nm.telescope').find_files()<cr>", "Find File" }, -- create a binding with label
     g = { "<cmd>Telescope git_files<cr>", "Git Files" }, -- create a binding with label
+    i = { "<cmd>lua require('nm.telescope').git_files()<cr>", "Git Files (Custom)" }, -- create a binding with label
     o = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }, -- create a binding with label
     s = { "<cmd>Telescope live_grep<cr>", "Live Grep" }, -- create a binding with label
+
     n = { "New File" }, -- just a label. don't create any mapping
     e = "Edit File", -- same as above
     -- ["1"] = "which_key_ignore",  -- special label to hide it in the popup
@@ -108,6 +113,8 @@ local mappings = {
 
   l = {
     name = "Lsp",
+    a = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", "Refresh Codelens"},
+    c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "Run Codelens"},
     d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Document Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
