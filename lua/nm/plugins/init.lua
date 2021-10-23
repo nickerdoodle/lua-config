@@ -37,7 +37,7 @@ return require "packer".startup(
     use {
       "blackCauldron7/surround.nvim",
       config = function()
-        require "surround".setup {}
+        -- require "surround".setup {}
       end
     }
     -- comment plugin. Probably don't need
@@ -344,6 +344,9 @@ return require "packer".startup(
       --   }
       -- end
     }
+
+    -- terminal
+    use {"akinsho/toggleterm.nvim"}
 
 
   end)

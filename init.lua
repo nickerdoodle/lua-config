@@ -17,6 +17,7 @@ require "nm/neogit"
 require "nm/bufferline"
 require "nm/which-key"
 require "nm/autopairs"
+require "nm/toggleterm"
 
 -- require "nm/formatting"
 -- require "nm/lightbulb"

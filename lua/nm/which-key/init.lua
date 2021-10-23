@@ -109,6 +109,7 @@ local mappings = {
   h = {
     name = "Help",
     t = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
+    k = { "<cmd>Telescope keymaps<cr>", "Mappings" },
   },
 
   l = {
@@ -147,12 +148,24 @@ local mappings = {
     h = { "<cmd>PackerStatus<cr>", "Status" },
     s = { "<cmd>PackerSync<cr>", "Sync" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
+  },
+
+  s = {
+    name = "Surround",
+    -- TODO: put this in its own 'surround' key. Add the other surround bindings. Use :Telescope keymaps, type s to see more
+    a = { "<cmd>set operatorfunc=SurroundAddOperatorMode<cr> g@", "Add" }, -- create a binding with label
+    d = { "<cmd>lua require('surround').surround_delete()<cr>", "Delete" }, -- create a binding with label
+    r = { "<cmd>lua require('surround').surround_replace()<cr>", "Replace" }, -- create a binding with label
+    w = { "<cmd>set operatorfunc=SurroundAddOperatorMode<cr> g@iw", "Word" }, -- create a binding with label
+  },
+
+  t = {
+    name = "Terminal",
+    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+    h = { "<cmd>ToggleTerm direction=horizontal<cr>", "Horizontal" },
+    v = { "<cmd>ToggleTerm direction=vertical<cr>", "Vertical" },
+
   }
-
-  -- t = {
-  --   name = "Terminal",
-
-  -- }
 
 }
 

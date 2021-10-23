@@ -3,8 +3,8 @@ local uv = vim.loop
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
 local mapBuf = require('nm.mappings').mapBuf
-local autocmd = require('nm.autocmds').autocmd
-local npairs = require('nvim-autopairs')
+-- local autocmd = require('nm.autocmds').autocmd
+-- local npairs = require('nvim-autopairs')
 -- local completion = require('completion')
 -- require('snippets').use_suggested_mappings()
 
@@ -108,24 +108,32 @@ local on_attach = function(client, bufnr)
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
       ['<Esc>'] = cmp.mapping.abort(),
-      -- ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+      --TODO: add preselect
+
+      ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+      -- handle tab mapping
       ['<Tab>'] = function(fallback)
-        if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
-        elseif check_back_space() then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n')
-        elseif vim.fn['vsnip#available']() == 1 then
+        if vim.fn['vsnip#available']() == 1 then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
+        -- if autocomplete menu is visible
+        elseif cmp.visible() then
+          -- with the conditional this mapping doesn't work for tab... not sure why
+          -- cmp.mapping.confirm({
+          --     behavior = cmp.ConfirmBehavior.Insert,
+          --     select = true,
+          -- })
+          -- Workaround. Use behavior of enter key which currently will autocomplete the word
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'i')
         else
           fallback()
         end
       end,
-      ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
       ['<CR>'] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
+        behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       })
     },
+
     formatting = {
       format = function(entry, vim_item)
         -- fancy icons and a name of kind
@@ -145,6 +153,15 @@ local on_attach = function(client, bufnr)
       end,
     },
 
+    experimental = {
+      -- using the newer menu
+      native_menu = false,
+
+      -- when typing, the word will show the completion as virtual text
+      ghost_text = true,
+
+    },
+
     -- You should specify your *installed* sources.
     -- The order of the sources will determine the order they display on the popup menu
     sources = {
@@ -154,9 +171,9 @@ local on_attach = function(client, bufnr)
       { name = 'nvim_lua' },
       { name = 'path' },
       { name = 'treesitter' },
-      { name = 'buffer' },
+      { name = 'buffer', keyword_length = 5 },
       { name = 'calc' },
-      { name = 'spell' },
+      { name = 'spell', keyword_length = 5 },
       { name = 'tags' },
     },
   }
