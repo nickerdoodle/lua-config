@@ -65,8 +65,6 @@ local mappings = {
 
   f = {
     name = "Files", -- optional group name
-    a = { "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Grep project"},
-    b = { "<cmd>lua require('telescope.builtin').grep_string{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Find all occurrences (project)"},
     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
     h = { "<cmd>lua require('nm.telescope').find_files()<cr>", "Find File" }, -- create a binding with label
     g = { "<cmd>Telescope git_files<cr>", "Git Files" }, -- create a binding with label
@@ -130,11 +128,12 @@ local mappings = {
     },
     l = { "<cmd>Trouble loclist<cr>", "Loc List" },
     m = { "<cmd>Trouble quickfix<cr>", "Quick Fix List" },
+    o = { "<cmd>lua require('trouble').refresh({ open_folds = true })<cr>", "Trouble open all folds" },
     q = { "<cmd>Telescope lsp_code_actions<cr>", "Code Actions" },
     r = { "<cmd>Trouble lsp_references<cr>", "Trouble References" },
     t = { "<cmd>Trouble<cr>", "Trouble Plugin" },
     w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
-
+    z = { "<cmd>lua require('trouble').refresh({ close_folds = true })<cr>", "Trouble close all folds" },
   },
 
   n = {
@@ -150,7 +149,14 @@ local mappings = {
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
 
+  -- TODO: update these grep calls to use custom nm module to pass in the window settings I want for these results
   s = {
+    name = "Search",
+    p = { "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Grep project"},
+    a = { "<cmd>lua require('telescope.builtin').grep_string{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Find all occurrences (project)"},
+  },
+
+  S = {
     name = "Surround",
     -- TODO: put this in its own 'surround' key. Add the other surround bindings. Use :Telescope keymaps, type s to see more
     a = { "<cmd>set operatorfunc=SurroundAddOperatorMode<cr> g@", "Add" }, -- create a binding with label

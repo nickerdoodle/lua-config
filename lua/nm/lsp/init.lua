@@ -111,23 +111,34 @@ local on_attach = function(client, bufnr)
       --TODO: add preselect
 
       ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+      -- TODO: add something so that tabbing through a snippet does not use lsp suggestions
       -- handle tab mapping
       ['<Tab>'] = function(fallback)
-        if vim.fn['vsnip#available']() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
         -- if autocomplete menu is visible
-        elseif cmp.visible() then
-          -- with the conditional this mapping doesn't work for tab... not sure why
-          -- cmp.mapping.confirm({
-          --     behavior = cmp.ConfirmBehavior.Insert,
-          --     select = true,
-          -- })
-          -- Workaround. Use behavior of enter key which currently will autocomplete the word
+        if cmp.visible() then
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'i')
+        elseif vim.fn['vsnip#available']() == 1 then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
         else
           fallback()
         end
       end,
+      -- ['<Tab>'] = function(fallback)
+      --   if vim.fn['vsnip#available']() == 1 then
+      --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
+      --   -- if autocomplete menu is visible
+      --   elseif cmp.visible() then
+      --     -- with the conditional this mapping doesn't work for tab... not sure why
+      --     -- cmp.mapping.confirm({
+      --     --     behavior = cmp.ConfirmBehavior.Insert,
+      --     --     select = true,
+      --     -- })
+      --     -- Workaround. Use behavior of enter key which currently will autocomplete the word
+      --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'i')
+      --   else
+      --     fallback()
+      --   end
+      -- end,
       ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
