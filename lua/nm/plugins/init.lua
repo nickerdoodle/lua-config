@@ -248,6 +248,11 @@ return require "packer".startup(
 
     use {"glepnir/lspsaga.nvim"}
 
+    -- provides floating window for function signatures
+    use {
+      "ray-x/lsp_signature.nvim",
+    }
+
 
     -- telescope advanced search
     use {"nvim-lua/popup.nvim"}
@@ -347,6 +352,34 @@ return require "packer".startup(
 
     -- terminal
     use {"akinsho/toggleterm.nvim"}
+
+    -- project management
+    -- Lua
+    use {
+      "ahmedkhalf/project.nvim",
+      config = function()
+        require("project_nvim").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+
+    require('telescope').load_extension('projects')
+
+    use { 'kaputi/e-kaput.nvim' }
+
+  --   require('e-kaput').setup({
+  --  -- defaults
+  --   enabled = true, -- true | false,  Enable EKaput.
+  --   transparency = 25, -- 0 - 100 , transparecy percentage.
+  --   borders = true, -- true | false, Borders.
+  --   error_sign = '', -- Error sign.
+  --   warning_sign = '', -- Warning sign.
+  --   information_sign = '', -- Information sign.
+  --   hint_sign = '' -- Hint sign.
+  -- })
 
 
   end)

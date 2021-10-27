@@ -22,7 +22,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 --TODO: figure out if I want the virtual text or not for diagnostics.
 --Either way, also figure out how to disable lspsaga or the built in diagnostics
 --because they are both showing up and overlapping.
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = true})
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- decided to turn this to false, it's too crowded with warnings/errors
+    virtual_text = false,
+    underline = true
+  })
 
 local function completionItemResolveCB(err, _, result)
   if err or not result then
@@ -80,13 +84,19 @@ local default_node_modules = get_node_modules(vim.fn.getcwd())
 
 local on_attach = function(client, bufnr)
   print("LSP started.");
-  -- need to install these first probably
-	-- require'diagnostic'.on_attach(client)
---
--- cmp stuff
 
+  client.resolved_capabilities.document_formatting = true
+
+  -- set up signature help
+  require "lsp_signature".on_attach({
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+      border = "single"
+    }
+  }, bufnr)
+
+-- cmp stuff
   local cmp = require('cmp')
-  local lspkind = require('lspkind')
 
   local check_back_space = function()
     local col = vim.fn.col('.') - 1
@@ -269,173 +279,7 @@ vim.cmd('nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>') ]]
   -- completion.on_attach(client)
 end
 
--- local servers = {"pyls", "bashls"}
-local servers = {"bashls"}
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
-end
-
---[[ lspconfig.pyls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
-
-lspconfig.bashls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-} ]]
-
-local ngls_cmd = {
-  "ngserver",
-  "--stdio",
-  "--tsProbeLocations",
-  default_node_modules,
-  "--ngProbeLocations",
-  default_node_modules,
-  "--experimental-ivy"
-}
-
-lspconfig.angularls.setup {
-  cmd = ngls_cmd,
-  on_attach = on_attach,
-  -- trying this. Need something to override tsserver
-  -- filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
-  -- root_dir = root_pattern("angular.json", ".git"),
-  capabilities = capabilities,
-  on_new_config = function(new_config)
-    new_config.cmd = ngls_cmd
-  end
-}
-
-if not lspconfig.emmet_ls then
-  configs.emmet_ls = {
-    default_config = {
-      cmd = {'emmet-ls', '--stdio'};
-      filetypes = {'html', 'css'};
-      root_dir = function(fname)
-        return vim.loop.cwd()
-      end;
-      settings = {};
-    };
-  }
-end
-
-lspconfig.emmet_ls.setup{ capabilities = capabilities; }
-
-lspconfig.tsserver.setup {
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-    "vue"
-  },
-  on_attach = on_attach,
-  capabilities = capabilities,
-  commands = {
-    OrganizeImports = {
-      organize_imports,
-      description = "Organize Imports"
-    }
-  }
-}
-
--- TODO: set up emmet
-
-local vs_code_extracted = {
-  html = "html-languageserver",
-  cssls = "css-languageserver",
-  jsonls = "vscode-json-languageserver",
-  vimls = "vim-language-server"
-}
-
-for ls, cmd in pairs(vs_code_extracted) do
-  lspconfig[ls].setup {
-    cmd = {cmd, "--stdio"},
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
-end
-
-USER = vim.fn.expand('$USER')
-
-local sumneko_root_path = ""
-local sumneko_binary = ""
-
-if vim.fn.has("mac") == 1 then
-    sumneko_root_path = "/Users/" .. USER ..
-                            "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server"
-    sumneko_binary = "/Users/" .. USER ..
-                         "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/macOS/lua-language-server"
-elseif vim.fn.has("unix") == 1 then
-    sumneko_root_path = "/home/" .. USER ..
-      -- TODO: adjust this path for linux after now using lspinstaller plugin instead of manually installing
-                            -- "/.config/nvim/ls/lua-language-server"
-                            "/.config/nvim/lua-language-server"
-    sumneko_binary = "/home/" .. USER ..
-                         -- "/.config/nvim/ls/lua-language-server/bin/Linux/lua-language-server"
-                         "/.config/nvim/lua-language-server/bin/Linux/lua-language-server"
-else
-    print("Unsupported system for sumneko")
-end
-
-lspconfig.sumneko_lua.setup {
-    filetypes = {"lua"},
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    capabilities = capabilities,
-    on_attach = on_attach,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = vim.split(package.path, ';')
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'}
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-                }
-            }
-        }
-    }
-}
-
 -- TODO: run :LspInstallInfo and set up the other language servers
-local pid = vim.fn.getpid()
--- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
--- Needs to be full path
--- check installation docs for a command to be run for mac
--- installed with lspinstaller plugin
-local omnisharp_bin = "/Users/nicholasmahe/.local/share/nvim/lsp_servers/omnisharp/omnisharp/run"
--- on Windows
--- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
--- require'lspconfig'.omnisharp.setup{
---     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
---     capabilities = capabilities,
---     on_attach = on_attach,
---     -- defaults
---     --[[ filetypes = { "cs", "vb" };
---     init_options = {};
---     on_new_config = function(new_config, new_root_dir)
---           if new_root_dir then
---             table.insert(new_config.cmd, '-s')
---             table.insert(new_config.cmd, new_root_dir)
---           end
---         end,
---     root_dir = root_pattern(".sln") or root_pattern(".csproj") ]]
--- }
 
 local lsp_installer = require "nvim-lsp-installer"
 
@@ -445,6 +289,8 @@ local lsp_installer = require "nvim-lsp-installer"
 lsp_installer.on_server_ready(function (server)
     local opts = {
         on_attach = on_attach,
+        format = { enable = true }, -- this will enable formatting
+        capabilities = capabilities
     }
 
     if server.name == "eslint" then
@@ -464,25 +310,13 @@ lsp_installer.on_server_ready(function (server)
         opts.on_attach = function (client, bufnr)
             -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
             -- the resolved capabilities of the eslint server ourselves!
+            -- we want to use eslint instead of tsserver for formatting
             client.resolved_capabilities.document_formatting = false
             on_attach(client, bufnr)
-            -- common_on_attach(client, bufnr)
         end
+
         opts.settings = {
             format = { enable = false }, -- this will enable formatting
-        }
-    end
-
-    if server.name == "omnisharp" then
-        opts.on_attach = function (client, bufnr)
-            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-            -- the resolved capabilities of the eslint server ourselves!
-            client.resolved_capabilities.document_formatting = true
-            on_attach(client, bufnr)
-            -- common_on_attach(client, bufnr)
-        end
-        opts.settings = {
-            format = { enable = true }, -- this will enable formatting
         }
     end
 

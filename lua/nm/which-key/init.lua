@@ -63,6 +63,18 @@ local mappings = {
 
   c = { "<cmd>Telescope colors<cr>", "Colorschemes" },
 
+  d = {
+    name = "Diagnostics",
+    j = {
+      "<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = 'single'}})<cr>",
+      "Next Diagnostic",
+    },
+    k = {
+      "<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = 'single'}})<cr>",
+      "Prev Diagnostic",
+    },
+  },
+
   f = {
     name = "Files", -- optional group name
     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
@@ -112,10 +124,29 @@ local mappings = {
 
   l = {
     name = "Lsp",
+-- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+--   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+--   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+--   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+--   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+--   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+--   buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+--   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+--   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+--   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+--   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+--   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+--   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+--   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+--   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+--   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+--   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     a = { "<cmd>lua vim.lsp.codelens.refresh()<cr>", "Refresh Codelens"},
     c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "Run Codelens"},
     d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Document Diagnostics" },
+    D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Declaration" },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+    h = { "<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>", "Hover Type" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
     j = {
@@ -131,6 +162,7 @@ local mappings = {
     o = { "<cmd>lua require('trouble').refresh({ open_folds = true })<cr>", "Trouble open all folds" },
     q = { "<cmd>Telescope lsp_code_actions<cr>", "Code Actions" },
     r = { "<cmd>Trouble lsp_references<cr>", "Trouble References" },
+    s = { "<cmd>lua vim.lsp.signature_help()<cr>", "Signature Help" },
     t = { "<cmd>Trouble<cr>", "Trouble Plugin" },
     w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
     z = { "<cmd>lua require('trouble').refresh({ close_folds = true })<cr>", "Trouble close all folds" },
@@ -171,6 +203,12 @@ local mappings = {
     h = { "<cmd>ToggleTerm direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm direction=vertical<cr>", "Vertical" },
 
+  },
+
+  T = {
+    name = "Telescope",
+    -- todo: in the plugins file, put the projects extension command into its own projects/init.lua file
+    p = { "<cmd>Telescope projects<cr>", "Projects" }
   }
 
 }
