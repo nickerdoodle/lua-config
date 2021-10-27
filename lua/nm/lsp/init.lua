@@ -15,6 +15,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+
 local M = {}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
@@ -420,19 +421,73 @@ local pid = vim.fn.getpid()
 local omnisharp_bin = "/Users/nicholasmahe/.local/share/nvim/lsp_servers/omnisharp/omnisharp/run"
 -- on Windows
 -- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
-require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
-    capabilities = capabilities,
-    on_attach = on_attach,
-    -- defaults
-    --[[ filetypes = { "cs", "vb" };
-    init_options = {};
-    on_new_config = function(new_config, new_root_dir)
-          if new_root_dir then
-            table.insert(new_config.cmd, '-s')
-            table.insert(new_config.cmd, new_root_dir)
-          end
-        end,
-    root_dir = root_pattern(".sln") or root_pattern(".csproj") ]]
-}
+-- require'lspconfig'.omnisharp.setup{
+--     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     -- defaults
+--     --[[ filetypes = { "cs", "vb" };
+--     init_options = {};
+--     on_new_config = function(new_config, new_root_dir)
+--           if new_root_dir then
+--             table.insert(new_config.cmd, '-s')
+--             table.insert(new_config.cmd, new_root_dir)
+--           end
+--         end,
+--     root_dir = root_pattern(".sln") or root_pattern(".csproj") ]]
+-- }
+
+local lsp_installer = require "nvim-lsp-installer"
+
+-- code to allow eslint to format document
+-- TODO: in js files, have eslint format by default. server is asking between eslint and tsserver
+
+lsp_installer.on_server_ready(function (server)
+    local opts = {
+        on_attach = on_attach,
+    }
+
+    if server.name == "eslint" then
+        opts.on_attach = function (client, bufnr)
+            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+            -- the resolved capabilities of the eslint server ourselves!
+            client.resolved_capabilities.document_formatting = true
+            on_attach(client, bufnr)
+            -- common_on_attach(client, bufnr)
+        end
+        opts.settings = {
+            format = { enable = true }, -- this will enable formatting
+        }
+    end
+
+    if server.name == "tsserver" then
+        opts.on_attach = function (client, bufnr)
+            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+            -- the resolved capabilities of the eslint server ourselves!
+            client.resolved_capabilities.document_formatting = false
+            on_attach(client, bufnr)
+            -- common_on_attach(client, bufnr)
+        end
+        opts.settings = {
+            format = { enable = false }, -- this will enable formatting
+        }
+    end
+
+    if server.name == "omnisharp" then
+        opts.on_attach = function (client, bufnr)
+            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+            -- the resolved capabilities of the eslint server ourselves!
+            client.resolved_capabilities.document_formatting = true
+            on_attach(client, bufnr)
+            -- common_on_attach(client, bufnr)
+        end
+        opts.settings = {
+            format = { enable = true }, -- this will enable formatting
+        }
+    end
+
+    server:setup(opts)
+end)
+--
+
 return M
