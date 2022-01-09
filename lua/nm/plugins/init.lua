@@ -38,6 +38,7 @@ return require "packer".startup(
       "blackCauldron7/surround.nvim",
       config = function()
         -- require "surround".setup {}
+        require"surround".setup {mappings_style = "surround"}
       end
     }
     -- comment plugin. Probably don't need
@@ -58,7 +59,7 @@ return require "packer".startup(
     -- use {"sjl/vitality.vim"}
 
 
-    use {"kyazdani42/nvim-tree.lua"}
+    use {"kyazdani42/nvim-tree.lua" }
 
     -- Comments
     use {'b3nj5m1n/kommentary'}
@@ -89,6 +90,9 @@ return require "packer".startup(
     use {"bluz71/vim-nightfly-guicolors"} ]]
 
     use 'folke/tokyonight.nvim'
+
+    -- vscode colors
+    use 'Mofiqul/vscode.nvim'
 
 
     -- Editor Config
@@ -246,6 +250,9 @@ return require "packer".startup(
       'williamboman/nvim-lsp-installer',
     }
 
+    -- Uses the builtin lsp support to provide formatting, linting, and other features
+    use {'jose-elias-alvarez/null-ls.nvim'}
+
     use {"glepnir/lspsaga.nvim"}
 
     -- provides floating window for function signatures
@@ -380,6 +387,11 @@ return require "packer".startup(
   --   information_sign = '', -- Information sign.
   --   hint_sign = '' -- Hint sign.
   -- })
+
+  -- Debugging
+    use { 'mfussenegger/nvim-dap' }
+    use { "Pocco81/DAPInstall.nvim" }
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
 
   end)

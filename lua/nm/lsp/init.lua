@@ -82,10 +82,22 @@ end
 
 local default_node_modules = get_node_modules(vim.fn.getcwd())
 
+-- ignore these formatters so we can use null-ls config instead
+-- continue to add to this list if you are given choices between null-ls and another language server when trying to run the builtin format command
+local ignore_formatters = {"tsserver", "angularls", "eslint", "sumneko_lua", "stylelint_lsp", "jsonls"}
+
 local on_attach = function(client, bufnr)
   print("LSP started.");
 
-  client.resolved_capabilities.document_formatting = true
+  for i,v in ipairs(ignore_formatters)
+    do
+      if client.name == v then
+        client.resolved_capabilities.document_formatting = false
+      end
+    end
+
+
+  -- client.resolved_capabilities.document_formatting = true
 
   -- set up signature help
   require "lsp_signature".on_attach({
@@ -112,8 +124,8 @@ local on_attach = function(client, bufnr)
     },
     -- You can set mappings if you want
     mapping = {
-      ['<C-p>'] = cmp.mapping.select_prev_item(),
-      ['<C-n>'] = cmp.mapping.select_next_item(),
+      ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
@@ -224,36 +236,22 @@ vim.g.completion_enable_auto_paren = 1
 --   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 --   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 -- TODO: some of these commands don't work with mapBuf. needed to use vim.cmd instead. Find out why and try to get them to use the map if possible
+--
   mapBuf(bufnr, "n", "<silent> gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
-  -- mapBuf(bufnr, "n", "<Leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
   mapBuf(bufnr, "n", "<silent> gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
 
   --Hover
-  -- mapBuf(bufnr, "n", "<Leader>gh", "<Cmd>lua vim.lsp.buf.hovnr()<CR>")
   mapBuf(bufnr, "n", "<Leader>gh", "<CMD>lua require('lspsaga.hover').render_hover_doc()<cr>")
-  -- vim.cmd('nnoremap <Leader>gh :Lspsaga hover_doc<CR>')
-  --[[ mapBuf(bufnr, "n", "<silent> <C-[>", "<cmd>lua require('lspsaga.diagnostic_jump_prev()<CR>")
-  mapBuf(bufnr, "n", "<silent> <C-n>", "<cmd>lua require('lspsaga.diagnostic_jump_next()<CR>") ]]
-  --[[ vim.cmd('nnoremap <silent> <C-[> :Lspsaga diagnostic_jump_prev<CR>')
-vim.cmd('nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>') ]]
-  -- mapBuf(bufnr, "n", "<Leader>gh", "<CMD>lua require('lspsaga.hover').render_hover_doc()<cr>")
-  -- mapBuf(bufnr, "n", "<Leader>gah", "<CMD>lua require('lspsaga.provider').lsp_finder()<cr>")
-
   mapBuf(bufnr, "n", "<silent> gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
   mapBuf(bufnr, "n", "<silent> gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
   mapBuf(bufnr, "n", "<silent> gtd", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
 
   -- rename
-  -- mapBuf(bufnr, "n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
   mapBuf(bufnr, "n", "<Leader>r", "<cmd>lua require('lspsaga.rename').rename()<cr>")
 
-  -- mapBuf(bufnr, "n", "<Leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   mapBuf(bufnr, "n", "<silent>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   vim.cmd('nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>')
 
-  -- mapBuf(bufnr, "n", "<C-.>", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  -- mapBuf(bufnr, "n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  -- mapBuf(bufnr, "v", "<Leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>")
   mapBuf(bufnr, "n", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>")
   mapBuf(bufnr, "v", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>")
 
@@ -290,36 +288,41 @@ lsp_installer.on_server_ready(function (server)
     local opts = {
         on_attach = on_attach,
         format = { enable = true }, -- this will enable formatting
+        -- TODO: check if what property 'format' is defined in so we can remove one of these
+        settings = {
+          enable = true
+        },
         capabilities = capabilities
     }
 
-    if server.name == "eslint" then
-        opts.on_attach = function (client, bufnr)
-            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-            -- the resolved capabilities of the eslint server ourselves!
-            client.resolved_capabilities.document_formatting = true
-            on_attach(client, bufnr)
-            -- common_on_attach(client, bufnr)
-        end
-        opts.settings = {
-            format = { enable = true }, -- this will enable formatting
-        }
-    end
+    -- if server.name == "eslint" then
+    --     opts.on_attach = function (client, bufnr)
+    --         -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+    --         -- the resolved capabilities of the eslint server ourselves!
+    --         client.resolved_capabilities.document_formatting = true
+    --         on_attach(client, bufnr)
+    --         -- common_on_attach(client, bufnr)
+    --     end
+    --     opts.settings = {
+    --         format = { enable = true }, -- this will enable formatting
+    --     }
+    -- end
 
-    if server.name == "tsserver" then
-        opts.on_attach = function (client, bufnr)
-            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-            -- the resolved capabilities of the eslint server ourselves!
-            -- we want to use eslint instead of tsserver for formatting
-            client.resolved_capabilities.document_formatting = false
-            on_attach(client, bufnr)
-        end
+    -- if server.name == "tsserver" then
+    --     opts.on_attach = function (client, bufnr)
+    --         -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+    --         -- the resolved capabilities of the eslint server ourselves!
+    --         -- we want to use eslint instead of tsserver for formatting
+    --         client.resolved_capabilities.document_formatting = false
+    --         on_attach(client, bufnr)
+    --     end
 
-        opts.settings = {
-            format = { enable = false }, -- this will enable formatting
-        }
-    end
+    --     opts.settings = {
+    --         format = { enable = false }, -- this will enable formatting
+    --     }
+    -- end
 
+-- TODO: this is causing the get_count deprecated warning. Watch for updates to fix this
     server:setup(opts)
 end)
 --

@@ -26,6 +26,8 @@ M.autocmd("TermOpen",     "*",   "setl nonumber")
 
 M.autocmd("WinLeave",     "*",   "if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif")
 
+-- M.autocmd("DiagnosticChanged",     "*",   "lua require('nvim-tree.diagnostics').update()")
+
 
 -- vim.api.nvim_command('autocmd WinEnter * v:lua.mh.autocmds.Preview_func()')
 

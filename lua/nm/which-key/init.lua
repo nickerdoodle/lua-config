@@ -75,6 +75,14 @@ local mappings = {
     },
   },
 
+  D = {
+    name = "Debug",
+    b = {
+      "<cmd>lua require('dap').toggle_breakpoint() <cr>",
+      "Toggle Breakpoint",
+    }
+  },
+
   f = {
     name = "Files", -- optional group name
     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
@@ -145,7 +153,7 @@ local mappings = {
     c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "Run Codelens"},
     d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Document Diagnostics" },
     D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Declaration" },
-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+    f = { "<cmd>lua vim.lsp.buf.formatting_sync()<cr>", "Format" },
     h = { "<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>", "Hover Type" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
@@ -186,6 +194,9 @@ local mappings = {
     name = "Search",
     p = { "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Grep project"},
     a = { "<cmd>lua require('telescope.builtin').grep_string{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Find all occurrences (project)"},
+    -- e = { "<cmd>lua require('nm.telescope').live_grep_project{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Grep project"},
+    e = { "<cmd>lua require('nm.telescope').live_grep_exact_match{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>", "Grep project Exact Match"},
+    -- e = { "<cmd>lua require('nm.telescope').live_grep_exact_match()<cr>", "Grep Exact Match, Use '\b word \b'" }, -- \b is a word boundary
   },
 
   S = {

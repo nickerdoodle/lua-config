@@ -118,10 +118,31 @@ end
 
 function M.live_grep_project()
   local opts = {
-    prompt_title = "Live Grep Project"
+    prompt_title = "Live Grep Project",
   }
   local cmn_opts = generateOpts(opts)
-  builtIn.git.files.live_grep(opts)
+  builtIn.live_grep(cmn_opts)
+end
+
+function M.live_grep_exact_match()
+  local opts = {
+    prompt_title = "Live Grep Project Exact Match (surround word with escape char b)",
+    vimgrep_arguments = {
+      "rg",
+      -- "--fixed-strings", -- does not use regex
+      -- "--follow",
+      -- "--color=never",
+      "--no-heading", -- required for cmd to work
+      "--with-filename", -- required for cmd to work
+      "--line-number", -- required for cmd to work
+      "--column", -- required for cmd to work
+      "--smart-case"
+    },
+    cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+  }
+
+  local cmn_opts = generateOpts(opts)
+  builtIn.live_grep(cmn_opts)
 end
 
 function M.help_tags()
