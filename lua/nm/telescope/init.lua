@@ -34,6 +34,8 @@ telescope.setup({
 				["<CR>"] = actions.select_default + actions.center,
 				["<Tab>"] = actions.toggle_selection,
         ["<c-u>"] = actions.delete_buffer,
+        ["<c-j>"] = actions.preview_scrolling_down,
+        ["<c-k>"] = actions.preview_scrolling_up,
 			},
 		},
 		file_sorter = require("telescope.sorters").get_fuzzy_file,

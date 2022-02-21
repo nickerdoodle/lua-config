@@ -119,13 +119,24 @@ local on_attach = function(client, bufnr)
 		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 	end
 
+  local luasnip = require("luasnip")
 	cmp.setup({
 		-- set snippet engine (vsnip)
+		-- snippet = {
+		-- 	expand = function(args)
+		-- 		vim.fn["vsnip#anonymous"](args.body)
+		-- 	end,
+		-- },
+
 		snippet = {
 			expand = function(args)
-				vim.fn["vsnip#anonymous"](args.body)
+				if not luasnip then
+					return
+				end
+				luasnip.lsp_expand(args.body)
 			end,
 		},
+
 		-- You can set mappings if you want
 		mapping = {
 			["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
@@ -137,38 +148,43 @@ local on_attach = function(client, bufnr)
 			["<Esc>"] = cmp.mapping.abort(),
 			--TODO: add preselect
 
-			["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
-			-- TODO: add something so that tabbing through a snippet does not use lsp suggestions
-			-- handle tab mapping
-			["<Tab>"] = function(fallback)
-				-- if autocomplete menu is visible
+			-- ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+			-- -- TODO: add something so that tabbing through a snippet does not use lsp suggestions
+			-- -- handle tab mapping
+			-- ["<Tab>"] = function(fallback)
+			-- 	-- if autocomplete menu is visible
+			-- 	if cmp.visible() then
+			-- 		vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "i")
+			-- 	elseif vim.fn["vsnip#available"]() == 1 then
+			-- 		vim.fn.feedkeys(
+			-- 			vim.api.nvim_replace_termcodes("<Plug>(vsnip-expand-or-jump)", true, true, true),
+			-- 			""
+			-- 		)
+			-- 	else
+			-- 		fallback()
+			-- 	end
+			-- end,
+			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
-					vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "i")
-				elseif vim.fn["vsnip#available"]() == 1 then
-					vim.fn.feedkeys(
-						vim.api.nvim_replace_termcodes("<Plug>(vsnip-expand-or-jump)", true, true, true),
-						""
-					)
+					cmp.select_next_item()
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
+				elseif has_words_before() then
+					cmp.complete()
 				else
 					fallback()
 				end
-			end,
-			-- ['<Tab>'] = function(fallback)
-			--   if vim.fn['vsnip#available']() == 1 then
-			--     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
-			--   -- if autocomplete menu is visible
-			--   elseif cmp.visible() then
-			--     -- with the conditional this mapping doesn't work for tab... not sure why
-			--     -- cmp.mapping.confirm({
-			--     --     behavior = cmp.ConfirmBehavior.Insert,
-			--     --     select = true,
-			--     -- })
-			--     -- Workaround. Use behavior of enter key which currently will autocomplete the word
-			--     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'i')
-			--   else
-			--     fallback()
-			--   end
-			-- end,
+			end, { "i", "s" }),
+
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				elseif luasnip.jumpable(-1) then
+					luasnip.jump(-1)
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
 			["<CR>"] = cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = true,
@@ -181,10 +197,10 @@ local on_attach = function(client, bufnr)
 				vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
 				-- set a name for each source
 				vim_item.menu = ({
-					nvim_lsp = "[LSP]",
-					vsnip = "[Vsnip]",
-					buffer = "[Buffer]",
 					luasnip = "[LuaSnip]",
+					nvim_lsp = "[LSP]",
+					-- vsnip = "[Vsnip]",
+					buffer = "[Buffer]",
 					nvim_lua = "[Lua]",
 					latex_symbols = "[Latex]",
 				})[entry.source.name]
@@ -203,8 +219,9 @@ local on_attach = function(client, bufnr)
 		-- You should specify your *installed* sources.
 		-- The order of the sources will determine the order they display on the popup menu
 		sources = {
+			{ name = "luasnip" },
 			{ name = "nvim_lsp" },
-			{ name = "vsnip" },
+			-- { name = "vsnip" },
 			{ name = "snippets_nvim" },
 			{ name = "nvim_lua" },
 			{ name = "path" },
@@ -215,6 +232,21 @@ local on_attach = function(client, bufnr)
 			{ name = "tags" },
 		},
 	})
+
+  -- cmp cmdline
+cmp.setup.cmdline(":", {
+    sources = {
+      { name = "cmdline" },
+    },
+})
+-- cmp lsp_document_symbols
+cmp.setup.cmdline('/', {
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp_document_symbol' }
+    }, {
+      { name = 'buffer' }
+    })
+})
 	-- end cmp
 	--compe stuff
 	vim.g.completion_enable_auto_paren = 1

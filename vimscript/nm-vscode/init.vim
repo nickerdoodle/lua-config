@@ -111,7 +111,7 @@ nnoremap <leader>e :call VSCodeNotify('workbench.action.quickOpenPreviousRecentl
 "go to definition
 nnoremap gd :call VSCodeNotify('editor.action.revealDefinition')<CR>
 nnoremap gr :call VSCodeNotify('references-view.findReferences')<CR>
-nnoremap <leader>k :call VSCodeNotify('editor.action.showHover')<CR>
+nnoremap gh :call VSCodeNotify('editor.action.showHover')<CR>
 nnoremap <leader>K :call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>
 nnoremap <leader>ca :call VSCodeNotify('editor.action.quickFix')<CR>
 "new terminal

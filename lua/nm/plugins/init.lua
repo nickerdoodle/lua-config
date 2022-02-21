@@ -57,7 +57,12 @@ return require("packer").startup(function(use)
 	use({ "kyazdani42/nvim-tree.lua" })
 
 	-- Comments
-	use({ "b3nj5m1n/kommentary" })
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
 
 	-- nerdtree. pending to ditch
 	-- use {"preservim/nerdtree"}
@@ -95,55 +100,67 @@ return require("packer").startup(function(use)
 	-- use {"tpope/vim-fugitive"}
 	-- use {"tpope/vim-rhubarb"}
 	-- use {"sgeb/vim-diff-fold"}
-	use({
-		"lewis6991/gitsigns.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("gitsigns").setup({
-				--[[ signs = {
-            add = {hl = "GitGutterAdd", text = "│"},
-            change = {hl = "GitGutterChange", text = "│"},
-            delete = {hl = "GitGutterDelete", text = "_"},
-            topdelete = {hl = "GitGutterDelete", text = "‾"},
-            changedelete = {hl = "GitGutterChangeDelete", text = "~"}
-          } ]]
-				signs = {
-					--[[ add          = {hl = '#140', text = '│', numhl='#140'   , linehl='#140'},
-            change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'}, ]]
-					-- add          = {hl = 'GitSignsAdd', text = '│', numhl='#140'   , linehl='#140'},
-					add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-					change = {
-						hl = "GitSignsChange",
-						text = "│",
-						numhl = "GitSignsChangeNr",
-						linehl = "GitSignsChangeLn",
-					},
-					-- change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'},
-					delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-					topdelete = {
-						hl = "GitSignsDelete",
-						text = "‾",
-						numhl = "GitSignsDeleteNr",
-						linehl = "GitSignsDeleteLn",
-					},
-					changedelete = {
-						hl = "GitSignsChange",
-						text = "~",
-						numhl = "GitSignsChangeNr",
-						linehl = "GitSignsChangeLn",
-					},
-				},
-			})
-		end,
-	})
+	-- use({
+	-- 	"lewis6991/gitsigns.nvim",
+	-- 	requires = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		require("gitsigns").setup({
+	-- 			--[[ signs = {
+	--            add = {hl = "GitGutterAdd", text = "│"},
+	--            change = {hl = "GitGutterChange", text = "│"},
+	--            delete = {hl = "GitGutterDelete", text = "_"},
+	--            topdelete = {hl = "GitGutterDelete", text = "‾"},
+	--            changedelete = {hl = "GitGutterChangeDelete", text = "~"}
+	--          } ]]
+	-- 			signs = {
+	-- 				--[[ add          = {hl = '#140', text = '│', numhl='#140'   , linehl='#140'},
+	--            change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'}, ]]
+	-- 				-- add          = {hl = 'GitSignsAdd', text = '│', numhl='#140'   , linehl='#140'},
+	-- 				add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+	-- 				change = {
+	-- 					hl = "GitSignsChange",
+	-- 					text = "│",
+	-- 					numhl = "GitSignsChangeNr",
+	-- 					linehl = "GitSignsChangeLn",
+	-- 				},
+	-- 				-- change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'},
+	-- 				delete = {
+	-- 					hl = "GitSignsDelete",
+	-- 					text = "_",
+	-- 					numhl = "GitSignsDeleteNr",
+	-- 					linehl = "GitSignsDeleteLn",
+	-- 				},
+	-- 				topdelete = {
+	-- 					hl = "GitSignsDelete",
+	-- 					text = "‾",
+	-- 					numhl = "GitSignsDeleteNr",
+	-- 					linehl = "GitSignsDeleteLn",
+	-- 				},
+	-- 				changedelete = {
+	-- 					hl = "GitSignsChange",
+	-- 					text = "~",
+	-- 					numhl = "GitSignsChangeNr",
+	-- 					linehl = "GitSignsChangeLn",
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
 	use("sindrets/diffview.nvim")
 	use({
 		"TimUntersberger/neogit",
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
+		},
+	})
+
+	use({
+		"tanvirtin/vgit.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
 		},
 	})
 
@@ -240,6 +257,13 @@ return require("packer").startup(function(use)
 	-- Install nvim-cmp, and buffer source as a dependency
 	use({ "hrsh7th/cmp-vsnip" })
 	use({
+		"L3MON4D3/LuaSnip",
+		-- after = "nvim-cmp",
+		-- config = function()
+		-- 	require("nm.luasnip")
+		-- end,
+	})
+	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
 			"hrsh7th/cmp-buffer",
@@ -248,8 +272,29 @@ return require("packer").startup(function(use)
 			-- "hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
 			"hrsh7th/vim-vsnip-integ",
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-nvim-lsp-document-symbol",
 		},
 	})
+	--   use {
+	--   'hrsh7th/nvim-cmp',
+	--   config = function ()
+	--     require'cmp'.setup {
+	--     snippet = {
+	--       expand = function(args)
+	--         require'luasnip'.lsp_expand(args.body)
+	--       end
+	--     },
+
+	--     sources = {
+	--       { name = 'luasnip' },
+	--       -- more sources
+	--     },
+	--   }
+	--   end
+	-- }
+	-- use { 'saadparwaiz1/cmp_luasnip' }
 	use({ "onsails/lspkind-nvim" })
 
 	-- provides commands to easily install different language servers
@@ -286,8 +331,8 @@ return require("packer").startup(function(use)
 	-- packer is causing the PackerUpdate issues
 	use({ "nvim-telescope/telescope-packer.nvim" })
 	use({ "nvim-telescope/telescope-node-modules.nvim" })
-  -- turned off because not liking it
-  -- smart suggestions for files when searching
+	-- turned off because not liking it
+	-- smart suggestions for files when searching
 	-- use({
 	-- 	"nvim-telescope/telescope-frecency.nvim",
 	-- 	config = function()
@@ -361,9 +406,9 @@ return require("packer").startup(function(use)
 	})
 
 	use({
-    -- TODO: using a patch branch for breaking change. Check if it's fixed periodically
-    -- 'zeertzjq/which-key.nvim',
-    -- branch='patch-1',
+		-- TODO: using a patch branch for breaking change. Check if it's fixed periodically
+		-- 'zeertzjq/which-key.nvim',
+		-- branch='patch-1',
 		"folke/which-key.nvim",
 		-- config = function()
 		--   require("which-key").setup {
@@ -409,4 +454,42 @@ return require("packer").startup(function(use)
 	use({ "mfussenegger/nvim-dap" })
 	use({ "Pocco81/DAPInstall.nvim" })
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+
+	use({
+		"David-Kunz/jester",
+	})
+
+	-- similar to turbo console log in vscode. automated logging
+	use({ "gaelph/logsitter.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
+
+	-- for faster startup by caching
+	use("lewis6991/impatient.nvim")
+	-- faster startup by improving assigning the filetype var
+	use("nathom/filetype.nvim")
+
+	-- shows path to highlighted function in statusline
+	use({
+		"SmiteshP/nvim-gps",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+
+	-- remove
+	-- use({"glepnir/indent-guides.nvim"})
+	use("lukas-reineke/indent-blankline.nvim")
+
+	-- to mimic vscode's call hierarchy
+	use({ "ldelossa/litee.nvim" })
+	use({ "ldelossa/litee-filetree.nvim" })
+	use({ "ldelossa/litee-calltree.nvim" })
+	use({ "ldelossa/litee-symboltree.nvim" })
+
+	use({
+		"AckslD/nvim-neoclip.lua",
+		requires = {
+			{ "nvim-telescope/telescope.nvim" },
+		},
+	})
+
+	-- add these
+	-- https://github.com/SmiteshP/nvim-gps
 end)

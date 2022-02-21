@@ -3,7 +3,7 @@ ts.setup {
   context_commentstring = {enable = true},
   ensure_installed = "all",
   -- ensure_installed = "maintained",
-  ignore_install = { "haskell" }, -- ignore installing
+  ignore_install = { "haskell", "phpdoc" }, -- ignore installing
   highlight = {
     -- setting this to true definitely changes highlighting and possibly speed
     enable = true,

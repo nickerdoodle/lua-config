@@ -151,9 +151,4 @@ for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
   end
 
--- TODO: move into separate file
-require('kommentary.config').configure_language("default", {
-    prefer_single_line_comments = true,
-})
-
 return Option
