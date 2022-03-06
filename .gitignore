@@ -5,3 +5,5 @@ work-config-files/*
 plugin/*
 *lua-language-server/
 pack/*
+plugin/
+plugin/packer_compiled.lua
