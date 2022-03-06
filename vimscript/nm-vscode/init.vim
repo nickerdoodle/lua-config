@@ -5,6 +5,9 @@ packadd surround
 " highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
 " highlight QuickScopeSecondary guifg='#eF5F70' gui=underline ctermfg=81 cterm=underline
 " let g:qs_max_chars=150
+"
+set ignorecase
+set smartcase
 
 " TODO there is a more contemporary version of this file
 "VSCode
@@ -83,8 +86,8 @@ nnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 xnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 
 " Bind C-/ to vscode commentary since calling from vscode produces double comments due to multiple cursors
-xnoremap <silent> <C-/> :call Comment()<CR>
-nnoremap <silent> <C-/> :call Comment()<CR>
+" xnoremap <silent> <C-/> :call Comment()<CR>
+" nnoremap <silent> <C-/> :call Comment()<CR>
 
 nnoremap <silent> <C-w>_ :<C-u>call VSCodeNotify('workbench.action.toggleEditorWidths')<CR>
 
@@ -125,6 +128,23 @@ xmap <C-/>  <Plug>VSCodeCommentary
 nmap <C-/> <Plug>VSCodeCommentary
 omap <C-/> <Plug>VSCodeCommentary
 nmap <C-/> <Plug>VSCodeCommentaryLine
+xmap gc  <Plug>VSCodeCommentary
+nmap gc <Plug>VSCodeCommentary
+omap gc <Plug>VSCodeCommentary
+nmap gcc <Plug>VSCodeCommentaryLine
+
+" turbo console log
+nnoremap <leader>tc viw<cmd>call VSCodeNotifyVisual('turboConsoleLog.displayLogMessage', 1)<CR><ESC>
+xnoremap <leader>tc <cmd>call VSCodeNotifyVisual('turboConsoleLog.displayLogMessage', 1)<CR><ESC>
+" I don't know why :call doesn't work and <cmd>call does work for visual
+" commands in vscode, but that's how it is
+nnoremap ? :call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+nnoremap <leader><leader>f :call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+xnoremap <leader><leader>f <cmd>call VSCodeNotifyVisual('workbench.action.findInFiles', 1)<CR>
+nnoremap <leader><leader>r viw<cmd>call VSCodeNotifyVisual('workbench.action.replaceInFiles', { 'query': expand('<cword>')})<CR>
+xnoremap <leader><leader>r <cmd>call VSCodeNotifyVisual('workbench.action.replaceInFiles', 1)<CR>
+
+xnoremap <leader><leader>c <cmd>call VSCodeNotifyVisual('editor.action.clipboardCopyAction')<CR>
 
 "From my lua files
 nnoremap J 5j

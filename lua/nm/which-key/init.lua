@@ -1,4 +1,5 @@
 local which_key = require("which-key")
+local legendary = require("legendary")
 
 local setup = {
 	plugins = {
@@ -62,7 +63,7 @@ local mappings = {
 	},
 
 	c = {
-    name = "Turbo Console Log",
+		name = "Turbo Console Log",
 		l = { "<cmd>Logsitter<cr>", "Log highlighted var" },
 	},
 	C = { "<cmd>Telescope colors<cr>", "Colorschemes" },
@@ -239,12 +240,41 @@ local mappings = {
 		p = { "<cmd>Telescope projects<cr>", "Projects" },
 	},
 
-  v = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", "Clipboard" },
+	v = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", "Clipboard" },
 
-  ["?"] = { "<cmd>Trouble<cr>", "Trouble Plugin" }
+	["?"] = { "<cmd>Trouble<cr>", "Trouble Plugin" },
+
+	["/"] = { "<cmd>Trouble<cr>", "Trouble Plugin" },
 }
 
 which_key.setup(setup)
+
+-- automatically register which-key.nvim tables with legendary.nvim
+-- when you register them with which-key.nvim.
+-- `setup()` must be called before `require('which-key).register()`
+legendary.setup({
+	-- Include builtins by default, set to false to disable
+	include_builtin = true,
+	-- Customize the prompt that appears on your vim.ui.select() handler
+	select_prompt = "Legendary",
+	-- Initial keymaps to bind
+	-- keymaps = keymaps,
+	-- Initial commands to create
+	-- commands = commands,
+	-- Automatically add which-key tables to legendary
+	-- when you call `require('which-key').register()`
+	-- for this to work, you must call `require('legendary').setup()`
+	-- before any calls to `require('which-key').register()`, and
+	-- which-key.nvim must be loaded when you call `require('legendary').setup()`
+	auto_register_which_key = true,
+})
+-- now this will register them with both which-key.nvim and legendary.nvim
+-- require('which-key').register(your_which_key_tables, your_which_key_opts)
+
+-- alternatively, if you'd prefer to manually register with legendary.nvim
+-- legendary.setup({ auto_register_which_key = false })
+-- require('which-key').register(your_which_key_tables, your_which_key_opts)
+-- legendary.bind_whichkey(your_which_key_tables, your_which_key_opts)
 
 -- TODO: make normal mappings and vmappings/vopts
 which_key.register(mappings, opts)

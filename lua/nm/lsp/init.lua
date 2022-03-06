@@ -119,7 +119,12 @@ local on_attach = function(client, bufnr)
 		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 	end
 
-  local luasnip = require("luasnip")
+	local has_words_before = function()
+		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	end
+
+	local luasnip = require("luasnip")
 	cmp.setup({
 		-- set snippet engine (vsnip)
 		-- snippet = {
@@ -233,20 +238,20 @@ local on_attach = function(client, bufnr)
 		},
 	})
 
-  -- cmp cmdline
-cmp.setup.cmdline(":", {
-    sources = {
-      { name = "cmdline" },
-    },
-})
--- cmp lsp_document_symbols
-cmp.setup.cmdline('/', {
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp_document_symbol' }
-    }, {
-      { name = 'buffer' }
-    })
-})
+	-- cmp cmdline
+	cmp.setup.cmdline(":", {
+		sources = {
+			{ name = "cmdline" },
+		},
+	})
+	-- cmp lsp_document_symbols
+	cmp.setup.cmdline("/", {
+		sources = cmp.config.sources({
+			{ name = "nvim_lsp_document_symbol" },
+		}, {
+			{ name = "buffer" },
+		}),
+	})
 	-- end cmp
 	--compe stuff
 	vim.g.completion_enable_auto_paren = 1
@@ -273,6 +278,7 @@ cmp.setup.cmdline('/', {
 	--   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	-- TODO: some of these commands don't work with mapBuf. needed to use vim.cmd instead. Find out why and try to get them to use the map if possible
 	--
+  --TODO: move these to mappings file
 	mapBuf(bufnr, "n", "<silent> gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
 	mapBuf(bufnr, "n", "<silent> gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
 
@@ -285,8 +291,8 @@ cmp.setup.cmdline('/', {
 	-- rename
 	mapBuf(bufnr, "n", "<Leader>r", "<cmd>lua require('lspsaga.rename').rename()<cr>")
 
-	mapBuf(bufnr, "n", "<silent>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-	vim.cmd("nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>")
+	-- mapBuf(bufnr, "n", "<silent>gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+	-- vim.cmd("nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>")
 
 	mapBuf(bufnr, "n", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>")
 	mapBuf(bufnr, "v", "<Leader>ca", "<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>")

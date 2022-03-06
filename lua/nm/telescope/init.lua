@@ -2,7 +2,37 @@ local vim = vim
 local telescope = require("telescope")
 local builtIn = require("telescope.builtin")
 local actions = require("telescope.actions")
-local action_state = require('telescope.actions.state')
+local action_state = require("telescope.actions.state")
+
+local actions = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
+
+-- Built-in actions
+local transform_mod = require('telescope.actions.mt').transform_mod
+
+-- or create your custom action
+local nicks_custom_actions = transform_mod({
+  print_test = function(prompt_bufnr)
+    print("This function ran after another action. Prompt_bufnr: " .. prompt_bufnr)
+    -- trouble.open_with_trouble()
+    -- vim.cmd('wincmd H')
+    -- vim.cmd('vertical resize 55')
+    -- Enter your function logic here. You can take inspiration from lua/telescope/actions.lua
+  end,
+  -- save this function as example. Trouble wasn't opening on the left side previously, so I created this as a workaround
+  -- but we can still do a lot with this in the future for other plugins
+  open_with_trouble = function(prompt_bufnr)
+    trouble.open_with_trouble(prompt_bufnr)
+    vim.cmd('wincmd H')
+    vim.cmd('vertical resize 55')
+  end,
+})
+
+telescope.setup({
+	defaults = {
+		mappings = {},
+	},
+})
 
 local M = {}
 
@@ -12,11 +42,11 @@ telescope.load_extension("gh")
 telescope.load_extension("packer")
 
 telescope.setup({
-  pickers = {
-    buffers = {
-      sort_lastused = true
-    }
-  },
+	pickers = {
+		buffers = {
+			sort_lastused = true,
+		},
+	},
 	defaults = {
 		vimgrep_arguments = {
 			"rg",
@@ -33,9 +63,16 @@ telescope.setup({
 				-- ["<CR>"] = actions.goto_file_selection_edit,
 				["<CR>"] = actions.select_default + actions.center,
 				["<Tab>"] = actions.toggle_selection,
-        ["<c-u>"] = actions.delete_buffer,
-        ["<c-j>"] = actions.preview_scrolling_down,
-        ["<c-k>"] = actions.preview_scrolling_up,
+				["<c-u>"] = actions.delete_buffer,
+				["<c-j>"] = actions.preview_scrolling_down,
+				["<c-k>"] = actions.preview_scrolling_up,
+				["<c-t>"] = trouble.open_with_trouble,
+				-- ["<c-t>"] = nicks_custom_actions.print_test,
+				-- ["<c-t>"] = nicks_custom_actions.open_with_trouble,
+
+			},
+			n = {
+				["<c-t>"] = trouble.open_with_trouble,
 			},
 		},
 		file_sorter = require("telescope.sorters").get_fuzzy_file,

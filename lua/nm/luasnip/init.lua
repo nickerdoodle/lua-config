@@ -366,16 +366,16 @@ end
 ls.snippets = {
 	all = {
 		snippet("simple", text("wow, you were always right!")),
-	snippet("for", {
-		text("for "),
-		insert(1, "k, v"),
-		text(" in "),
-		insert(2, "ipairs()"),
-		text({ "do", "  " }),
-		insert(0),
-		text({ "", "" }),
-		text("end"),
-	}),
+		snippet("for", {
+			text("for "),
+			insert(1, "k, v"),
+			text(" in "),
+			insert(2, "ipairs()"),
+			text({ "do", "  " }),
+			insert(0),
+			text({ "", "" }),
+			text("end"),
+		}),
 	},
 }
 

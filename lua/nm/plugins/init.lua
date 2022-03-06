@@ -255,7 +255,7 @@ return require("packer").startup(function(use)
 	-- use {"hrsh7th/nvim-compe"}
 	-- cmp is newer version of compe
 	-- Install nvim-cmp, and buffer source as a dependency
-	use({ "hrsh7th/cmp-vsnip" })
+	-- use({ "hrsh7th/cmp-vsnip" })
 	use({
 		"L3MON4D3/LuaSnip",
 		-- after = "nvim-cmp",
@@ -270,8 +270,8 @@ return require("packer").startup(function(use)
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
 			-- "hrsh7th/cmp-vsnip",
-			"hrsh7th/vim-vsnip",
-			"hrsh7th/vim-vsnip-integ",
+			-- "hrsh7th/vim-vsnip",
+			-- "hrsh7th/vim-vsnip-integ",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
@@ -306,6 +306,7 @@ return require("packer").startup(function(use)
 	-- Uses the builtin lsp support to provide formatting, linting, and other features
 	use({ "jose-elias-alvarez/null-ls.nvim" })
 
+	-- TODO: may not need lspsaga much anymore since core neovim allows us to extend the ui implementation with packages like dressing
 	use({ "glepnir/lspsaga.nvim" })
 
 	-- provides floating window for function signatures
@@ -393,9 +394,11 @@ return require("packer").startup(function(use)
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("trouble").setup()
-		end,
+		-- config = function()
+		-- 	require("trouble").setup({
+		-- 		position = "left", -- position of the list can be: bottom, top, left, right
+		-- 	})
+		-- end,
 		--[[ {
             -- your configuration comes here
             -- or leave it empty to use the default settings
@@ -404,6 +407,9 @@ return require("packer").startup(function(use)
 		--[[ )
       end ]]
 	})
+
+	-- Better UI components for core neovim commands using neovim UI api's
+	use({ "stevearc/dressing.nvim" })
 
 	use({
 		-- TODO: using a patch branch for breaking change. Check if it's fixed periodically
@@ -418,6 +424,10 @@ return require("packer").startup(function(use)
 		--   }
 		-- end
 	})
+
+	-- a legend for which-key similar to command palette
+	-- Called in the which-key config file
+	use({ "mrjones2014/legendary.nvim" })
 
 	-- terminal
 	use({ "akinsho/toggleterm.nvim" })
@@ -489,6 +499,12 @@ return require("packer").startup(function(use)
 			{ "nvim-telescope/telescope.nvim" },
 		},
 	})
+
+	-- side menu of functions, classes in file
+	use({ "simrat39/symbols-outline.nvim" })
+
+	-- training
+	use({ "tjdevries/train.nvim" })
 
 	-- add these
 	-- https://github.com/SmiteshP/nvim-gps
