@@ -28,15 +28,16 @@ return require("packer").startup(function(use)
 	-- use {"AndrewRadev/switch.vim"}
 	-- I'm not using tmux for now
 	-- use {"christoomey/vim-tmux-navigator"}
-	-- use {"tpope/vim-surround"}
+	use({ "tpope/vim-surround" })
 	-- this will probably replace vim-surround
-	use({
-		"blackCauldron7/surround.nvim",
-		config = function()
-			-- require "surround".setup {}
-			require("surround").setup({ mappings_style = "surround" })
-		end,
-	})
+	-- commenting this because I think the repo was deleted. Still looking for a nvim surround plugin. using vim one for now
+	-- use({
+	-- 	"blackCauldron7/surround.nvim",
+	-- 	config = function()
+	-- 		-- require "surround".setup {}
+	-- 		require("surround").setup({ mappings_style = "surround" })
+	-- 	end,
+	-- })
 	-- comment plugin. Probably don't need
 	-- use {"tyru/caw.vim"}
 	-- use {"junegunn/vim-easy-align"}
@@ -100,54 +101,10 @@ return require("packer").startup(function(use)
 	-- use {"tpope/vim-fugitive"}
 	-- use {"tpope/vim-rhubarb"}
 	-- use {"sgeb/vim-diff-fold"}
-	-- use({
-	-- 	"lewis6991/gitsigns.nvim",
-	-- 	requires = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		require("gitsigns").setup({
-	-- 			--[[ signs = {
-	--            add = {hl = "GitGutterAdd", text = "│"},
-	--            change = {hl = "GitGutterChange", text = "│"},
-	--            delete = {hl = "GitGutterDelete", text = "_"},
-	--            topdelete = {hl = "GitGutterDelete", text = "‾"},
-	--            changedelete = {hl = "GitGutterChangeDelete", text = "~"}
-	--          } ]]
-	-- 			signs = {
-	-- 				--[[ add          = {hl = '#140', text = '│', numhl='#140'   , linehl='#140'},
-	--            change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'}, ]]
-	-- 				-- add          = {hl = 'GitSignsAdd', text = '│', numhl='#140'   , linehl='#140'},
-	-- 				add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-	-- 				change = {
-	-- 					hl = "GitSignsChange",
-	-- 					text = "│",
-	-- 					numhl = "GitSignsChangeNr",
-	-- 					linehl = "GitSignsChangeLn",
-	-- 				},
-	-- 				-- change       = {hl = '#140', text = '│', numhl='#140', linehl='#140'},
-	-- 				delete = {
-	-- 					hl = "GitSignsDelete",
-	-- 					text = "_",
-	-- 					numhl = "GitSignsDeleteNr",
-	-- 					linehl = "GitSignsDeleteLn",
-	-- 				},
-	-- 				topdelete = {
-	-- 					hl = "GitSignsDelete",
-	-- 					text = "‾",
-	-- 					numhl = "GitSignsDeleteNr",
-	-- 					linehl = "GitSignsDeleteLn",
-	-- 				},
-	-- 				changedelete = {
-	-- 					hl = "GitSignsChange",
-	-- 					text = "~",
-	-- 					numhl = "GitSignsChangeNr",
-	-- 					linehl = "GitSignsChangeLn",
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- })
+	use({
+		"lewis6991/gitsigns.nvim",
+	})
+
 	use("sindrets/diffview.nvim")
 	use({
 		"TimUntersberger/neogit",
@@ -157,12 +114,13 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	use({
-		"tanvirtin/vgit.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
-	})
+	-- switching back to gitsigns
+	-- use({
+	-- 	"tanvirtin/vgit.nvim",
+	-- 	requires = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 	},
+	-- })
 
 	-- -- Markdown
 	-- use {"tpope/vim-markdown", ft = "markdown"}
@@ -275,6 +233,7 @@ return require("packer").startup(function(use)
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 		},
 	})
 	--   use {
@@ -304,15 +263,18 @@ return require("packer").startup(function(use)
 	})
 
 	-- Uses the builtin lsp support to provide formatting, linting, and other features
-	use({ "jose-elias-alvarez/null-ls.nvim" })
+	use({
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+  })
 
 	-- TODO: may not need lspsaga much anymore since core neovim allows us to extend the ui implementation with packages like dressing
 	use({ "glepnir/lspsaga.nvim" })
 
 	-- provides floating window for function signatures
-	use({
-		"ray-x/lsp_signature.nvim",
-	})
+	-- use({
+	-- 	"ray-x/lsp_signature.nvim",
+	-- })
 
 	-- telescope advanced search
 	use({ "nvim-lua/popup.nvim" })
@@ -334,13 +296,13 @@ return require("packer").startup(function(use)
 	use({ "nvim-telescope/telescope-node-modules.nvim" })
 	-- turned off because not liking it
 	-- smart suggestions for files when searching
-	-- use({
-	-- 	"nvim-telescope/telescope-frecency.nvim",
-	-- 	config = function()
-	-- 		require("telescope").load_extension("frecency")
-	-- 	end,
-	-- 	requires = { "tami5/sqlite.lua" },
-	-- })
+	use({
+		"nvim-telescope/telescope-frecency.nvim",
+		config = function()
+			require("telescope").load_extension("frecency")
+		end,
+		requires = { "tami5/sqlite.lua" },
+	})
 
 	use({
 		"pwntester/octo.nvim",
@@ -462,7 +424,8 @@ return require("packer").startup(function(use)
 
 	-- Debugging
 	use({ "mfussenegger/nvim-dap" })
-	use({ "Pocco81/DAPInstall.nvim" })
+  -- DapInstall changed to dap-buddy
+	-- use({ "Pocco81/DAPInstall.nvim" })
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
 	use({
@@ -475,6 +438,7 @@ return require("packer").startup(function(use)
 	-- for faster startup by caching
 	use("lewis6991/impatient.nvim")
 	-- faster startup by improving assigning the filetype var
+	-- commenting because it conflicts with syntax highlighting for quickfix preview window
 	use("nathom/filetype.nvim")
 
 	-- shows path to highlighted function in statusline
@@ -503,9 +467,101 @@ return require("packer").startup(function(use)
 	-- side menu of functions, classes in file
 	use({ "simrat39/symbols-outline.nvim" })
 
-	-- training
-	use({ "tjdevries/train.nvim" })
+	-- quickfix
+	use({ "kevinhwang91/nvim-bqf" })
 
-	-- add these
-	-- https://github.com/SmiteshP/nvim-gps
+	-- allow quickfix to be modifiable (delete, run ex commands)
+	use({ "stefandtw/quickfix-reflector.vim" })
+
+	-- toggle qf lists, few other things
+	use({
+		"ten3roberts/qf.nvim",
+		config = function()
+			require("qf").setup({
+				-- Location list configuration
+				l = {
+					auto_close = false, -- Automatically close location/quickfix list if empty
+					auto_follow = "prev", -- Follow current entry, possible values: prev,next,nearest, or false to disable
+					auto_follow_limit = 8, -- Do not follow if entry is further away than x lines
+					follow_slow = true, -- Only follow on CursorHold
+					auto_open = true, -- Automatically open list on QuickFixCmdPost
+					auto_resize = true, -- Auto resize and shrink location list if less than `max_height`
+					max_height = 8, -- Maximum height of location/quickfix list
+					min_height = 5, -- Minimum height of location/quickfix list
+					wide = false, -- Open list at the very bottom of the screen, stretching the whole width.
+					number = false, -- Show line numbers in list
+					relativenumber = false, -- Show relative line numbers in list
+					unfocus_close = false, -- Close list when window loses focus
+					focus_open = false, -- Auto open list on window focus if it contains items
+					close_other = false, -- Close quickfix list when location list opens
+				},
+				-- Quickfix list configuration
+				c = {
+					auto_close = false, -- Automatically close location/quickfix list if empty
+					auto_follow = "prev", -- Follow current entry, possible values: prev,next,nearest, or false to disable
+					auto_follow_limit = 8, -- Do not follow if entry is further away than x lines
+					follow_slow = true, -- Only follow on CursorHold
+					auto_open = true, -- Automatically open list on QuickFixCmdPost
+					auto_resize = true, -- Auto resize and shrink location list if less than `max_height`
+					max_height = 8, -- Maximum height of location/quickfix list
+					min_height = 5, -- Minimum height of location/quickfix list
+					wide = false, -- Open list at the very bottom of the screen, stretching the whole width.
+					number = false, -- Show line numbers in list
+					relativenumber = false, -- Show relative line numbers in list
+					unfocus_close = false, -- Close list when window loses focus
+					focus_open = false, -- Auto open list on window focus if it contains items
+					close_other = false, -- Close location list when quickfix list opens
+				},
+			})
+		end,
+	})
+
+	-- smooth scroll
+	-- use({ "karb94/neoscroll.nvim" })
+	--
+	use({
+		"beauwilliams/focus.nvim",
+		config = function()
+			require("focus").setup()
+		end,
+	})
+	-- Or lazy load with `module` option. See further down for info on how to lazy load when using FocusSplit commands
+	-- Or lazy load this plugin by creating an arbitrary command using the cmd option in packer.nvim
+	-- use { 'beauwilliams/focus.nvim', cmd = { "FocusSplitNicely", "FocusSplitCycle" }, module = "focus",
+	--     config = function()
+	--         require("focus").setup({hybridnumber = true})
+	--     end
+	-- }
+
+	-- training
+	use({ "tjdevries/train.nvim", ft = "qf" })
+
+	-- look into
+	-- similar setup for task.json or launch.json configs in vscode
+	-- https://github.com/pianocomposer321/yabs.nvim
+	-- https://github.com/ThePrimeagen/refactoring.nvim
+	-- https://github.com/bennypowers/nvim-regexplainer
+	use({
+		"bennypowers/nvim-regexplainer",
+		config = function()
+			require("regexplainer").setup()
+		end,
+		requires = {
+			"nvim-treesitter/nvim-treesitter",
+			"MunifTanjim/nui.nvim",
+		},
+	})
+
+	use({
+		"bfredl/nvim-luadev",
+		config = function()
+			require("nvim-luadev").setup()
+		end,
+	})
+
+  use({ "nvim-treesitter/nvim-treesitter-context"})
+	-- https://github.com/axieax/urlview.nvim
+  -- https://github.com/ggandor/leap.nvim
+  -- https://github.com/ziontee113/syntax-tree-surfer
+  -- https://github.com/mfussenegger/nvim-treehopper
 end)

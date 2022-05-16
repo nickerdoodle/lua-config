@@ -20,9 +20,12 @@ end
 -- M.map('i', '<C-j>', '<NL>')
 M.map('i', 'jj', '<Esc>')
 M.map("n", "Q", "<nop>")
-M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').git_files()<cr>")
+M.map("n", "<c-p>", "<cmd>lua require('nm/telescope').git_files(require('telescope.themes').get_dropdown({}))<cr>")
+-- M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').git_files()<cr>")
+-- M.map("n", "<c-p>", "<cmd>lua require('telescope.builtin').git_files()<cr>")
 M.map("n", "<c-f>", "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>")
-M.map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>")
+M.map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions({jump_type='never'})<cr>")
+M.map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>")
 -- M.map("n", "gr", "<cmd>lua require('trouble').lsp_references()<cr>")
 -- three commands here. one opens window, other puts in on left side of screen, other sets the size of window setup file isn't working for that position... might be some setting i have set already, but defaulting to bottom without this
 M.map("n", "gr", "<cmd>TroubleToggle lsp_references<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
@@ -53,6 +56,7 @@ M.map("v", ">", ">gv")
 -- What does this do?
 -- M.map("n", "<Leader>d", '"_d')
 -- M.map("v", "<Leader>d", '"_d')
+-- removes highlighting from searched text
 M.map("n", "<Esc>", "<cmd>noh<cr>")
 -- TODO: see if we can remap the visual multi commands otherwise might not use plugin
 --[[ vim.cmd("let g:VM_maps['Find Under'] = '<Leader>vm'")

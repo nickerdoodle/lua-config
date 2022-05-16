@@ -1,5 +1,5 @@
 local which_key = require("which-key")
-local legendary = require("legendary")
+-- local legendary = require("legendary")
 
 local setup = {
 	plugins = {
@@ -68,23 +68,39 @@ local mappings = {
 	},
 	C = { "<cmd>Telescope colors<cr>", "Colorschemes" },
 
-	d = {
-		name = "Diagnostics",
-		j = {
-			"<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = 'single'}})<cr>",
-			"Next Diagnostic",
-		},
-		k = {
-			"<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = 'single'}})<cr>",
-			"Prev Diagnostic",
-		},
-	},
+	-- d = {
+	-- 	name = "Diagnostics",
+	-- 	j = {
+	-- 		"<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = 'single'}})<cr>",
+	-- 		"Next Diagnostic",
+	-- 	},
+	-- 	k = {
+	-- 		"<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = 'single'}})<cr>",
+	-- 		"Prev Diagnostic",
+	-- 	},
+	-- },
 
-	D = {
+	d = {
 		name = "Debug",
 		b = {
 			"<cmd>lua require('dap').toggle_breakpoint() <cr>",
 			"Toggle Breakpoint",
+		},
+		c = {
+			"<cmd>lua require('dap').continue() <cr>",
+			"Start/Continue debug",
+		},
+		C = {
+			"<cmd>lua require('dapui').close() <cr>",
+			"Close UI",
+		},
+		o = {
+			"<cmd>lua require('dapui').open() <cr>",
+			"Open UI",
+		},
+		t = {
+			"<cmd>lua require('dapui').toggle() <cr>",
+			"Toggle UI",
 		},
 	},
 
@@ -135,6 +151,10 @@ local mappings = {
 		k = { "<cmd>Telescope keymaps<cr>", "Mappings" },
 	},
 
+	j = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
+
+	k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
+
 	l = {
 		name = "Lsp",
 		-- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -173,7 +193,8 @@ local mappings = {
 		l = { "<cmd>Trouble loclist<cr>", "Loc List" },
 		m = { "<cmd>Trouble quickfix<cr>", "Quick Fix List" },
 		o = { "<cmd>lua require('trouble').refresh({ open_folds = true })<cr>", "Trouble open all folds" },
-		q = { "<cmd>Telescope lsp_code_actions<cr>", "Code Actions" },
+		-- q = { "<cmd>Telescope lsp_code_actions<cr>", "Code Actions" },
+		q = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Actions" },
 		r = { "<cmd>Trouble lsp_references<cr>", "Trouble References" },
 		s = { "<cmd>lua vim.lsp.signature_help()<cr>", "Signature Help" },
 		t = { "<cmd>Trouble<cr>", "Trouble Plugin" },
@@ -198,6 +219,8 @@ local mappings = {
 		s = { "<cmd>PackerSync<cr>", "Sync" },
 		u = { "<cmd>PackerUpdate<cr>", "Update" },
 	},
+
+	q = { "<cmd>lua require('qf').toggle('c', false)<cr>", "Toggle Quickfix" },
 
 	-- TODO: update these grep calls to use custom nm module to pass in the window settings I want for these results
 	s = {
@@ -232,6 +255,24 @@ local mappings = {
 		f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
 		h = { "<cmd>ToggleTerm direction=horizontal<cr>", "Horizontal" },
 		v = { "<cmd>ToggleTerm direction=vertical<cr>", "Vertical" },
+    ["1"] = {
+      name = "First Terminal",
+      f = { "<cmd>1 ToggleTerm direction=float<cr>", "Float" },
+      h = { "<cmd>1 ToggleTerm direction=horizontal<cr>", "Horizontal" },
+      v = { "<cmd>1 ToggleTerm direction=vertical<cr>", "Vertical" },
+    },
+    ["2"] = {
+      name = "Second Terminal",
+      f = { "<cmd>2 ToggleTerm direction=float<cr>", "Float" },
+      h = { "<cmd>2 ToggleTerm direction=horizontal<cr>", "Horizontal" },
+      v = { "<cmd>2 ToggleTerm direction=vertical<cr>", "Vertical" },
+    },
+    ["3"] = {
+      name = "Third Terminal",
+      f = { "<cmd>3 ToggleTerm direction=float<cr>", "Float" },
+      h = { "<cmd>3 ToggleTerm direction=horizontal<cr>", "Horizontal" },
+      v = { "<cmd>3 ToggleTerm direction=vertical<cr>", "Vertical" },
+    }
 	},
 
 	T = {
@@ -242,32 +283,35 @@ local mappings = {
 
 	v = { "<cmd>lua require('telescope').extensions.neoclip.default()<cr>", "Clipboard" },
 
-	["?"] = { "<cmd>Trouble<cr>", "Trouble Plugin" },
+	["?"] = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
 
-	["/"] = { "<cmd>Trouble<cr>", "Trouble Plugin" },
+	["/"] = { "<cmd>TroubleToggle<cr>", "Trouble Plugin" },
 }
+
+-- legendary.setup()
 
 which_key.setup(setup)
 
 -- automatically register which-key.nvim tables with legendary.nvim
 -- when you register them with which-key.nvim.
 -- `setup()` must be called before `require('which-key).register()`
-legendary.setup({
-	-- Include builtins by default, set to false to disable
-	include_builtin = true,
-	-- Customize the prompt that appears on your vim.ui.select() handler
-	select_prompt = "Legendary",
-	-- Initial keymaps to bind
-	-- keymaps = keymaps,
-	-- Initial commands to create
-	-- commands = commands,
-	-- Automatically add which-key tables to legendary
-	-- when you call `require('which-key').register()`
-	-- for this to work, you must call `require('legendary').setup()`
-	-- before any calls to `require('which-key').register()`, and
-	-- which-key.nvim must be loaded when you call `require('legendary').setup()`
-	auto_register_which_key = true,
-})
+
+-- legendary.setup({
+-- 	-- Include builtins by default, set to false to disable
+-- 	include_builtin = true,
+-- 	-- Customize the prompt that appears on your vim.ui.select() handler
+-- 	select_prompt = "Legendary",
+-- 	-- Initial keymaps to bind
+-- 	-- keymaps = keymaps,
+-- 	-- Initial commands to create
+-- 	-- commands = commands,
+-- 	-- Automatically add which-key tables to legendary
+-- 	-- when you call `require('which-key').register()`
+-- 	-- for this to work, you must call `require('legendary').setup()`
+-- 	-- before any calls to `require('which-key').register()`, and
+-- 	-- which-key.nvim must be loaded when you call `require('legendary').setup()`
+-- 	auto_register_which_key = true,
+-- })
 -- now this will register them with both which-key.nvim and legendary.nvim
 -- require('which-key').register(your_which_key_tables, your_which_key_opts)
 

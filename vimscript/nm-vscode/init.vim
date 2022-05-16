@@ -1,4 +1,4 @@
-packadd surround
+" packadd surround
 " uncomment if you want to use quick-scope
 " packadd quick-scope
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

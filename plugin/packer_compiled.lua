@@ -105,6 +105,11 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-document-symbol",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol"
   },
+  ["cmp-nvim-lsp-signature-help"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
+  },
   ["cmp-path"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/cmp-path",
@@ -135,6 +140,12 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/filetype.nvim",
     url = "https://github.com/nathom/filetype.nvim"
   },
+  ["focus.nvim"] = {
+    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0" },
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/focus.nvim",
+    url = "https://github.com/beauwilliams/focus.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -144,6 +155,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/galaxyline.nvim",
     url = "https://github.com/glepnir/galaxyline.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   ["impatient.nvim"] = {
     loaded = true,
@@ -190,11 +206,6 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/logsitter.nvim",
     url = "https://github.com/gaelph/logsitter.nvim"
   },
-  ["lsp_signature.nvim"] = {
-    loaded = true,
-    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
-    url = "https://github.com/ray-x/lsp_signature.nvim"
-  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -224,6 +235,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
+  },
+  ["nvim-bqf"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-bqf",
+    url = "https://github.com/kevinhwang91/nvim-bqf"
   },
   ["nvim-bufdel"] = {
     loaded = true,
@@ -329,11 +345,16 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/project.nvim",
     url = "https://github.com/ahmedkhalf/project.nvim"
   },
-  ["surround.nvim"] = {
-    config = { "\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\19mappings_style\rsurround\nsetup\rsurround\frequire\0" },
+  ["qf.nvim"] = {
+    config = { "\27LJ\2\n�\3\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\6c\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\6l\1\0\0\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\nsetup\aqf\frequire\0" },
     loaded = true,
-    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/surround.nvim",
-    url = "https://github.com/blackCauldron7/surround.nvim"
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/qf.nvim",
+    url = "https://github.com/ten3roberts/qf.nvim"
+  },
+  ["quickfix-reflector.vim"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/quickfix-reflector.vim",
+    url = "https://github.com/stefandtw/quickfix-reflector.vim"
   },
   ["symbols-outline.nvim"] = {
     loaded = true,
@@ -376,19 +397,16 @@ _G.packer_plugins = {
     url = "https://github.com/folke/tokyonight.nvim"
   },
   ["train.nvim"] = {
-    loaded = true,
-    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/train.nvim",
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/opt/train.nvim",
     url = "https://github.com/tjdevries/train.nvim"
   },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
-  },
-  ["vgit.nvim"] = {
-    loaded = true,
-    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/vgit.nvim",
-    url = "https://github.com/tanvirtin/vgit.nvim"
   },
   ["vim-repeat"] = {
     loaded = true,
@@ -399,6 +417,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/vim-startify",
     url = "https://github.com/mhinz/vim-startify"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   },
   ["vscode-angular-snippets"] = {
     loaded = true,
@@ -427,26 +450,37 @@ time([[Defining packer_plugins]], false)
 time([[Config for nvim-web-devicons]], true)
 try_loadstring("\27LJ\2\n�\2\0\0\5\0\22\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\20\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\0035\4\16\0=\4\17\0035\4\18\0=\4\19\3=\3\21\2B\0\2\1K\0\1\0\14overrides\1\0\0\bsql\1\0\1\ticon\b\amd\1\0\1\ticon\b\tjson\1\0\1\ticon\b\thtml\1\0\1\ticon\b\bcss\1\0\1\ticon\b\bvim\1\0\1\ticon\b\ajs\1\0\1\ticon\b\bgit\1\0\0\1\0\1\ticon\b\nsetup\22nvim-web-devicons\frequire\0", "config", "nvim-web-devicons")
 time([[Config for nvim-web-devicons]], false)
--- Config for: octo.nvim
-time([[Config for octo.nvim]], true)
-try_loadstring("\27LJ\2\n2\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\tocto\frequire\0", "config", "octo.nvim")
-time([[Config for octo.nvim]], false)
--- Config for: project.nvim
-time([[Config for project.nvim]], true)
-try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17project_nvim\frequire\0", "config", "project.nvim")
-time([[Config for project.nvim]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
-time([[Config for nvim-colorizer.lua]], false)
+-- Config for: focus.nvim
+time([[Config for focus.nvim]], true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
+time([[Config for focus.nvim]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
 time([[Config for Comment.nvim]], false)
--- Config for: surround.nvim
-time([[Config for surround.nvim]], true)
-try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\19mappings_style\rsurround\nsetup\rsurround\frequire\0", "config", "surround.nvim")
-time([[Config for surround.nvim]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+time([[Config for nvim-colorizer.lua]], false)
+-- Config for: qf.nvim
+time([[Config for qf.nvim]], true)
+try_loadstring("\27LJ\2\n�\3\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\6c\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\6l\1\0\0\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\nsetup\aqf\frequire\0", "config", "qf.nvim")
+time([[Config for qf.nvim]], false)
+-- Config for: project.nvim
+time([[Config for project.nvim]], true)
+try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17project_nvim\frequire\0", "config", "project.nvim")
+time([[Config for project.nvim]], false)
+-- Config for: octo.nvim
+time([[Config for octo.nvim]], true)
+try_loadstring("\27LJ\2\n2\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\tocto\frequire\0", "config", "octo.nvim")
+time([[Config for octo.nvim]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType qf ++once lua require("packer.load")({'train.nvim'}, { ft = "qf" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
+vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
 end)

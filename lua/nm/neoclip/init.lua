@@ -28,8 +28,19 @@ require("neoclip").setup({
 				replay = "<c-q>",
 				custom = {
 					-- ["<C-p>"] = actions.move_selection_previous,
+					-- ["<C-p>"] = "<Up>",
+					-- ["<C-p>"] = function(opts)
+					-- 	return actions.move_selection_previous
+					-- end,
+					["<C-m>"] = function(opts)
+            print(vim.inspect(opts))
+					end,
 					["<C-p>"] = function(opts)
-						return actions.move_selection_previous
+            -- print(vim.inspect(opts))
+            -- vim.fn.feedkeys("asdf")
+            -- vim.cmd([[\<Cmd>call feedkeys('<C-w>k')<CR>]])
+						-- actions.move_selection_previous()
+            -- vim.cmd([[<Cmd><Up>]])
 					end,
 				},
 			},
@@ -44,7 +55,7 @@ require("neoclip").setup({
 				custom = {
 					-- ["<C-p>"] = actions.move_selection_previous,
 					["<C-p>"] = function(opts)
-						return actions.move_selection_previous
+						-- return actions.move_selection_previous
 					end,
 				},
 			},
@@ -59,7 +70,7 @@ require("neoclip").setup({
 			custom = {
 				-- ["<C-p>"] = actions.move_selection_previous,
 					["<C-p>"] = function(opts)
-						return actions.move_selection_previous
+						-- return actions.move_selection_previous
 					end,
 			},
 		},

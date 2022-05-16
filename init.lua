@@ -10,9 +10,7 @@
 	vim.cmd("filetype plugin indent on")
 	-- need impatient before other plugins to cache them to improve startup
 	require("impatient")
-	-- TODO: put filetype in its own file
-	require("filetype").setup({})
-
+	require("nm/filetype")
 	require("nm/plugins")
 	require("nm/options")
 	require("nm/mappings")
@@ -26,13 +24,14 @@
 	require("nm/nvim-gps")
 	require("nm/galaxyline")
 	require("nm/treesitter")
+	require("nm/nvim-treesitter-context")
 	require("nm/null-ls")
 	require("nm/luasnip")
 	require("nm/lsp")
 	require("nm/lspkind")
 	require("nm/nvim-tree")
 	require("nm/neogit")
-	require("nm/vgit")
+	-- require("nm/vgit")
 	require("nm/bufferline")
   require("nm/which-key")
 	require("nm/autopairs")
@@ -43,11 +42,20 @@
 	require("nm/indent-blankline")
 	require("nm/neoclip")
 	require("nm/trouble")
+	require("nm/gitsigns")
+
+	require("nm/nvim-bqf")
+	require("nm/regex-explainer")
+
+  -- TODO: let's actually start using ctrl-d and ctrl-u for scrolling (it doesn't move the cursor)
+  -- then we can remap shift j and k, but let's make sure we keep it maybe for visual mode?
 
 	-- require "nm/litee"
 
 	-- require "nm/formatting"
 	-- require "nm/lightbulb"
+  -- not that awesome imo
+	-- require("nm/neoscroll")
 
 	-- TODO: remove
 	-- require "nm/statusline"

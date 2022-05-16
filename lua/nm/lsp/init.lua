@@ -98,18 +98,19 @@ local on_attach = function(client, bufnr)
 	for i, v in ipairs(ignore_formatters) do
 		if client.name == v then
 			client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
 		end
 	end
 
 	-- client.resolved_capabilities.document_formatting = true
 
 	-- set up signature help
-	require("lsp_signature").on_attach({
-		bind = true, -- This is mandatory, otherwise border config won't get registered.
-		handler_opts = {
-			border = "single",
-		},
-	}, bufnr)
+	-- require("lsp_signature").on_attach({
+	-- 	bind = true, -- This is mandatory, otherwise border config won't get registered.
+	-- 	handler_opts = {
+	-- 		border = "single",
+	-- 	},
+	-- }, bufnr)
 
 	-- cmp stuff
 	local cmp = require("cmp")
@@ -235,23 +236,27 @@ local on_attach = function(client, bufnr)
 			{ name = "calc" },
 			{ name = "spell", keyword_length = 5 },
 			{ name = "tags" },
+      { name = 'nvim_lsp_signature_help' },
 		},
 	})
 
 	-- cmp cmdline
+  -- completion for : cmds in cmdline
 	cmp.setup.cmdline(":", {
 		sources = {
 			{ name = "cmdline" },
 		},
 	})
-	-- cmp lsp_document_symbols
-	cmp.setup.cmdline("/", {
-		sources = cmp.config.sources({
-			{ name = "nvim_lsp_document_symbol" },
-		}, {
-			{ name = "buffer" },
-		}),
-	})
+
+  -- don't want autocomplete in / searches
+  -- keep but don't want to use right now
+	-- cmp.setup.cmdline("/", {
+	-- 	sources = cmp.config.sources({
+	-- 		{ name = "nvim_lsp_document_symbol" },
+	-- 	}, {
+	-- 		{ name = "buffer" },
+	-- 	}),
+	-- })
 	-- end cmp
 	--compe stuff
 	vim.g.completion_enable_auto_paren = 1
@@ -280,7 +285,7 @@ local on_attach = function(client, bufnr)
 	--
   --TODO: move these to mappings file
 	mapBuf(bufnr, "n", "<silent> gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
-	mapBuf(bufnr, "n", "<silent> gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+	-- mapBuf(bufnr, "n", "<silent> gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
 
 	--Hover
 	mapBuf(bufnr, "n", "<Leader>gh", "<CMD>lua require('lspsaga.hover').render_hover_doc()<cr>")
@@ -335,6 +340,11 @@ lsp_installer.on_server_ready(function(server)
 		},
 		capabilities = capabilities,
 	}
+
+  -- if server.name == "tsserver" then
+    local null_ls = require("nm.null-ls")
+    null_ls.setup(opts)
+  -- end
 
 	-- if server.name == "eslint" then
 	--     opts.on_attach = function (client, bufnr)
