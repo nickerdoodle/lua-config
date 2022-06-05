@@ -30,8 +30,8 @@ require("toggleterm").setup{
     -- not natively supported but implemented in this plugin.
     -- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
     border = 'single',
-    width = 130,
-    height = 40,
+    width = 160,
+    height = 70,
     winblend = 3,
     highlights = {
       border = "Normal",

@@ -30,7 +30,10 @@ M.map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>")
 -- three commands here. one opens window, other puts in on left side of screen, other sets the size of window setup file isn't working for that position... might be some setting i have set already, but defaulting to bottom without this
 M.map("n", "gr", "<cmd>TroubleToggle lsp_references<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
 M.map("n", "gi", "<cmd>TroubleToggle lsp_implementations<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
-M.map("n", "gt", "<cmd>TroubleToggle lsp_type_definitions<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
+M.map("n", "<c-t>", "<c-w>T")
+M.map("n", "gt", "<cmd>tabnext<cr>")
+-- TODO: find different mapping for this so we can use gt to move tabs as the regular vim mapping
+-- M.map("n", "gt", "<cmd>TroubleToggle lsp_type_definitions<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
 -- M.map("n", "gt", "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>")
 M.map("n", "H", "^")
 M.map("n", "L", "g_")
