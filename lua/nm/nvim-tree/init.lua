@@ -75,7 +75,7 @@ require("nvim-tree").setup({
 					symlink_open = "",
 				},
 				git = {
-					unstaged = "✗",
+					unstaged = "",
 					staged = "✓",
 					unmerged = "",
 					renamed = "➜",
@@ -121,14 +121,14 @@ require("nvim-tree").setup({
     always_show_folders = true,
   },
   log = {
-    enable = false,
+    enable = true,
     truncate = false,
     types = {
       all = false,
       config = false,
       copy_paste = false,
-      diagnostics = false,
-      git = false,
+      diagnostics = true,
+      git = true,
       profile = false,
     },
   },
