@@ -1,89 +1,97 @@
 vim.opt.termguicolors = true
 local colors = require "nm.colors"
 
--- vim.cmd([[ highlight BufferLineBufferSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineWarningDiagnosticSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineNumbersSelected guibg=#239320 guifg=#000000 ]])
--- -- vim.cmd([[ highlight BufferLineCloseButtonSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineWarningSelected guibg=#239320 guifg=#000000 ]])
---
--- vim.cmd([[ highlight BufferLineWarning guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineWarningVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineBackground guibg=#239320 guifg=#000000 ]])
--- -- vim.cmd([[ highlight BufferLineDiagnosticVisible guibg=#0F1E28 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineTabSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineTab guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineDiagnostic guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineBufferVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineBuffer guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineWarningDiagnostic guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineNumbers guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineNumbersVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineSelected guibg=#239320 guifg=#000000 ]])
---
--- vim.cmd([[ highlight BufferLineModifiedVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineModified guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineModifiedSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineTabClosed guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineIndicatorSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineDuplicate guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineDuplicateSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineDuplicateVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineCloseButton guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineCloseButtonSelected guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineCloseButtonVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd([[ highlight BufferLineSeparator guibg=#239320 ]])
--- vim.cmd([[ highlight BufferLineSeparatorSelected guibg=#239320 ]])
--- vim.cmd([[ highlight BufferLineSeparatorVisible guibg=#239320 ]])
-
-
+-- WARNINGS --------------------
 -- for the diagnostic symbol
 vim.cmd('highlight BufferLineWarningDiagnosticSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.yellow .. ' guisp=' .. colors.yellow)
-vim.cmd('highlight BufferLineWarningDiagnostic gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=#a5a57f guisp=#a5a57f' )
-vim.cmd('highlight BufferLineWarningDiagnosticVisible gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=#a5a57f guisp=#a5a57f' )
+-- for the file name when not selected
+vim.cmd('highlight BufferLineWarningDiagnostic gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#a5a57f guisp=#a5a57f' )
+-- for the file name when using ctrl p
+vim.cmd('highlight BufferLineWarningDiagnosticVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#a5a57f guisp=#a5a57f' )
+
 -- for the file name when selected
-vim.cmd('highlight BufferLineWarningSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=#dcdcaa guisp=#dcdcaa' )
--- test these more
--- vim.cmd([[ highlight BufferLineWarning guibg=#239320 guifg=#000000 ]])
+vim.cmd('highlight BufferLineWarningSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
 vim.cmd('highlight BufferLineWarning guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
--- vim.cmd([[ highlight BufferLineWarningVisible guibg=#239320 guifg=#000000 ]])
--- vim.cmd('highlight BufferLineWarningVisible guifg=#3C706F guibg=#16242E')
-vim.cmd('highlight BufferLineWarningVisible gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=#a5a57f guisp=#a5a57f' )
---
+vim.cmd('highlight BufferLineWarningVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#a5a57f guisp=#a5a57f' )
+
+
+-- ERRORS --------------------
+vim.cmd('highlight BufferLineErrorDiagnosticSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.red .. ' guisp=' .. colors.red)
+-- for the file name when not selected
+vim.cmd('highlight BufferLineErrorDiagnostic gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#b73535 guisp=#b73535' )
+-- for the file name when using ctrl p
+vim.cmd('highlight BufferLineErrorDiagnosticVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#b73535 guisp=#b73535' )
+
+-- for the file name when selected
+vim.cmd('highlight BufferLineErrorSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
+vim.cmd('highlight BufferLineError guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
+vim.cmd('highlight BufferLineErrorVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
+
+-- HINTS --------------------
+vim.cmd('highlight BufferLineHintDiagnosticSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.cyan .. ' guisp=' .. colors.cyan)
+-- for the file name when not selected
+vim.cmd('highlight BufferLineHintDiagnostic gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#097986 guisp=#097986' )
+-- for the file name when using ctrl p
+vim.cmd('highlight BufferLineHintDiagnosticVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#097986 guisp=#097986' )
+
+
+-- for the file name when selected
+vim.cmd('highlight BufferLineHintSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
+vim.cmd('highlight BufferLineHint guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
+vim.cmd('highlight BufferLineHintVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
+
+-- INFO --------------------
+vim.cmd('highlight BufferLineInfoDiagnosticSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.blue .. ' guisp=' .. colors.blue)
+-- for the file name when not selected
+vim.cmd('highlight BufferLineInfoDiagnostic gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#4075a0 guisp=#4075a0' )
+-- for the file name when using ctrl p
+vim.cmd('highlight BufferLineInfoDiagnosticVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=#4075a0 guisp=#4075a0' )
+
+-- for the file name when selected
+vim.cmd('highlight BufferLineInfoSelected gui=NONE guibg=#142832 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
+vim.cmd('highlight BufferLineInfo guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
+vim.cmd('highlight BufferLineInfoVisible gui=NONE guibg=#0F1E28 cterm=bold,italic gui=bold,italic guifg=' .. colors.white .. ' guisp=' .. colors.white)
 
 vim.cmd('highlight BufferLineBackground guibg=#0F1E28 guifg=' .. colors.base04)
-vim.cmd('highlight BufferLineDiagnosticVisible guibg=#16242E gui=NONE cterm=NONE guifg=' .. colors.white)
+
+vim.cmd('highlight BufferLineDiagnostic cterm=NONE gui=NONE guibg=#0F1E28 guifg=' .. colors.base04)
+vim.cmd('highlight BufferLineDiagnosticVisible guibg=#0F1E28 gui=NONE cterm=NONE guifg=' .. colors.white)
+
 vim.cmd('highlight BufferLineTab guibg=#0F1E28 guifg=' .. colors.base01)
 vim.cmd([[ highlight BufferLineTabSelected guibg=#142832 ]])
 vim.cmd([[ highlight BufferLineTabClose guibg=#0F1E28 ]])
-vim.cmd('highlight BufferLineDiagnostic cterm=NONE gui=NONE guibg=#0F1E28 guifg=' .. colors.base04)
-vim.cmd([[ highlight BufferLineBufferVisible guibg=#16242E ]])
-vim.cmd('highlight BufferLineBufferSelected gui=NONE guibg=#142832 guifg=' .. colors.white )
+
 vim.cmd('highlight BufferLineBuffer guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
+vim.cmd([[ highlight BufferLineBufferVisible guibg=#0F1E28 ]])
+vim.cmd('highlight BufferLineBufferSelected gui=NONE guibg=#142832 guifg=' .. colors.white )
 
 vim.cmd('highlight BufferLineNumbers gui=NONE guibg=#0F1E28 guifg=' .. colors.base04 )
 vim.cmd('highlight BufferLineNumbersSelected gui=NONE guibg=#16242E guifg=' .. colors.white)
-vim.cmd('highlight BufferLineNumbersVisible gui=NONE guibg=#142832')
+vim.cmd('highlight BufferLineNumbersVisible gui=NONE guibg=#0F1E28')
 
 vim.cmd('highlight BufferLineModified guifg=' .. colors.green .. ' guibg=#0F1E28')
-vim.cmd('highlight BufferLineModifiedVisible guifg=#3C706F guibg=#16242E')
+vim.cmd('highlight BufferLineModifiedVisible guifg=#3C706F guibg=#0F1E28')
 vim.cmd('highlight BufferLineModifiedSelected guifg=' .. colors.cyan .. ' guibg=#142832')
+
 vim.cmd('highlight BufferLineIndicatorSelected guibg=#142832 guifg=' .. colors.cyan)
+
 vim.cmd('highlight BufferLineDuplicate guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
 vim.cmd('highlight BufferLineDuplicateSelected guibg=#142832 gui=NONE guifg=' .. colors.white)
-vim.cmd([[ highlight BufferLineDuplicateVisible guibg=#16242E gui=NONE]])
+vim.cmd([[ highlight BufferLineDuplicateVisible guibg=#0F1E28 gui=NONE]])
+
 vim.cmd('highlight BufferLineCloseButton guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
 vim.cmd('highlight BufferLineCloseButtonSelected cterm=NONE gui=NONE guibg=#142832 guifg=' .. colors.white )
 -- VISIBLE is showing when using ctrl p
--- vim.cmd('highlight BufferLineCloseButtonVisible guifg=#3C706F guibg=#16242E')
 vim.cmd('highlight BufferLineCloseButtonVisible guibg=#0F1E28 gui=NONE guifg=' .. colors.base04)
+
+-- the separation pieces between the tabs
 -- The guifg is determining color for the little triangles in the slant tabs
-vim.cmd('highlight BufferLineSeparator guibg=#142832 guifg=#000000')
+vim.cmd('highlight BufferLineSeparator guibg=#0F1E28 guifg=#000000')
 vim.cmd('highlight BufferLineSeparatorSelected guibg=#142832 guifg=#000000')
-vim.cmd('highlight BufferLineSeparatorVisible guibg=#142832 guifg=#000000')
+vim.cmd('highlight BufferLineSeparatorVisible guibg=#0F1E28 guifg=#000000')
+
     -- this is what fills the empty space in the window to the right of all the tabs
 vim.cmd(' highlight BufferLineFill guibg=#000000')
-    -- fill               = { guibg = "#0F1E28" },
 
 require('bufferline').setup {
   options = {
