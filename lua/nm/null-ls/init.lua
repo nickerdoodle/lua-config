@@ -24,6 +24,9 @@ function M.setup(opts)
       -- formatting.eslint,
 
       -- diagnostics.eslint,
+      -- diagnostics.flake8.with({ filetypes = { "python" } }),
+      -- diagnostics.shellcheck.with({ extra_args = { "--severity", "warning" } }),
+      -- diagnostics.codespell.with({ filetypes = { "javascript", "python" } }),
     },
   })
 end

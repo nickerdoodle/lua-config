@@ -115,7 +115,8 @@ nnoremap <leader>e :call VSCodeNotify('workbench.action.quickOpenPreviousRecentl
 nnoremap gd :call VSCodeNotify('editor.action.revealDefinition')<CR>
 nnoremap gr :call VSCodeNotify('references-view.findReferences')<CR>
 nnoremap gh :call VSCodeNotify('editor.action.showHover')<CR>
-nnoremap <leader>K :call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>
+" nnoremap <leader>K :call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>
+nnoremap H :call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>
 nnoremap <leader>ca :call VSCodeNotify('editor.action.quickFix')<CR>
 "new terminal
 nnoremap <leader>tn :call VSCodeNotify('workbench.action.terminal.newInActiveWorkspace')<CR>
@@ -127,11 +128,15 @@ nnoremap <leader>tk :call VSCodeNotify('workbench.action.terminal.kill')<CR>
 xmap <C-/>  <Plug>VSCodeCommentary
 nmap <C-/> <Plug>VSCodeCommentary
 omap <C-/> <Plug>VSCodeCommentary
-nmap <C-/> <Plug>VSCodeCommentaryLine
-xmap gc  <Plug>VSCodeCommentary
-nmap gc <Plug>VSCodeCommentary
-omap gc <Plug>VSCodeCommentary
-nmap gcc <Plug>VSCodeCommentaryLine
+nmap <C-/> :call VSCodeNotify('editor.action.revealDefinition')<CR>
+" xmap gc  <Plug>VSCodeCommentary
+xmap gc <C-/>
+" nmap gc <Plug>VSCodeCommentary
+nmap gc <C-/>
+" omap gc <Plug>VSCodeCommentary
+omap gc <C-/>
+" nmap gcc <Plug>VSCodeCommentaryLine
+nmap gcc <C-/>
 
 " turbo console log
 nnoremap <leader>tc viw<cmd>call VSCodeNotifyVisual('turboConsoleLog.displayLogMessage', 1)<CR><ESC>
@@ -150,7 +155,7 @@ xnoremap <leader><leader>c <cmd>call VSCodeNotifyVisual('editor.action.clipboard
 nnoremap J 5j
 nnoremap K 5k
 nnoremap L g_
-nnoremap H ^
+" nnoremap H ^
 vnoremap gJ :join<CR>
 vnoremap < <gv
 vnoremap > >gv

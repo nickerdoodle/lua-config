@@ -49,4 +49,6 @@ function M.setItalics()
   vim.cmd("hi pythonSelf gui=italic")
 end
 
+vim.cmd([[ highlight Normal guibg=#000000]])
+
 return M

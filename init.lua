@@ -31,6 +31,7 @@
 	require("nm/lspkind")
 	require("nm/nvim-tree")
 	require("nm/neogit")
+	require("nm/gh")
 	-- require("nm/vgit")
 	require("nm/bufferline")
   require("nm/which-key")
@@ -46,6 +47,8 @@
 
 	require("nm/nvim-bqf")
 	require("nm/regex-explainer")
+  -- currently can't find module. Try again after it's been fixed
+	-- require("nm/nvim-docs")
 
   -- TODO: let's actually start using ctrl-d and ctrl-u for scrolling (it doesn't move the cursor)
   -- then we can remap shift j and k, but let's make sure we keep it maybe for visual mode?

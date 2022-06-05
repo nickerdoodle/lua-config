@@ -15,6 +15,10 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end ]]
 
+-- Neovim version manager, see repo for how to use
+-- https://github.com/MordechaiHadad/bob
+
+
 return require("packer").startup(function(use)
 	-- Packer can manage itself as an optional plugin
 	use({ "wbthomason/packer.nvim" })
@@ -265,7 +269,10 @@ return require("packer").startup(function(use)
 	-- Uses the builtin lsp support to provide formatting, linting, and other features
 	use({
     "jose-elias-alvarez/null-ls.nvim",
+    -- breaking changes after this commit on neovim 0.8. Use this until fixed
+    -- commit = 'bd9dfc6015241334c140fb065445ba9443e6de14',
     requires = { "nvim-lua/plenary.nvim" },
+    debug = true
   })
 
 	-- TODO: may not need lspsaga much anymore since core neovim allows us to extend the ui implementation with packages like dressing
@@ -560,6 +567,26 @@ return require("packer").startup(function(use)
 	})
 
   use({ "nvim-treesitter/nvim-treesitter-context"})
+
+  -- see hover doc in side view
+  use {
+  "amrbashir/nvim-docs-view",
+}
+
+  use({
+    "rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup()
+		end,
+  })
+
+  use {
+    'ldelossa/gh.nvim',
+    requires = { { 'ldelossa/litee.nvim' } }
+  }
+
+  -- https://github.com/ldelossa/gh.nvim this one is AWESOME
+  -- https://github.com/ghillb/cybu.nvim
 	-- https://github.com/axieax/urlview.nvim
   -- https://github.com/ggandor/leap.nvim
   -- https://github.com/ziontee113/syntax-tree-surfer

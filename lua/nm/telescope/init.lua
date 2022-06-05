@@ -202,6 +202,10 @@ telescope.setup({
     git_files = {
       theme = "dropdown",
     },
+    live_grep = {
+      --@usage don't include the filename in the search results
+      only_sort_text = true,
+    },
 		buffers = {
 			sort_lastused = true,
 			-- entry_maker = M.gen_from_buffer_like_leaderf(),
