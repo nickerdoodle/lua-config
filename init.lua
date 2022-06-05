@@ -63,3 +63,4 @@
 	-- TODO: remove
 	-- require "nm/statusline"
 -- end
+-- my test
