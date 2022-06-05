@@ -18,7 +18,7 @@ require("nvim-tree").setup({
   sort_by = "name",
   update_cwd = false,
   reload_on_bufenter = false,
-  respect_buf_cwd = true,
+  respect_buf_cwd = false,
   view = {
     adaptive_size = false,
     width = 30,
