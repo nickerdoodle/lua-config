@@ -31,6 +31,10 @@ M.map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>")
 M.map("n", "gr", "<cmd>TroubleToggle lsp_references<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
 M.map("n", "gi", "<cmd>TroubleToggle lsp_implementations<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
 M.map("n", "<c-t>", "<c-w>T")
+-- For some reason <c-/> is recognized as <c-_>
+M.map("n", "<c-_>", "<cmd>ToggleTerm<cr>")
+M.map("i", "<c-_>", "<cmd>ToggleTerm<cr>")
+M.map("t", "<c-_>", "<cmd>ToggleTerm<cr>")
 M.map("n", "gt", "<cmd>tabnext<cr>")
 -- TODO: find different mapping for this so we can use gt to move tabs as the regular vim mapping
 -- M.map("n", "gt", "<cmd>TroubleToggle lsp_type_definitions<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
