@@ -24,12 +24,20 @@ M.map("n", "<c-p>", "<cmd>lua require('nm/telescope').git_files(require('telesco
 -- M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').git_files()<cr>")
 -- M.map("n", "<c-p>", "<cmd>lua require('telescope.builtin').git_files()<cr>")
 M.map("n", "<c-f>", "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>")
-M.map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions({jump_type='never'})<cr>")
+
+-- M.map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions({jump_type='never'})<cr>")
+-- using new vim definition api
+M.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+M.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
 M.map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>")
 -- M.map("n", "gr", "<cmd>lua require('trouble').lsp_references()<cr>")
 -- three commands here. one opens window, other puts in on left side of screen, other sets the size of window setup file isn't working for that position... might be some setting i have set already, but defaulting to bottom without this
-M.map("n", "gr", "<cmd>TroubleToggle lsp_references<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
-M.map("n", "gi", "<cmd>TroubleToggle lsp_implementations<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
+-- M.map("n", "gr", "<cmd>TroubleToggle lsp_references<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
+-- nice thing with the built in refs is that it goes to a qf list and works nice with bqf that has the preview
+M.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+-- M.map("n", "gi", "<cmd>TroubleToggle lsp_implementations<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
+M.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+M.map("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
 M.map("n", "<c-t>", "<c-w>T")
 -- For some reason <c-/> is recognized as <c-_>
 M.map("n", "<c-_>", "<cmd>ToggleTerm<cr>")

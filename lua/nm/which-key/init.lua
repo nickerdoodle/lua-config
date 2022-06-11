@@ -1,11 +1,11 @@
 local which_key = require("which-key")
 -- local legendary = require("legendary")
 
-local Terminal  = require('toggleterm.terminal').Terminal
+local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 
 function _lazygit_toggle()
-  lazygit:toggle()
+	lazygit:toggle()
 end
 
 -- vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
@@ -150,9 +150,14 @@ local mappings = {
 			"Checkout commit(for current file)",
 		},
 		d = {
-			"<cmd>Gitsigns diffthis HEAD<cr>",
-			"Git Diff",
+			name = "Git Diff",
+      o = { ":DiffviewOpen <cr>", "Open" },
+      c = { ":DiffviewClose <cr>", "Close" },
 		},
+		-- d = {
+		-- 	"<cmd>Gitsigns diffthis HEAD<cr>",
+		-- 	"Git Diff",
+		-- },
 	},
 
 	h = {
@@ -265,24 +270,24 @@ local mappings = {
 		f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
 		h = { "<cmd>ToggleTerm direction=horizontal<cr>", "Horizontal" },
 		v = { "<cmd>ToggleTerm direction=vertical<cr>", "Vertical" },
-    ["1"] = {
-      name = "First Terminal",
-      f = { "<cmd>1 ToggleTerm direction=float<cr>", "Float" },
-      h = { "<cmd>1 ToggleTerm direction=horizontal<cr>", "Horizontal" },
-      v = { "<cmd>1 ToggleTerm direction=vertical<cr>", "Vertical" },
-    },
-    ["2"] = {
-      name = "Second Terminal",
-      f = { "<cmd>2 ToggleTerm direction=float<cr>", "Float" },
-      h = { "<cmd>2 ToggleTerm direction=horizontal<cr>", "Horizontal" },
-      v = { "<cmd>2 ToggleTerm direction=vertical<cr>", "Vertical" },
-    },
-    ["3"] = {
-      name = "Third Terminal",
-      f = { "<cmd>3 ToggleTerm direction=float<cr>", "Float" },
-      h = { "<cmd>3 ToggleTerm direction=horizontal<cr>", "Horizontal" },
-      v = { "<cmd>3 ToggleTerm direction=vertical<cr>", "Vertical" },
-    }
+		["1"] = {
+			name = "First Terminal",
+			f = { "<cmd>1 ToggleTerm direction=float<cr>", "Float" },
+			h = { "<cmd>1 ToggleTerm direction=horizontal<cr>", "Horizontal" },
+			v = { "<cmd>1 ToggleTerm direction=vertical<cr>", "Vertical" },
+		},
+		["2"] = {
+			name = "Second Terminal",
+			f = { "<cmd>2 ToggleTerm direction=float<cr>", "Float" },
+			h = { "<cmd>2 ToggleTerm direction=horizontal<cr>", "Horizontal" },
+			v = { "<cmd>2 ToggleTerm direction=vertical<cr>", "Vertical" },
+		},
+		["3"] = {
+			name = "Third Terminal",
+			f = { "<cmd>3 ToggleTerm direction=float<cr>", "Float" },
+			h = { "<cmd>3 ToggleTerm direction=horizontal<cr>", "Horizontal" },
+			v = { "<cmd>3 ToggleTerm direction=vertical<cr>", "Vertical" },
+		},
 	},
 
 	T = {
@@ -296,6 +301,15 @@ local mappings = {
 	["?"] = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
 
 	["/"] = { "<cmd>TroubleToggle<cr>", "Trouble Plugin" },
+
+	["<leader>"] = {
+		name = "More",
+    -- TODO: add more in time
+		d = {
+			":DiffviewOpen<cr>",
+      "Git diff"
+		},
+	},
 }
 
 -- legendary.setup()
