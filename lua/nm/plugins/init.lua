@@ -116,6 +116,12 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
 		},
+    -- config = function ()
+    --   require('diffview').setup({
+    --     enhanced_diff_hl = true,
+    --   })
+    --
+    -- end
 	})
 
 	-- switching back to gitsigns
@@ -526,12 +532,14 @@ return require("packer").startup(function(use)
 	-- smooth scroll
 	-- use({ "karb94/neoscroll.nvim" })
 	--
-	use({
-		"beauwilliams/focus.nvim",
-		config = function()
-			require("focus").setup()
-		end,
-	})
+  -- enlarges the active buffer in the window. Has been more of a headache then good
+	-- use({
+	-- 	"beauwilliams/focus.nvim",
+	-- 	config = function()
+	-- 		require("focus").setup()
+	-- 	end,
+	-- })
+  --
 	-- Or lazy load with `module` option. See further down for info on how to lazy load when using FocusSplit commands
 	-- Or lazy load this plugin by creating an arbitrary command using the cmd option in packer.nvim
 	-- use { 'beauwilliams/focus.nvim', cmd = { "FocusSplitNicely", "FocusSplitCycle" }, module = "focus",

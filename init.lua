@@ -30,6 +30,7 @@
 	require("nm/lsp")
 	require("nm/lspkind")
 	require("nm/nvim-tree")
+	require("nm/diffview")
 	require("nm/neogit")
 	require("nm/gh")
 	-- require("nm/vgit")

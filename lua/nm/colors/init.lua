@@ -51,4 +51,10 @@ end
 
 vim.cmd([[ highlight Normal guibg=#000000]])
 
+
+-- diffview highlights
+vim.cmd("highlight DiffAdd gui=NONE guibg=#274259")
+vim.cmd("highlight DiffDelete gui=NONE guibg=#392030")
+--
+
 return M

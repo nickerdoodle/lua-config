@@ -36,6 +36,8 @@ M.map("n", "<c-_>", "<cmd>ToggleTerm<cr>")
 M.map("i", "<c-_>", "<cmd>ToggleTerm<cr>")
 M.map("t", "<c-_>", "<cmd>ToggleTerm<cr>")
 M.map("n", "gt", "<cmd>tabnext<cr>")
+M.map("n", "[", ":cn<cr>")
+M.map("n", "]", ":cp<cr>")
 -- TODO: find different mapping for this so we can use gt to move tabs as the regular vim mapping
 -- M.map("n", "gt", "<cmd>TroubleToggle lsp_type_definitions<cr><cmd>lua vim.cmd('wincmd H')<cr><cmd>vertical resize 55<cr>")
 -- M.map("n", "gt", "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>")
