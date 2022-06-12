@@ -2,6 +2,7 @@
 vim.cmd("set fillchars+=diff:╱")
 
 local actions = require("diffview.actions")
+-- to change the diff orientation between a split and vsplit, use ":set diffopt=vertical"
 
 require("diffview").setup({
 	enhanced_diff_hl = true,

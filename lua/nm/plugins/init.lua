@@ -542,11 +542,11 @@ return require("packer").startup(function(use)
   --
 	-- Or lazy load with `module` option. See further down for info on how to lazy load when using FocusSplit commands
 	-- Or lazy load this plugin by creating an arbitrary command using the cmd option in packer.nvim
-	-- use { 'beauwilliams/focus.nvim', cmd = { "FocusSplitNicely", "FocusSplitCycle" }, module = "focus",
-	--     config = function()
-	--         require("focus").setup({hybridnumber = true})
-	--     end
-	-- }
+	use { 'beauwilliams/focus.nvim', cmd = { "FocusSplitNicely", "FocusSplitCycle" }, module = "focus",
+	    config = function()
+	        require("focus").setup({hybridnumber = true, excluded_filetypes = {"toggleterm"}, autoresize = false})
+	    end
+	}
 
 	-- training
 	use({ "tjdevries/train.nvim", ft = "qf" })
@@ -567,12 +567,12 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	use({
-		"bfredl/nvim-luadev",
-		config = function()
-			require("nvim-luadev").setup()
-		end,
-	})
+	-- use({
+	-- 	"bfredl/nvim-luadev",
+	-- 	config = function()
+	-- 		require("nvim-luadev").setup()
+	-- 	end,
+	-- })
 
   use({ "nvim-treesitter/nvim-treesitter-context"})
 
@@ -592,6 +592,7 @@ return require("packer").startup(function(use)
     'ldelossa/gh.nvim',
     requires = { { 'ldelossa/litee.nvim' } }
   }
+
 
   -- https://github.com/ldelossa/gh.nvim this one is AWESOME
   -- https://github.com/ghillb/cybu.nvim

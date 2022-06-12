@@ -75,11 +75,6 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
-  ["DAPInstall.nvim"] = {
-    loaded = true,
-    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/DAPInstall.nvim",
-    url = "https://github.com/Pocco81/DAPInstall.nvim"
-  },
   LuaSnip = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -141,9 +136,12 @@ _G.packer_plugins = {
     url = "https://github.com/nathom/filetype.nvim"
   },
   ["focus.nvim"] = {
-    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0" },
-    loaded = true,
-    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/focus.nvim",
+    commands = { "FocusSplitNicely", "FocusSplitCycle" },
+    config = { "\27LJ\2\n~\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\23excluded_filetypes\1\2\0\0\15toggleterm\1\0\2\15autoresize\1\17hybridnumber\2\nsetup\nfocus\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/opt/focus.nvim",
     url = "https://github.com/beauwilliams/focus.nvim"
   },
   ["friendly-snippets"] = {
@@ -155,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/galaxyline.nvim",
     url = "https://github.com/glepnir/galaxyline.nvim"
+  },
+  ["gh.nvim"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/gh.nvim",
+    url = "https://github.com/ldelossa/gh.nvim"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
@@ -226,6 +229,11 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/neogit",
     url = "https://github.com/TimUntersberger/neogit"
   },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -272,6 +280,11 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
     url = "https://github.com/rcarriga/nvim-dap-ui"
   },
+  ["nvim-docs-view"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-docs-view",
+    url = "https://github.com/amrbashir/nvim-docs-view"
+  },
   ["nvim-gps"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-gps",
@@ -292,6 +305,18 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-neoclip.lua",
     url = "https://github.com/AckslD/nvim-neoclip.lua"
   },
+  ["nvim-notify"] = {
+    config = { "\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vnotify\frequire\0" },
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
+  },
+  ["nvim-regexplainer"] = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17regexplainer\frequire\0" },
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-regexplainer",
+    url = "https://github.com/bennypowers/nvim-regexplainer"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -301,6 +326,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-treesitter-context"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
   },
   ["nvim-ts-autotag"] = {
     loaded = true,
@@ -346,7 +376,7 @@ _G.packer_plugins = {
     url = "https://github.com/ahmedkhalf/project.nvim"
   },
   ["qf.nvim"] = {
-    config = { "\27LJ\2\n�\3\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\6c\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\6l\1\0\0\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\nsetup\aqf\frequire\0" },
+    config = { "\27LJ\2\n�\3\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\6c\1\0\14\19relativenumber\1\15min_height\3\5\22auto_follow_limit\3\b\16follow_slow\2\15max_height\3\b\vnumber\1\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\14auto_open\2\15auto_close\1\16auto_follow\tprev\16auto_resize\2\6l\1\0\0\1\0\14\19relativenumber\1\15min_height\3\5\22auto_follow_limit\3\b\16follow_slow\2\15max_height\3\b\vnumber\1\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\14auto_open\2\15auto_close\1\16auto_follow\tprev\16auto_resize\2\nsetup\aqf\frequire\0" },
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/qf.nvim",
     url = "https://github.com/ten3roberts/qf.nvim"
@@ -356,10 +386,21 @@ _G.packer_plugins = {
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/quickfix-reflector.vim",
     url = "https://github.com/stefandtw/quickfix-reflector.vim"
   },
+  ["sqlite.lua"] = {
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/sqlite.lua",
+    url = "https://github.com/tami5/sqlite.lua"
+  },
   ["symbols-outline.nvim"] = {
     loaded = true,
     path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
     url = "https://github.com/simrat39/symbols-outline.nvim"
+  },
+  ["telescope-frecency.nvim"] = {
+    config = { "\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\rfrecency\19load_extension\14telescope\frequire\0" },
+    loaded = true,
+    path = "/Users/nicholasmahe/.local/share/nvim/site/pack/packer/start/telescope-frecency.nvim",
+    url = "https://github.com/nvim-telescope/telescope-frecency.nvim"
   },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
@@ -446,34 +487,77 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-web-devicons
-time([[Config for nvim-web-devicons]], true)
-try_loadstring("\27LJ\2\n�\2\0\0\5\0\22\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\20\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\0035\4\16\0=\4\17\0035\4\18\0=\4\19\3=\3\21\2B\0\2\1K\0\1\0\14overrides\1\0\0\bsql\1\0\1\ticon\b\amd\1\0\1\ticon\b\tjson\1\0\1\ticon\b\thtml\1\0\1\ticon\b\bcss\1\0\1\ticon\b\bvim\1\0\1\ticon\b\ajs\1\0\1\ticon\b\bgit\1\0\0\1\0\1\ticon\b\nsetup\22nvim-web-devicons\frequire\0", "config", "nvim-web-devicons")
-time([[Config for nvim-web-devicons]], false)
--- Config for: focus.nvim
-time([[Config for focus.nvim]], true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
-time([[Config for focus.nvim]], false)
--- Config for: Comment.nvim
-time([[Config for Comment.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
-time([[Config for Comment.nvim]], false)
+local module_lazy_loads = {
+  ["^focus"] = "focus.nvim"
+}
+local lazy_load_called = {['packer.load'] = true}
+local function lazy_load_module(module_name)
+  local to_load = {}
+  if lazy_load_called[module_name] then return nil end
+  lazy_load_called[module_name] = true
+  for module_pat, plugin_name in pairs(module_lazy_loads) do
+    if not _G.packer_plugins[plugin_name].loaded and string.match(module_name, module_pat) then
+      to_load[#to_load + 1] = plugin_name
+    end
+  end
+
+  if #to_load > 0 then
+    require('packer.load')(to_load, {module = module_name}, _G.packer_plugins)
+    local loaded_mod = package.loaded[module_name]
+    if loaded_mod then
+      return function(modname) return loaded_mod end
+    end
+  end
+end
+
+if not vim.g.packer_custom_loader_enabled then
+  table.insert(package.loaders, 1, lazy_load_module)
+  vim.g.packer_custom_loader_enabled = true
+end
+
+-- Config for: qf.nvim
+time([[Config for qf.nvim]], true)
+try_loadstring("\27LJ\2\n�\3\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\6c\1\0\14\19relativenumber\1\15min_height\3\5\22auto_follow_limit\3\b\16follow_slow\2\15max_height\3\b\vnumber\1\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\14auto_open\2\15auto_close\1\16auto_follow\tprev\16auto_resize\2\6l\1\0\0\1\0\14\19relativenumber\1\15min_height\3\5\22auto_follow_limit\3\b\16follow_slow\2\15max_height\3\b\vnumber\1\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\14auto_open\2\15auto_close\1\16auto_follow\tprev\16auto_resize\2\nsetup\aqf\frequire\0", "config", "qf.nvim")
+time([[Config for qf.nvim]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
 time([[Config for nvim-colorizer.lua]], false)
--- Config for: qf.nvim
-time([[Config for qf.nvim]], true)
-try_loadstring("\27LJ\2\n�\3\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\6c\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\6l\1\0\0\1\0\14\twide\1\18unfocus_close\1\15focus_open\1\16close_other\1\15min_height\3\5\14auto_open\2\vnumber\1\15auto_close\1\16auto_follow\tprev\22auto_follow_limit\3\b\16follow_slow\2\19relativenumber\1\16auto_resize\2\15max_height\3\b\nsetup\aqf\frequire\0", "config", "qf.nvim")
-time([[Config for qf.nvim]], false)
 -- Config for: project.nvim
 time([[Config for project.nvim]], true)
 try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17project_nvim\frequire\0", "config", "project.nvim")
 time([[Config for project.nvim]], false)
+-- Config for: nvim-regexplainer
+time([[Config for nvim-regexplainer]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17regexplainer\frequire\0", "config", "nvim-regexplainer")
+time([[Config for nvim-regexplainer]], false)
+-- Config for: nvim-web-devicons
+time([[Config for nvim-web-devicons]], true)
+try_loadstring("\27LJ\2\n�\2\0\0\5\0\22\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\20\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\0035\4\16\0=\4\17\0035\4\18\0=\4\19\3=\3\21\2B\0\2\1K\0\1\0\14overrides\1\0\0\bsql\1\0\1\ticon\b\amd\1\0\1\ticon\b\tjson\1\0\1\ticon\b\thtml\1\0\1\ticon\b\bcss\1\0\1\ticon\b\bvim\1\0\1\ticon\b\ajs\1\0\1\ticon\b\bgit\1\0\0\1\0\1\ticon\b\nsetup\22nvim-web-devicons\frequire\0", "config", "nvim-web-devicons")
+time([[Config for nvim-web-devicons]], false)
+-- Config for: telescope-frecency.nvim
+time([[Config for telescope-frecency.nvim]], true)
+try_loadstring("\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\rfrecency\19load_extension\14telescope\frequire\0", "config", "telescope-frecency.nvim")
+time([[Config for telescope-frecency.nvim]], false)
 -- Config for: octo.nvim
 time([[Config for octo.nvim]], true)
 try_loadstring("\27LJ\2\n2\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\tocto\frequire\0", "config", "octo.nvim")
 time([[Config for octo.nvim]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
+-- Config for: nvim-notify
+time([[Config for nvim-notify]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vnotify\frequire\0", "config", "nvim-notify")
+time([[Config for nvim-notify]], false)
+
+-- Command lazy-loads
+time([[Defining lazy-load commands]], true)
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file FocusSplitCycle lua require("packer.load")({'focus.nvim'}, { cmd = "FocusSplitCycle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file FocusSplitNicely lua require("packer.load")({'focus.nvim'}, { cmd = "FocusSplitNicely", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+time([[Defining lazy-load commands]], false)
+
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
