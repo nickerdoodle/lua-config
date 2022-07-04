@@ -18,7 +18,6 @@ end ]]
 -- Neovim version manager, see repo for how to use
 -- https://github.com/MordechaiHadad/bob
 
-
 return require("packer").startup(function(use)
 	-- Packer can manage itself as an optional plugin
 	use({ "wbthomason/packer.nvim" })
@@ -116,12 +115,12 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
 		},
-    -- config = function ()
-    --   require('diffview').setup({
-    --     enhanced_diff_hl = true,
-    --   })
-    --
-    -- end
+		-- config = function ()
+		--   require('diffview').setup({
+		--     enhanced_diff_hl = true,
+		--   })
+		--
+		-- end
 	})
 
 	-- switching back to gitsigns
@@ -274,12 +273,12 @@ return require("packer").startup(function(use)
 
 	-- Uses the builtin lsp support to provide formatting, linting, and other features
 	use({
-    "jose-elias-alvarez/null-ls.nvim",
-    -- breaking changes after this commit on neovim 0.8. Use this until fixed
-    -- commit = 'bd9dfc6015241334c140fb065445ba9443e6de14',
-    requires = { "nvim-lua/plenary.nvim" },
-    debug = true
-  })
+		"jose-elias-alvarez/null-ls.nvim",
+		-- breaking changes after this commit on neovim 0.8. Use this until fixed
+		-- commit = 'bd9dfc6015241334c140fb065445ba9443e6de14',
+		requires = { "nvim-lua/plenary.nvim" },
+		debug = true,
+	})
 
 	-- TODO: may not need lspsaga much anymore since core neovim allows us to extend the ui implementation with packages like dressing
 	use({ "glepnir/lspsaga.nvim" })
@@ -386,6 +385,11 @@ return require("packer").startup(function(use)
 	-- Better UI components for core neovim commands using neovim UI api's
 	use({ "stevearc/dressing.nvim" })
 
+  -- Search icons/emojis/fonts with telescope
+	use({
+		"ziontee113/icon-picker.nvim",
+	})
+
 	use({
 		-- TODO: using a patch branch for breaking change. Check if it's fixed periodically
 		-- 'zeertzjq/which-key.nvim',
@@ -437,7 +441,7 @@ return require("packer").startup(function(use)
 
 	-- Debugging
 	use({ "mfussenegger/nvim-dap" })
-  -- DapInstall changed to dap-buddy
+	-- DapInstall changed to dap-buddy
 	-- use({ "Pocco81/DAPInstall.nvim" })
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
@@ -532,21 +536,24 @@ return require("packer").startup(function(use)
 	-- smooth scroll
 	-- use({ "karb94/neoscroll.nvim" })
 	--
-  -- enlarges the active buffer in the window. Has been more of a headache then good
+	-- enlarges the active buffer in the window. Has been more of a headache then good
 	-- use({
 	-- 	"beauwilliams/focus.nvim",
 	-- 	config = function()
 	-- 		require("focus").setup()
 	-- 	end,
 	-- })
-  --
+	--
 	-- Or lazy load with `module` option. See further down for info on how to lazy load when using FocusSplit commands
 	-- Or lazy load this plugin by creating an arbitrary command using the cmd option in packer.nvim
-	use { 'beauwilliams/focus.nvim', cmd = { "FocusSplitNicely", "FocusSplitCycle" }, module = "focus",
-	    config = function()
-	        require("focus").setup({hybridnumber = true, excluded_filetypes = {"toggleterm"}, autoresize = false})
-	    end
-	}
+	use({
+		"beauwilliams/focus.nvim",
+		cmd = { "FocusSplitNicely", "FocusSplitCycle" },
+		module = "focus",
+		config = function()
+			require("focus").setup({ hybridnumber = true, excluded_filetypes = { "toggleterm" }, autoresize = false })
+		end,
+	})
 
 	-- training
 	use({ "tjdevries/train.nvim", ft = "qf" })
@@ -574,30 +581,30 @@ return require("packer").startup(function(use)
 	-- 	end,
 	-- })
 
-  use({ "nvim-treesitter/nvim-treesitter-context"})
+	use({ "nvim-treesitter/nvim-treesitter-context" })
 
-  -- see hover doc in side view
-  use {
-  "amrbashir/nvim-docs-view",
-}
+	-- see hover doc in side view
+	use({
+		"amrbashir/nvim-docs-view",
+	})
 
-  use({
-    "rcarriga/nvim-notify",
+	use({
+		"rcarriga/nvim-notify",
 		config = function()
 			require("notify").setup()
 		end,
-  })
+	})
 
-  use {
-    'ldelossa/gh.nvim',
-    requires = { { 'ldelossa/litee.nvim' } }
-  }
+	use({
+		"ldelossa/gh.nvim",
+		requires = { { "ldelossa/litee.nvim" } },
+	})
 
-
-  -- https://github.com/ldelossa/gh.nvim this one is AWESOME
-  -- https://github.com/ghillb/cybu.nvim
+  -- https://github.com/ziontee113/color-picker.nvim
+	-- https://github.com/ldelossa/gh.nvim this one is AWESOME
+	-- https://github.com/ghillb/cybu.nvim
 	-- https://github.com/axieax/urlview.nvim
-  -- https://github.com/ggandor/leap.nvim
-  -- https://github.com/ziontee113/syntax-tree-surfer
-  -- https://github.com/mfussenegger/nvim-treehopper
+	-- https://github.com/ggandor/leap.nvim
+	-- https://github.com/ziontee113/syntax-tree-surfer
+	-- https://github.com/mfussenegger/nvim-treehopper
 end)

@@ -1,5 +1,5 @@
 -- this looks for a launch.json debug adapter file in vscode to use to help run the debugger
-require("dap.ext.vscode").load_launchjs()
+-- require("dap.ext.vscode").load_launchjs()
 local M = {}
 
 local dap = require("dap")

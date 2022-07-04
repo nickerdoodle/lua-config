@@ -151,8 +151,8 @@ local mappings = {
 		},
 		d = {
 			name = "Git Diff",
-      o = { ":DiffviewOpen <cr>", "Open" },
-      c = { ":DiffviewClose <cr>", "Close" },
+			o = { ":DiffviewOpen <cr>", "Open" },
+			c = { ":DiffviewClose <cr>", "Close" },
 		},
 		-- d = {
 		-- 	"<cmd>Gitsigns diffthis HEAD<cr>",
@@ -164,6 +164,14 @@ local mappings = {
 		name = "Help",
 		t = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
 		k = { "<cmd>Telescope keymaps<cr>", "Mappings" },
+	},
+
+	i = {
+		name = "Icons",
+		i = {
+			"<cmd>PickIcons<cr>",
+			"PickIcons",
+		},
 	},
 
 	j = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
@@ -304,10 +312,10 @@ local mappings = {
 
 	["<leader>"] = {
 		name = "More",
-    -- TODO: add more in time
+		-- TODO: add more in time
 		d = {
 			":DiffviewOpen<cr>",
-      "Git diff"
+			"Git diff",
 		},
 	},
 }
