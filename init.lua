@@ -49,6 +49,7 @@
 	require("nm/nvim-bqf")
 	require("nm/regex-explainer")
 	require("nm/icon-picker")
+	require("nm/vstask")
 
   -- currently can't find module. Try again after it's been fixed
 	-- require("nm/nvim-docs")

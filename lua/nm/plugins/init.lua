@@ -600,6 +600,15 @@ return require("packer").startup(function(use)
 		requires = { { "ldelossa/litee.nvim" } },
 	})
 
+  use {
+  'EthanJWright/vs-tasks.nvim',
+  requires = {
+    'nvim-lua/popup.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim'
+  }
+}
+
   -- https://github.com/ziontee113/color-picker.nvim
 	-- https://github.com/ldelossa/gh.nvim this one is AWESOME
 	-- https://github.com/ghillb/cybu.nvim

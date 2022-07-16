@@ -313,10 +313,8 @@ local mappings = {
 	["<leader>"] = {
 		name = "More",
 		-- TODO: add more in time
-		d = {
-			":DiffviewOpen<cr>",
-			"Git diff",
-		},
+		d = { ":DiffviewOpen<cr>", "Git diff", },
+		s = { ":SymbolsOutline <cr>", ":SymbolsOutline" },
 	},
 }
 

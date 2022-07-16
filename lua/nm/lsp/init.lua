@@ -241,6 +241,7 @@ local on_attach = function(client, bufnr)
 	cmp.setup.cmdline(":", {
 		sources = {
 			{ name = "cmdline" },
+			{ name = "path" },
 		},
 		mapping = {
 			["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
