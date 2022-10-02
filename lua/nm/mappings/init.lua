@@ -24,6 +24,7 @@ M.map("n", "<c-p>", "<cmd>lua require('nm/telescope').git_files(require('telesco
 -- M.map("n", "<c-p>", "<cmd>lua require('nm.telescope').git_files()<cr>")
 -- M.map("n", "<c-p>", "<cmd>lua require('telescope.builtin').git_files()<cr>")
 M.map("n", "<c-f>", "<cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist('git rev-parse --show-toplevel')[1] }<cr>")
+M.map("n", "<c-e>", "<cmd>lua require('nm/telescope').live_grep_project()<cr>")
 
 -- M.map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions({jump_type='never'})<cr>")
 -- using new vim definition api

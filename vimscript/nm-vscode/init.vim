@@ -8,6 +8,7 @@
 "
 set ignorecase
 set smartcase
+set termguicolors
 
 " TODO there is a more contemporary version of this file
 "VSCode
@@ -113,6 +114,8 @@ nnoremap <leader>e :call VSCodeNotify('workbench.action.quickOpenPreviousRecentl
 
 "go to definition
 nnoremap gd :call VSCodeNotify('editor.action.revealDefinition')<CR>
+nnoremap gD :call VSCodeNotify('editor.action.goToDeclaration')<CR>
+nnoremap gi :call VSCodeNotify('editor.action.goToImplementation')<CR>
 nnoremap gr :call VSCodeNotify('references-view.findReferences')<CR>
 nnoremap gh :call VSCodeNotify('editor.action.showHover')<CR>
 " nnoremap <leader>K :call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>

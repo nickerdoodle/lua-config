@@ -31,10 +31,12 @@ return require("packer").startup(function(use)
 	-- use {"AndrewRadev/switch.vim"}
 	-- I'm not using tmux for now
 	-- use {"christoomey/vim-tmux-navigator"}
-	use({ "tpope/vim-surround" })
+	-- use({ "tpope/vim-surround" })
 	-- this will probably replace vim-surround
 	-- commenting this because I think the repo was deleted. Still looking for a nvim surround plugin. using vim one for now
 	-- use({
+	-- using nvim-surround now. MUCH BETTER. Get basic commands here https://github.com/kylechui/nvim-surround/wiki/getting-started-for-beginners
+	use({ "kylechui/nvim-surround" })
 	-- 	"blackCauldron7/surround.nvim",
 	-- 	config = function()
 	-- 		-- require "surround".setup {}
@@ -385,7 +387,7 @@ return require("packer").startup(function(use)
 	-- Better UI components for core neovim commands using neovim UI api's
 	use({ "stevearc/dressing.nvim" })
 
-  -- Search icons/emojis/fonts with telescope
+	-- Search icons/emojis/fonts with telescope
 	use({
 		"ziontee113/icon-picker.nvim",
 	})
@@ -600,16 +602,29 @@ return require("packer").startup(function(use)
 		requires = { { "ldelossa/litee.nvim" } },
 	})
 
-  use {
-  'EthanJWright/vs-tasks.nvim',
-  requires = {
-    'nvim-lua/popup.nvim',
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim'
-  }
-}
+	use({
+		"EthanJWright/vs-tasks.nvim",
+		requires = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 
-  -- https://github.com/ziontee113/color-picker.nvim
+	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+		},
+	})
+
+  -- https://github.com/nvim-neorg/neorg?ref=morioh.com&utm_source=morioh.com
+  -- https://github.com/williamboman/mason.nvim
+	-- https://github.com/stevearc/overseer.nvim#dap supposedly this will work with launch.json. try this
+	-- https://github.com/vim-test/vim-test/ run c# tests with https://github.com/nvim-neotest/neotest
+	-- https://github.com/ziontee113/color-picker.nvim
 	-- https://github.com/ldelossa/gh.nvim this one is AWESOME
 	-- https://github.com/ghillb/cybu.nvim
 	-- https://github.com/axieax/urlview.nvim

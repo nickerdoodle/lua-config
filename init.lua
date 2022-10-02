@@ -50,6 +50,7 @@
 	require("nm/regex-explainer")
 	require("nm/icon-picker")
 	require("nm/vstask")
+	require("nm/nvim-surround")
 
   -- currently can't find module. Try again after it's been fixed
 	-- require("nm/nvim-docs")

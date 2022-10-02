@@ -8,6 +8,9 @@ local action_layout = require("telescope.actions.layout")
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 
+local filter = vim.tbl_filter
+local map = vim.tbl_map
+
 -- Built-in actions
 local transform_mod = require("telescope.actions.mt").transform_mod
 
@@ -43,7 +46,9 @@ local devicons = require("nvim-web-devicons")
 local entry_display = require("telescope.pickers.entry_display")
 
 local filter = vim.tbl_filter
-function M.generate_test(opts)
+function M.generate_test()
+-- function M.generate_test(opts)
+-- local function generate_test(opts)
 	local default_icons, _ = devicons.get_icon("file", "", { default = true })
 
 	local displayer = entry_display.create({
@@ -56,7 +61,6 @@ function M.generate_test(opts)
 	})
 
 	local function make_display(entry)
-
 		return displayer({
 			{ entry.devicons, entry.devicons_highlight },
 			{ entry.file_name, "TelescopeResultsIdentifier" },
@@ -69,7 +73,7 @@ function M.generate_test(opts)
 
 		local file_name = vim.fn.fnamemodify(line, ":p:t")
 		local absolute_path_dir_name = vim.fn.fnamemodify(line, ":p:h")
-    local relative_path_dir_name = vim.fn.fnamemodify(line, ':p:~:.')
+		local relative_path_dir_name = vim.fn.fnamemodify(line, ":p:~:.")
 		-- print('filename ' .. file_name)
 		-- print('score ' .. score) -- score is coming up nil
 		-- print('score_str ' .. score_str) -- score_str is coming up nil
@@ -90,6 +94,78 @@ function M.generate_test(opts)
 			devicons_highlight = highlight,
 		}
 	end
+end
+
+function M.gen_from_buffer_like_leaderf2(opts)
+  opts = opts or {}
+  local default_icons, _ = devicons.get_icon("file", "", {default = true})
+
+  local bufnrs = filter(function(b)
+    return 1 == vim.fn.buflisted(b)
+  end, vim.api.nvim_list_bufs())
+
+  local max_bufnr = math.max(unpack(bufnrs))
+  local bufnr_width = #tostring(max_bufnr)
+
+  local max_bufname = math.max(
+    unpack(
+      map(function(bufnr)
+        return vim.fn.strdisplaywidth(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p:t"))
+      end, bufnrs)
+    )
+  )
+
+  local displayer = entry_display.create {
+    separator = " ",
+    items = {
+      { width = bufnr_width },
+      { width = 4 },
+      { width = vim.fn.strwidth(default_icons) },
+      { width = max_bufname },
+      { remaining = true },
+    },
+  }
+
+  local make_display = function(entry)
+    return displayer {
+      {entry.bufnr, "TelescopeResultsNumber"},
+      {entry.indicator, "TelescopeResultsComment"},
+      {entry.devicons, entry.devicons_highlight},
+      entry.file_name,
+      {entry.dir_name, "Comment"}
+    }
+  end
+
+  return function(entry)
+    local bufname = entry.info.name ~= "" and entry.info.name or "[No Name]"
+    local hidden = entry.info.hidden == 1 and "h" or "a"
+    local readonly = vim.api.nvim_buf_get_option(entry.bufnr, "readonly") and "=" or " "
+    local changed = entry.info.changed == 1 and "+" or " "
+    local indicator = entry.flag .. hidden .. readonly .. changed
+
+    local dir_name = vim.fn.fnamemodify(bufname, ":p:h")
+    local file_name = vim.fn.fnamemodify(bufname, ":p:t")
+
+    local icons, highlight = devicons.get_icon(bufname, string.match(bufname, "%a+$"), { default = true })
+
+    return {
+      valid = true,
+
+      value = bufname,
+      ordinal = entry.bufnr .. " : " .. file_name,
+      display = make_display,
+
+      bufnr = entry.bufnr,
+
+      lnum = entry.info.lnum ~= 0 and entry.info.lnum or 1,
+      indicator = indicator,
+      devicons = icons,
+      devicons_highlight = highlight,
+
+      file_name = file_name,
+      dir_name = dir_name,
+    }
+  end
 end
 
 -- keep just to reference until test function is complete
@@ -199,13 +275,13 @@ telescope.load_extension("packer")
 
 telescope.setup({
 	pickers = {
-    git_files = {
-      theme = "dropdown",
-    },
-    live_grep = {
-      --@usage don't include the filename in the search results
-      only_sort_text = true,
-    },
+		git_files = {
+			theme = "dropdown",
+		},
+		live_grep = {
+			--@usage don't include the filename in the search results
+			only_sort_text = true,
+		},
 		buffers = {
 			sort_lastused = true,
 			-- entry_maker = M.gen_from_buffer_like_leaderf(),
@@ -227,12 +303,12 @@ telescope.setup({
 				-- ["<CR>"] = actions.goto_file_selection_edit,
 				["<CR>"] = actions.select_default + actions.center,
 				["<Tab>"] = actions.toggle_selection,
-        ["<C-u>"] = false, -- will clear the search
+				["<C-u>"] = false, -- will clear the search
 				["<c-d>"] = actions.delete_buffer,
 				["<c-j>"] = actions.preview_scrolling_down,
 				["<c-k>"] = actions.preview_scrolling_up,
 				["<c-t>"] = trouble.open_with_trouble,
-        ["<c-space>"] = action_layout.toggle_preview
+				["<c-space>"] = action_layout.toggle_preview,
 				-- ["<c-t>"] = nicks_custom_actions.print_test,
 				-- ["<c-t>"] = nicks_custom_actions.open_with_trouble,
 			},
@@ -274,14 +350,16 @@ require("telescope").load_extension("fzf")
 
 local function generateOpts(opts)
 	local common_opts = {
-    -- pickers = {
-    --   git_files = {
-    --     theme = 'dropdown'
-    --   }
-    -- },
+		-- pickers = {
+		--   git_files = {
+		--     theme = 'dropdown'
+		--   }
+		-- },
 		-- entry_maker = M.gen_from_buffer_like_leaderf(),
+
+    -- entry_maker is causing preview to not show code in grep live project
 		entry_maker = M.generate_test(),
-		-- layout_strategy = "horizontal",
+		layout_strategy = "horizontal",
 		-- layout_strategy = "vertical",
 		sorting_strategy = "ascending", -- shows results either from the top or bottom of popup
 		-- sorting_strategy = "descending",
@@ -293,10 +371,10 @@ local function generateOpts(opts)
 		},
 		layout_config = {
 			height = 35,
+			width = 140,
 			-- height = 90,
 			-- height = 30,
-			width = 140,
-			-- preview_width = 0.45, -- commenting because need horizontal strategy for this to be valid
+			preview_width = 0.45, -- commenting because need horizontal strategy for this to be valid
 		},
 		-- layout_config = {
 		--   -- height = 25
@@ -304,7 +382,8 @@ local function generateOpts(opts)
 		--   prompt_position = "top",
 
 		-- },
-		preview_position = "bottom",
+		-- preview_position = "bottom",
+		-- preview_position = "right",
 		-- layout_config = {
 		--   horizontal = {
 		--       -- prompt_position = "top",
@@ -322,7 +401,8 @@ local function generateOpts(opts)
 		--   height = 0.80,
 		--   preview_cutoff = 120
 		-- },
-		previewer = false,
+		-- previewer = false,
+		-- previewer = true,
 		borderchars = {
 			{ "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 			prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
@@ -344,10 +424,12 @@ function M.find_files()
 end
 
 function M.git_files()
-  -- will use git_files and fall back to find_files if not a git repo
+	-- will use git_files and fall back to find_files if not a git repo
 	local cmn_opts = generateOpts({})
-  local ok = pcall(builtIn.git_files, cmn_opts)
-  if not ok then builtIn.find_files(cmn_opts) end
+	local ok = pcall(builtIn.git_files, cmn_opts)
+	if not ok then
+		builtIn.find_files(cmn_opts)
+	end
 end
 
 function M.nvim_files()
@@ -361,10 +443,20 @@ end
 
 function M.live_grep_project()
 	local opts = {
-		prompt_title = "Live Grep Project",
+		prompt_title = "Live Grep Project2",
+		cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1],
+    entry_maker = require('nm/telescope').gen_from_buffer_like_leaderf2()
+		-- previewer = true,
 	}
 	local cmn_opts = generateOpts(opts)
-	builtIn.live_grep(cmn_opts)
+
+-- vim.tbl_extend("force", {
+--   prompt_title = "Test",
+--   preview = true,
+-- }, cmn_opts)
+	-- builtIn.live_grep(opts)
+	-- builtIn.live_grep(cmn_opts)
+	builtIn.live_grep(opts)
 end
 
 function M.live_grep_exact_match()
