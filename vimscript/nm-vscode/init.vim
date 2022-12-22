@@ -115,6 +115,7 @@ nnoremap <leader>e :call VSCodeNotify('workbench.action.quickOpenPreviousRecentl
 "go to definition
 nnoremap gd :call VSCodeNotify('editor.action.revealDefinition')<CR>
 nnoremap gD :call VSCodeNotify('editor.action.goToDeclaration')<CR>
+nnoremap <C-w>gd <Cmd>call VSCodeNotify('editor.action.revealDefinitionAside')<CR> "default in extension
 nnoremap gi :call VSCodeNotify('editor.action.goToImplementation')<CR>
 nnoremap gr :call VSCodeNotify('references-view.findReferences')<CR>
 nnoremap gh :call VSCodeNotify('editor.action.showHover')<CR>
@@ -146,13 +147,19 @@ nnoremap <leader>tc viw<cmd>call VSCodeNotifyVisual('turboConsoleLog.displayLogM
 xnoremap <leader>tc <cmd>call VSCodeNotifyVisual('turboConsoleLog.displayLogMessage', 1)<CR><ESC>
 " I don't know why :call doesn't work and <cmd>call does work for visual
 " commands in vscode, but that's how it is
-nnoremap ? :call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
-nnoremap <leader><leader>f :call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+nnoremap ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+nnoremap <leader><leader>f <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
 xnoremap <leader><leader>f <cmd>call VSCodeNotifyVisual('workbench.action.findInFiles', 1)<CR>
 nnoremap <leader><leader>r viw<cmd>call VSCodeNotifyVisual('workbench.action.replaceInFiles', { 'query': expand('<cword>')})<CR>
 xnoremap <leader><leader>r <cmd>call VSCodeNotifyVisual('workbench.action.replaceInFiles', 1)<CR>
+" you can highlight and type "=" to format the selection. Add to notion
 
-xnoremap <leader><leader>c <cmd>call VSCodeNotifyVisual('editor.action.clipboardCopyAction')<CR>
+" the '1' at the end is very important to work properly
+xnoremap <leader><leader>C <cmd>call VSCodeNotifyVisual('editor.action.clipboardCopyAction', 1)<CR><ESC>
+
+nnoremap zp <cmd>call VSCodeNotifyVisual('editor.gotoParentFold', 1)<CR>
+nnoremap zf <cmd>call VSCodeNotifyVisual('editor.toggleFold', 1)<CR>
+nnoremap za <cmd>call VSCodeNotifyVisual('editor.foldAll', 1)<CR>
 
 "From my lua files
 nnoremap J 5j
