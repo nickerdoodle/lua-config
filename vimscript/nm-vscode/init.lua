@@ -16,7 +16,8 @@ require("packer").startup(function(use)
   })
 end)
 
-vim.keymap.set("i", "jj", "<Esc>", {})
+-- insert mode keymaps don't work in vscode. Need to set them in vscode
+-- vim.keymap.set("i", "jj", "<Esc>", {})
 vim.keymap.set("n", "J", "5j", {})
 vim.keymap.set("n", "K", "5k", {})
 vim.keymap.set("v", "J", "5j", {})
@@ -65,13 +66,15 @@ vim.keymap.set("n", "zf", function() vim.fn.VSCodeNotify("editor.toggleFold", tr
 vim.keymap.set("n", "za", function() vim.fn.VSCodeNotify("editor.foldAll", true) end)
 
 vim.keymap.set("n", "<C-j>", function() vim.fn.VSCodeNotify("workbench.action.navigateDown") end)
-vim.keymap.set("i", "<C-j>", function() vim.fn.VSCodeNotify("workbench.action.navigateDown") end)
 vim.keymap.set("n", "<C-k>", function() vim.fn.VSCodeNotify("workbench.action.navigateUp") end)
-vim.keymap.set("i", "<C-k>", function() vim.fn.VSCodeNotify("workbench.action.navigateUp") end)
 vim.keymap.set("n", "<C-l>", function() vim.fn.VSCodeNotify("workbench.action.navigateRight") end)
-vim.keymap.set("i", "<C-l>", function() vim.fn.VSCodeNotify("workbench.action.navigateRight") end)
 vim.keymap.set("n", "<C-h>", function() vim.fn.VSCodeNotify("workbench.action.navigateLeft") end)
-vim.keymap.set("i", "<C-h>", function() vim.fn.VSCodeNotify("workbench.action.navigateLeft") end)
+
+-- do not use these insert mode keymaps in vscode. They will make the cursor jump panes when using jj as esc
+-- vim.keymap.set("i", "<C-j>", function() vim.fn.VSCodeNotify("workbench.action.navigateDown") end)
+-- vim.keymap.set("i", "<C-k>", function() vim.fn.VSCodeNotify("workbench.action.navigateUp") end)
+-- vim.keymap.set("i", "<C-l>", function() vim.fn.VSCodeNotify("workbench.action.navigateRight") end)
+-- vim.keymap.set("i", "<C-h>", function() vim.fn.VSCodeNotify("workbench.action.navigateLeft") end)
 vim.keymap.set("", ";", ":")
 
 vim.keymap.set("v", "s", "<Plug>VSurround")
